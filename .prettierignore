@@ -1,0 +1,10 @@
+node_modules/
+package-lock.json
+test-results/
+playwright-report/
+allure-results/
+allure-report/
+reports/
+run-evidence/
+docs/examples/
+tests/**/*-snapshots/
