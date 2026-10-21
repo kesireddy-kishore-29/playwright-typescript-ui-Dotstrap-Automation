@@ -2,6 +2,7 @@ import { healCommand } from './healing/heal';
 import { parseArgs, type Args } from './shared/args';
 import { flakyHistoryCommand } from './quarantine/flaky-history';
 import { quarantineCheckCommand } from './quarantine/quarantine';
+import { mergeCommand } from './reporting/merge';
 import { reportCommand } from './reporting/report';
 import { traceabilityCommand } from './traceability/traceability';
 import { triageCommand } from './triage/triage';
@@ -28,6 +29,10 @@ const COMMANDS: Record<string, { summary: string; run: Command }> = {
   traceability: {
     summary: 'fail on tests without a feature ID; write the coverage matrix',
     run: traceabilityCommand,
+  },
+  merge: {
+    summary: 'combine the run folders of Playwright shards into one run',
+    run: mergeCommand,
   },
   report: {
     summary: 'dashboard, history, gallery, step summary, accessibility, performance, visual',

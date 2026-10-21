@@ -63,7 +63,10 @@ export function addQuarantineTag(source: string, title: string): string {
   return `${source.slice(0, optionsStart + 1)} tag: ['@quarantine'],${source.slice(optionsStart + 1)}`;
 }
 
-/** `qa flaky-history [--run <dir>] [--propose]`. */
+/**
+ * `qa flaky-history [--run <dir>] [--propose | --propose-only]`. `--propose-only` reads the
+ * history without recording a run (the nightly records first, then proposes in a later job).
+ */
 export function flakyHistoryCommand(args: Args, log: (line: string) => void): number {
   const on = arg(args, 'today', today());
   const historyFile = arg(args, 'history', 'flaky-history.json');
@@ -73,19 +76,27 @@ export function flakyHistoryCommand(args: Args, log: (line: string) => void): nu
   } catch {
     history = { schemaVersion: 1, occurrences: [] };
   }
-  const runDir = resolveRunDir(args);
-  const report = readJson(join(runDir, 'flaky-report.json')) as {
-    runId: string;
-    flaky: { testId: string; title: string }[];
-  };
-  history = record(
-    history,
-    report.flaky.map((f) => ({ date: on, runId: report.runId, testId: f.testId, title: f.title })),
-    on,
-  );
-  writeJson(historyFile, history);
-  log(`Recorded ${String(report.flaky.length)} flaky test(s) from ${report.runId}`);
-  if (args.get('propose') !== 'true') return 0;
+  const proposeOnly = args.get('propose-only') === 'true';
+  if (!proposeOnly) {
+    const runDir = resolveRunDir(args);
+    const report = readJson(join(runDir, 'flaky-report.json')) as {
+      runId: string;
+      flaky: { testId: string; title: string }[];
+    };
+    history = record(
+      history,
+      report.flaky.map((f) => ({
+        date: on,
+        runId: report.runId,
+        testId: f.testId,
+        title: f.title,
+      })),
+      on,
+    );
+    writeJson(historyFile, history);
+    log(`Recorded ${String(report.flaky.length)} flaky test(s) from ${report.runId}`);
+  }
+  if (args.get('propose') !== 'true' && !proposeOnly) return 0;
 
   const quarantineFile = arg(args, 'quarantine', 'quarantine.json');
   const quarantine = readQuarantine(quarantineFile);

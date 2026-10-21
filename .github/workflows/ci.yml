@@ -1,5 +1,8 @@
 name: CI
 
+# Pull-request gate: the self-hosted app (sut-ui, started by Playwright) and the Sauce Demo
+# practice site. The live production smoke never runs here; it is nightly-only and never gates.
+
 on:
   push:
     branches: [main]
@@ -15,7 +18,7 @@ permissions:
 
 jobs:
   quality:
-    name: Lint, format, type-check, tooling unit tests
+    name: Lint, format, type-check, tooling unit tests, traceability, quarantine policy
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -29,22 +32,34 @@ jobs:
       - run: npm run format:check
       - run: npm run typecheck
       - run: npm run tools:test
+      - name: Every test traces to a feature ID
+        run: npm run qa -- traceability
+      - name: Quarantine policy (owner, expiry, matching test)
+        run: npm run qa -- quarantine-check
 
-  smoke:
-    name: Smoke (Chromium)
+  gate:
+    name: PR gate, triage and reports
     needs: quality
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      pull-requests: write
     env:
       CI: 'true'
       RECORD_MODE: failures
       RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}
+      RUN_DIR: run-evidence/ui-automation-framework/ci-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
       - run: npm ci
       - name: Cache Playwright browsers
         uses: actions/cache@v6
@@ -52,14 +67,58 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:smoke
-      - name: Upload report
+      - name: Choose the projects for this runner
+        id: projects
+        run: |
+          projects="--project=chromium --project=mobile --project=a11y"
+          if [ -d tests/visual/__screenshots__/linux ]; then
+            projects="$projects --project=visual"
+          else
+            echo "::notice::No Linux visual baselines yet; run the 'Visual baselines (Linux)' workflow once."
+          fi
+          echo "args=$projects" >> "$GITHUB_OUTPUT"
+      - name: PR gate (quarantined tests excluded)
+        id: tests
+        env:
+          PROJECTS: ${{ steps.projects.outputs.args }}
+        run: |
+          read -r -a projects <<< "$PROJECTS"
+          npx playwright test "${projects[@]}" --grep-invert @quarantine
+      - name: Quarantined tests (run, never gate)
+        if: always() && steps.tests.outcome != 'skipped'
+        continue-on-error: true
+        run: |
+          RUN_ID="${RUN_ID}-quarantine" npx playwright test --project=chromium --project=mobile \
+            --grep @quarantine --pass-with-no-tests
+      - name: Triage failures (rules first; the AI step runs only when a key is configured)
+        if: always() && steps.tests.outcome == 'failure'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: npm run qa -- triage --run "$RUN_DIR"
+      - name: Dashboard, gallery and step summary
+        if: always() && steps.tests.outcome != 'skipped'
+        run: npm run qa -- report --run "$RUN_DIR" --out reports/site
+      - name: Allure report
+        if: always() && steps.tests.outcome != 'skipped'
+        run: scripts/allure-report.sh
+      - name: Comment the summary on the pull request
+        # Pull requests from forks get a read-only token; their summary stays in the job summary.
+        if: >-
+          always() && steps.tests.outcome != 'skipped' && github.event_name == 'pull_request'
+          && github.event.pull_request.head.repo.full_name == github.repository
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: ui-test-summary
+          path: reports/site/summary.md
+      - name: Upload evidence and reports
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: smoke-report
+          name: gate-${{ github.run_attempt }}
           path: |
+            run-evidence/
+            reports/site/
+            allure-report/
             playwright-report/
-            test-results/
           retention-days: 14
           if-no-files-found: ignore

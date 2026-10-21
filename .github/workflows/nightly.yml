@@ -1,0 +1,247 @@
+name: Nightly
+
+# The full regression in three Playwright shards with retries (flaky detection), the live
+# production smoke (public pages, one worker, never gating), and the quarantine run. The shards
+# are merged into one run, which is triaged, reported and published to GitHub Pages with history.
+
+on:
+  schedule:
+    - cron: '41 2 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: nightly
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  CI: 'true'
+  RUN_ID: nightly-${{ github.run_id }}-${{ github.run_attempt }}
+  RECORD_MODE: failures
+  TEST_RETRIES: '2'
+
+jobs:
+  regression:
+    name: Regression shard ${{ matrix.shard }}/3
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npx playwright install --with-deps chromium
+      - name: Shard ${{ matrix.shard }}/3
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: |
+          projects=(--project=chromium --project=mobile --project=a11y)
+          if [ -d tests/visual/__screenshots__/linux ]; then projects+=(--project=visual); fi
+          npx playwright test "${projects[@]}" --grep-invert @quarantine --shard="${SHARD}/3"
+      - name: Upload the shard's evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: evidence-shard-${{ matrix.shard }}
+          path: run-evidence/
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Upload the shard's Allure results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: allure-results-shard-${{ matrix.shard }}
+          path: allure-results/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  live:
+    name: Live production smoke (public pages only; never gates)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # A failure here is reported, never blocking: the site is production, not a test target.
+    continue-on-error: true
+    env:
+      RUN_ID: live-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npx playwright install --with-deps chromium
+      - name: Live smoke (one worker, clear user agent, no traces or HAR)
+        run: npm run test:live
+      - name: Upload the live evidence (short-lived artifact; never published to Pages)
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: live-evidence
+          path: run-evidence/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  quarantine:
+    name: Quarantined tests (run, never gate) and policy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Quarantine policy (expired or ownerless entries fail here)
+        run: npm run qa -- quarantine-check
+      - run: npx playwright install --with-deps chromium
+      - name: Run the quarantined tests
+        continue-on-error: true
+        run: |
+          RUN_ID="${RUN_ID}-quarantine" npx playwright test --project=chromium --project=mobile \
+            --grep @quarantine --pass-with-no-tests
+
+  publish:
+    name: Merge, triage, report and publish to Pages
+    needs: regression
+    if: always() && needs.regression.result != 'cancelled'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      RUN_DIR: run-evidence/ui-automation-framework/nightly-${{ github.run_id }}-${{ github.run_attempt }}
+      SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the published site (absent before the first publish)
+        uses: actions/checkout@v7
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: published
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: evidence-shard-*
+          path: shards
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: allure-results-shard-*
+          path: allure-results
+          merge-multiple: true
+      - name: Merge the shards into one run
+        run: npm run qa -- merge --from shards --into "$RUN_DIR"
+      - name: Triage failures
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: npm run qa -- triage --run "$RUN_DIR"
+      - name: Start from the published site
+        run: |
+          mkdir -p site/data
+          if [ -d published ]; then rsync -a --exclude .git published/ site/; fi
+      - name: Record flaky tests in the 30-day history
+        run: npm run qa -- flaky-history --run "$RUN_DIR" --history site/data/flaky-history.json
+      - name: Dashboard, gallery and step summary
+        run: >-
+          npm run qa -- report --run "$RUN_DIR" --out site
+          --history site/data/history.json --flaky-history site/data/flaky-history.json
+          --report-url "$SITE_URL"
+          --links "Allure=allure/,Run gallery=runs/${RUN_ID}/gallery.html"
+      - name: Allure report with trend history
+        run: |
+          scripts/allure-report.sh site/allure
+          rm -rf site/allure
+          cp -r allure-report site/allure
+      - name: Keep this run's gallery and evidence, and the last 10 runs
+        run: |
+          mkdir -p site/runs
+          cp -r "$RUN_DIR" "site/runs/${RUN_ID}"
+          find site/runs -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -rn \
+            | tail -n +11 | cut -d' ' -f2- | xargs -r rm -rf
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          force_orphan: true
+          commit_message: 'nightly ${{ env.RUN_ID }}'
+      - name: Upload the merged run (input for heal.yml)
+        uses: actions/upload-artifact@v7
+        with:
+          name: merged-run
+          path: run-evidence/ui-automation-framework/
+          retention-days: 14
+      - name: Fail when the regression failed
+        if: needs.regression.result == 'failure'
+        run: |
+          echo "The regression failed; see the dashboard and the triage summary."
+          exit 1
+
+  flaky:
+    name: Propose quarantine for repeatedly flaky tests (pull request, never merged here)
+    needs: publish
+    if: always() && needs.publish.result != 'cancelled'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the published history
+        uses: actions/checkout@v7
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: published
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Propose quarantine (3+ flaky runs in 14 days)
+        run: |
+          if [ ! -f published/data/flaky-history.json ]; then echo "No history yet."; exit 0; fi
+          npm run qa -- flaky-history --propose-only --history published/data/flaky-history.json
+      - name: Open a pull request with the proposal
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- quarantine.json tests/; then echo "No proposals."; exit 0; fi
+          branch="quarantine/proposal-$(date -u +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add quarantine.json tests/
+          git commit -m "test(quarantine): propose quarantine for repeatedly flaky tests"
+          git push -u origin "$branch"
+          gh pr create --title "Quarantine proposal $(date -u +%Y-%m-%d)" \
+            --body "Tests that were flaky 3 or more times in 14 days. Each entry has an owner and an expiry; review before merging. Nothing is merged automatically."
