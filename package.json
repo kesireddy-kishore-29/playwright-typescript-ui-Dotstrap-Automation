@@ -40,6 +40,7 @@
     "allure-commandline": "2.46.1",
     "allure-js-commons": "3.14.0",
     "allure-playwright": "3.14.0",
+    "diff": "9.0.0",
     "eslint": "10.13.0",
     "eslint-plugin-playwright": "2.12.1",
     "fflate": "0.8.3",

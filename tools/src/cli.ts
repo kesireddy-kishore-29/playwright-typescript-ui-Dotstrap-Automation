@@ -1,3 +1,4 @@
+import { healCommand } from './healing/heal';
 import { parseArgs, type Args } from './shared/args';
 import { flakyHistoryCommand } from './quarantine/flaky-history';
 import { quarantineCheckCommand } from './quarantine/quarantine';
@@ -10,6 +11,10 @@ const COMMANDS: Record<string, { summary: string; run: Command }> = {
   triage: {
     summary: 'classify the failures of a run (rules first, optional LLM for UNKNOWN)',
     run: triageCommand,
+  },
+  heal: {
+    summary: 'propose guarded, verified fixes on heal/* branches (never auto-merged)',
+    run: healCommand,
   },
   'quarantine-check': {
     summary: 'fail on expired, ownerless or unmatched quarantine entries',
