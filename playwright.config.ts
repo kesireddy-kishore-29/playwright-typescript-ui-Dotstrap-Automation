@@ -27,7 +27,22 @@ export default defineConfig({
     ['list'],
     ['html', { open: 'never', outputFolder: 'playwright-report' }],
     ['json', { outputFile: 'reports/playwright-results.json' }],
-    ['allure-playwright', { resultsDir: 'allure-results', detail: true }],
+    [
+      'allure-playwright',
+      {
+        resultsDir: 'allure-results',
+        detail: true,
+        // The Allure Environment panel: the same non-secret facts as run-summary.json.
+        environmentInfo: {
+          runId: process.env['RUN_ID'],
+          recordMode: env.RECORD_MODE,
+          appBaseUrl: env.APP_BASE_URL,
+          sauceBaseUrl: env.SAUCE_BASE_URL,
+          node: process.version,
+          os: `${process.platform} ${process.arch}`,
+        },
+      },
+    ],
     ['./src/evidence/reporter.ts'],
   ],
   use: {

@@ -2,6 +2,7 @@ import { healCommand } from './healing/heal';
 import { parseArgs, type Args } from './shared/args';
 import { flakyHistoryCommand } from './quarantine/flaky-history';
 import { quarantineCheckCommand } from './quarantine/quarantine';
+import { reportCommand } from './reporting/report';
 import { traceabilityCommand } from './traceability/traceability';
 import { triageCommand } from './triage/triage';
 
@@ -27,6 +28,10 @@ const COMMANDS: Record<string, { summary: string; run: Command }> = {
   traceability: {
     summary: 'fail on tests without a feature ID; write the coverage matrix',
     run: traceabilityCommand,
+  },
+  report: {
+    summary: 'dashboard, history, gallery, step summary, accessibility, performance, visual',
+    run: reportCommand,
   },
 };
 

@@ -8,3 +8,5 @@ reports/
 run-evidence/
 docs/examples/
 tests/**/*-snapshots/
+# Shared byte for byte with the Java repository of the family; never reformatted here.
+tools/templates/

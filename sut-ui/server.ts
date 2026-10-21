@@ -1,7 +1,9 @@
 /**
  * Self-hosted app under test for the scenarios a public demo site cannot provide: per-user API
  * data, notification/unread state, error and slow states, light/dark theme, a deliberately
- * inaccessible page and test ids that can be broken on demand (SUT_UI_CHAOS=rename-testid).
+ * inaccessible page, and two chaos switches: SUT_UI_CHAOS=rename-testid breaks a test id (the
+ * self-healing demo) and SUT_UI_CHAOS=restyle-table ships an unintended style change (the visual
+ * regression demo).
  *
  *   npm run sut            # http://localhost:4173
  *
@@ -118,6 +120,10 @@ async function serveStatic(res: ServerResponse, pathname: string): Promise<void>
     if (CHAOS === 'rename-testid') {
       // The chaos demo: a developer "renames" a test id the UI suite relies on.
       content = content.replaceAll('data-test="unread-count"', 'data-test="unread-badge"');
+    }
+    if (CHAOS === 'restyle-table' && safe === 'styles.css') {
+      // The visual chaos demo: a stylesheet change nobody meant to ship makes table rows taller.
+      content += '\ntd {\n  padding-block: 16px;\n}\n';
     }
     res
       .writeHead(200, {

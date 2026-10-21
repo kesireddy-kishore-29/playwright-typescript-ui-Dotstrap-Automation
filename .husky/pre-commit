@@ -1,1 +1,2 @@
+sh scripts/check-file-size.sh $(git diff --cached --name-only --diff-filter=ACM)
 npx lint-staged

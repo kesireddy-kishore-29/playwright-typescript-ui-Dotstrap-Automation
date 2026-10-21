@@ -8,7 +8,8 @@
  *     page-source.html · meta.json
  *
  * At the end of the run it writes run-summary.json and flaky-report.json (the same documents
- * every repository of the family produces) and one failure bundle (folder + zip) per red test.
+ * every repository of the family produces), one failure bundle (folder + zip) per red test, and
+ * metrics.json: the axe scans, navigation timings and visual differences the UI report shows.
  */
 import { execFileSync } from 'node:child_process';
 import {
@@ -39,6 +40,38 @@ interface EvidenceMeta {
   viewport?: { width: number; height: number } | null;
   notes?: string[];
 }
+
+interface A11yScan {
+  url: string;
+  violations: { id: string; impact: string; help: string; nodes: number }[];
+}
+
+interface PerfSample {
+  path: string;
+  timing: Record<string, number>;
+  budget: Record<string, number | string>;
+}
+
+interface VisualDiff {
+  name: string;
+  expected?: string;
+  actual?: string;
+  diff?: string;
+}
+
+/** What one test measured, from its final attempt. */
+interface TestMetrics {
+  testId: string;
+  title: string;
+  project: string;
+  status: string;
+  a11y: A11yScan[];
+  perf: PerfSample[];
+  visualDiffs: VisualDiff[];
+}
+
+/** Playwright's screenshot-comparison attachments: <name>-expected|actual|diff.png. */
+const COMPARISON = /^(.*)-(expected|actual|diff)\.png$/;
 
 export interface TestRecord {
   id: string;
@@ -82,6 +115,7 @@ export default class EvidenceReporter implements Reporter {
   private readonly startedAt = new Date();
   private readonly attempts = new Map<string, TestRecord[]>();
   private readonly attemptDirs = new Map<string, string[]>();
+  private readonly metrics = new Map<string, TestMetrics>();
   private testDir = 'tests';
 
   onBegin(config: FullConfig): void {
@@ -173,6 +207,44 @@ export default class EvidenceReporter implements Reporter {
       this.attemptDirs.set(id, [...(this.attemptDirs.get(id) ?? []), dir]);
     }
     this.attempts.set(id, [...(this.attempts.get(id) ?? []), record]);
+    this.collectMetrics(record, result, slug);
+  }
+
+  /** Keeps the final attempt's measurements: a later attempt replaces an earlier one. */
+  private collectMetrics(record: TestRecord, result: TestResult, slug: string): void {
+    const parse = <T>(name: string): T[] =>
+      result.attachments
+        .filter((a) => a.name === name && a.body)
+        .map((a) => JSON.parse(a.body?.toString() ?? '{}') as T);
+    const diffs = new Map<string, VisualDiff>();
+    if (env.RECORD_MODE !== 'off') {
+      for (const attachment of result.attachments) {
+        const match = COMPARISON.exec(attachment.name);
+        if (!match || !attachment.path || !existsSync(attachment.path)) continue;
+        const [, name = 'screenshot', kind = 'actual'] = match;
+        const dir = join(this.runDir, 'visual-diffs', slug);
+        mkdirSync(dir, { recursive: true });
+        copyFileSync(attachment.path, join(dir, attachment.name));
+        const entry = diffs.get(name) ?? { name };
+        entry[kind as 'expected' | 'actual' | 'diff'] = toPosix(
+          relative(this.runDir, join(dir, attachment.name)),
+        );
+        diffs.set(name, entry);
+      }
+    }
+    const a11y = parse<A11yScan>('axe-results.json');
+    const perf = parse<PerfSample>('navigation-timing.json');
+    if (a11y.length || perf.length || diffs.size || record.project === 'visual') {
+      this.metrics.set(record.id, {
+        testId: record.id,
+        title: record.title,
+        project: record.project,
+        status: record.status,
+        a11y,
+        perf,
+        visualDiffs: [...diffs.values()],
+      });
+    }
   }
 
   private copyArtifacts(result: TestResult, meta: EvidenceMeta, dir: string): string[] {
@@ -260,6 +332,19 @@ export default class EvidenceReporter implements Reporter {
                   ?.find((r) => r.error)
                   ?.error?.message.split('\n')[0] ?? '',
             })),
+        },
+        null,
+        2,
+      ),
+    );
+    writeFileSync(
+      join(this.runDir, 'metrics.json'),
+      JSON.stringify(
+        {
+          schemaVersion: 1,
+          repo: REPO,
+          runId: basename(this.runDir),
+          tests: [...this.metrics.values()].sort((a, b) => a.testId.localeCompare(b.testId)),
         },
         null,
         2,

@@ -1,0 +1,27 @@
+[
+  {
+    "name": "ENVIRONMENT (site or network did not answer)",
+    "matchedStatuses": ["failed", "broken"],
+    "messageRegex": "(?s).*(net::ERR_|ECONNREFUSED|ENOTFOUND|getaddrinfo|socket hang up|ETIMEDOUT|ECONNRESET).*"
+  },
+  {
+    "name": "TEST_DATA (seeding or cleanup failed)",
+    "matchedStatuses": ["failed", "broken"],
+    "messageRegex": "(?s).*(create test user|sign in through the API|seed message|create item|seeded (messages|items) deleted|worker account is really deleted|email_taken).*"
+  },
+  {
+    "name": "Element not found (LOCATOR_DRIFT candidate; triage checks the DOM)",
+    "matchedStatuses": ["failed", "broken"],
+    "messageRegex": "(?s).*(element\\(s\\) not found|resolved to 0 elements).*"
+  },
+  {
+    "name": "Element not ready (TIMING candidate)",
+    "matchedStatuses": ["failed", "broken"],
+    "messageRegex": "(?s).*(element is not (visible|stable|enabled|attached)|intercepts pointer events|detached from the DOM).*"
+  },
+  {
+    "name": "Visual difference (PRODUCT_BUG unless the change was intended)",
+    "matchedStatuses": ["failed"],
+    "messageRegex": "(?s).*toHaveScreenshot.*"
+  }
+]

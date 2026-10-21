@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run gallery</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface-1: #fcfcfb; --text-primary: #0b0b0b; --text-secondary: #52514e;
+  --text-muted: #898781; --grid: #e1e0d9; --border: rgba(11, 11, 11, 0.10);
+  --good: #0ca30c; --warning: #fab219; --critical: #d03b3b; --link: #1c5cab;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark; --page: #0d0d0d; --surface-1: #1a1a19; --text-primary: #ffffff;
+    --text-secondary: #c3c2b7; --grid: #2c2c2a; --border: rgba(255, 255, 255, 0.10); --link: #86b6ef;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark; --page: #0d0d0d; --surface-1: #1a1a19; --text-primary: #ffffff;
+  --text-secondary: #c3c2b7; --grid: #2c2c2a; --border: rgba(255, 255, 255, 0.10); --link: #86b6ef;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--text-primary); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--link); }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 22px; margin: 0; font-weight: 650; }
+.meta { color: var(--text-secondary); font-size: 13px; margin-bottom: 16px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.filters button { font: inherit; font-size: 13px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-1); color: var(--text-primary); cursor: pointer; }
+.filters button[aria-pressed="true"] { border-color: var(--text-primary); font-weight: 600; }
+.list { display: grid; gap: 12px; }
+.test { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.head { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.title { font-weight: 600; overflow-wrap: anywhere; }
+.facts { color: var(--text-secondary); font-size: 13px; display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.status { white-space: nowrap; font-size: 13px; }
+.status::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+.status.passed::before { background: var(--good); }
+.status.flaky::before, .status.skipped::before, .status.retried::before { background: var(--warning); }
+.status.failed::before { background: var(--critical); }
+.attempts { display: grid; gap: 10px; margin-top: 10px; }
+.attempt { display: grid; gap: 10px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid var(--grid); padding-top: 10px; }
+@media (max-width: 760px) { .attempt { grid-template-columns: minmax(0, 1fr); } }
+video, img.shot { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); background: #000; }
+img.shot { background: transparent; }
+iframe.timeline { width: 100%; height: 400px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-1); }
+.files { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; align-content: start; }
+.label { color: var(--text-muted); font-size: 12px; }
+.none { color: var(--text-muted); font-size: 13px; }
+code { font-size: 12px; overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const DATA = /*__DATA__*/null;
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const fmtMs = (ms) => ms >= 1000 ? `${(ms / 1000).toFixed(1)} s` : `${Math.round(ms)} ms`;
+// Failures first: the gallery exists to explain them.
+const ORDER = { failed: 0, flaky: 1, skipped: 2, passed: 3 };
+const LINKS = [
+  ['screenshot.png', 'Screenshot'], ['trace.zip', 'Trace (open at trace.playwright.dev)'], ['transcript.md', 'Transcript'], ['timeline.html', 'Timeline'],
+  ['network.har', 'Network (HAR)'], ['console.log', 'Console log'], ['page-source.html', 'Page source'], ['meta.json', 'Metadata'],
+];
+
+function attemptHtml(a, base) {
+  const has = (f) => a.files.includes(f);
+  const url = (f) => `${base}${a.dir}/${f}`;
+  // API tests have no video by design: the call timeline is their replay.
+  const media = has('video.webm')
+    ? `<video controls preload="none" src="${esc(url('video.webm'))}"${has('screenshot.png') ? ` poster="${esc(url('screenshot.png'))}"` : ''} aria-label="Video of attempt ${a.attempt}"></video>`
+    : has('screenshot.png') ? `<img class="shot" loading="lazy" src="${esc(url('screenshot.png'))}" alt="Screenshot of attempt ${a.attempt}">`
+    : has('timeline.html') ? `<iframe class="timeline" loading="lazy" src="${esc(url('timeline.html'))}" title="Call timeline of attempt ${a.attempt}"></iframe>`
+    : `<p class="none">No media for this attempt${DATA.recordMode === 'failures' ? ' (RECORD_MODE=failures keeps it for failed attempts only)' : ''}.</p>`;
+  const links = LINKS.filter(([f]) => has(f)).map(([f, label]) => `<a href="${esc(url(f))}">${esc(label)}</a>`).join('');
+  const extra = has('fullpage.png') ? `<a href="${esc(url('fullpage.png'))}">Full-page screenshot</a>` : '';
+  return `<div class="attempt"><div>${media}</div><div><div class="label">Attempt ${a.attempt} · <span class="status ${esc(a.status)}">${esc(a.status)}</span></div><div class="files">${links}${extra || ''}</div></div></div>`;
+}
+
+function render() {
+  const app = document.getElementById('app');
+  const counts = DATA.tests.reduce((m, t) => ({ ...m, [t.status]: (m[t.status] || 0) + 1 }), {});
+  app.innerHTML = `<h1>Run gallery · ${esc(DATA.repo)}</h1>
+    <div class="meta">Run <code>${esc(DATA.runId)}</code> · RECORD_MODE=${esc(DATA.recordMode)} · ${DATA.tests.length} tests · ${Object.entries(counts).map(([k, v]) => `${v} ${k}`).join(', ')}</div>
+    <div class="filters" role="group" aria-label="Filter by status">${['all', 'failed', 'flaky', 'passed', 'skipped'].map((s) => `<button type="button" data-filter="${s}" aria-pressed="${s === 'all'}">${s}</button>`).join('')}</div>
+    <div class="list" id="list"></div>`;
+  const list = document.getElementById('list');
+  const draw = (filter) => {
+    const tests = DATA.tests.filter((t) => filter === 'all' || t.status === filter)
+      .sort((a, b) => (ORDER[a.status] ?? 9) - (ORDER[b.status] ?? 9));
+    list.innerHTML = tests.map((t) => `<article class="test"><div class="head"><span class="status ${esc(t.status)}">${esc(t.status)}</span><span class="title">${esc(t.title)}</span></div>
+      <div class="facts"><span>${esc(t.suite)}${t.project && t.project !== t.suite ? ` · ${esc(t.project)}` : ''}</span><span>${fmtMs(t.durationMs)}</span><span>${esc((t.featureIds || []).join(', '))}</span></div>
+      ${t.attempts.length ? `<div class="attempts">${t.attempts.map((a) => attemptHtml(a, DATA.base || '')).join('')}</div>` : '<p class="none">No evidence kept for this test in this mode.</p>'}</article>`).join('') || '<p class="none">No tests match.</p>';
+  };
+  app.querySelectorAll('[data-filter]').forEach((b) => b.addEventListener('click', () => {
+    app.querySelectorAll('[data-filter]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    draw(b.dataset.filter);
+  }));
+  draw('all');
+}
+if (DATA) render(); else document.getElementById('app').textContent = 'No data was injected into this template.';
+</script>
+</body>
+</html>
