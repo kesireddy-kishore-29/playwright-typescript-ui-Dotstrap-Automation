@@ -64,7 +64,8 @@ body {
 .shell {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 220px 1fr;
+  /* minmax(0, 1fr): wide content (tables) must not widen the grid past the viewport. */
+  grid-template-columns: 220px minmax(0, 1fr);
   grid-template-rows: auto 1fr;
   grid-template-areas:
     'top top'
@@ -253,6 +254,9 @@ button.danger {
   margin: 12px 0;
 }
 
+.table-wrap {
+  overflow-x: auto;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -327,7 +331,7 @@ fieldset input {
 /* ---- phone: the side nav becomes a bottom tab bar ------------------------------------------ */
 @media (max-width: 767px) {
   .shell {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       'top'
       'main'

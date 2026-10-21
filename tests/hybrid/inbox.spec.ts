@@ -25,7 +25,7 @@ test.describe('inbox, seeded through the API', () => {
       const first = await seed.message('Ben Okafor', uniqueName('first'));
       await seed.message('Ben Okafor', uniqueName('second'));
       await inbox.open();
-      await expect(inbox.header.bell.button).toHaveAccessibleName('Notifications, 2 unread');
+      await expect(inbox.header.bell.button).toHaveAccessibleName('Notifications 2 unread');
       await expect(inbox.header.bell.badge).toHaveText('2');
       await expect(inbox.unreadDot(first.subject)).toBeVisible();
 
@@ -34,7 +34,7 @@ test.describe('inbox, seeded through the API', () => {
       await expect(inbox.toast.root).toHaveText('Marked as read');
       await expect(inbox.header.bell.badge).toHaveText('1');
       await expect(
-        inbox.message(first.subject).getByRole('button', { name: /Mark .* as read/ }),
+        inbox.message(first.subject).getByRole('button', { name: /^Mark read/ }),
       ).toHaveCount(0);
       expect(await api.unreadCount()).toBe(1);
 

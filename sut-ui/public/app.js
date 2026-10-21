@@ -46,8 +46,10 @@ async function api(path, options = {}) {
     },
   });
   if (response.status === 401 && !path.startsWith('/api/auth/')) {
-    const next = encodeURIComponent(location.pathname);
-    navigate(`/login?next=${next}`, { replace: true });
+    // Several calls can fail at once; only the first may redirect, or `next` becomes /login.
+    if (location.pathname !== '/login') {
+      navigate(`/login?next=${encodeURIComponent(location.pathname)}`, { replace: true });
+    }
     throw new ApiError(401, 'unauthenticated');
   }
   if (!response.ok) {
@@ -112,7 +114,7 @@ function renderShell(title, renderPage) {
         <a class="brand" href="/inbox" data-link>Relay</a>
         <div class="bell">
           <button type="button" id="bell" aria-expanded="false" aria-controls="bell-panel">
-            Notifications<span class="badge" data-test="unread-count" hidden>0</span>
+            Notifications<span class="badge" data-test="unread-count" hidden>0</span><span class="visually-hidden" id="bell-suffix">, no unread messages</span>
           </button>
           <div class="panel" id="bell-panel" role="dialog" aria-label="Notifications" hidden></div>
         </div>
@@ -161,7 +163,9 @@ async function refreshUnreadCount() {
     const { count } = await api('/api/notifications/unread-count');
     badge.textContent = String(count);
     badge.hidden = count === 0;
-    bell.setAttribute('aria-label', `Notifications, ${count} unread`);
+    // The accessible name starts with the visible text (WCAG 2.5.3): "Notifications 2 unread".
+    document.getElementById('bell-suffix').textContent =
+      count === 0 ? ', no unread messages' : ' unread';
   } catch (error) {
     if (error.status !== 401) {
       badge.hidden = true;
@@ -253,7 +257,7 @@ async function loadMessages() {
             <span class="subject">${escapeHtml(m.subject)}${m.read ? '' : '<span class="visually-hidden"> (unread)</span>'}</span>
             <span class="meta">From ${escapeHtml(m.from)}</span>
           </div>
-          ${m.read ? '' : `<button type="button" data-action="read" aria-label="Mark ${escapeHtml(m.subject)} as read">Mark read</button>`}
+          ${m.read ? '' : `<button type="button" data-action="read">Mark read <span class="visually-hidden">(${escapeHtml(m.subject)})</span></button>`}
         </li>`,
       )
       .join('')}</ul>`;
@@ -290,7 +294,7 @@ async function renderItems(page) {
       return;
     }
     page.innerHTML = `
-      <div class="card">
+      <div class="card table-wrap">
         <table data-test="items-table">
           <caption>${items.length} item${items.length === 1 ? '' : 's'}</caption>
           <thead><tr><th scope="col">Name</th><th scope="col">Status</th><th scope="col">Owner</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>

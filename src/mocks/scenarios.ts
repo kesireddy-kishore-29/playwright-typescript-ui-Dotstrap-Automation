@@ -37,6 +37,31 @@ export const MESSAGES: readonly MockMessage[] = [
   },
 ];
 
+/** Fixed items for the items table baseline. */
+export const ITEMS = [
+  {
+    id: 'itm_1',
+    name: 'Onboarding checklist',
+    status: 'active',
+    owner: 'Ava',
+    createdAt: '2026-01-02T09:00:00Z',
+  },
+  {
+    id: 'itm_2',
+    name: 'Pricing page copy',
+    status: 'paused',
+    owner: 'Ava',
+    createdAt: '2026-01-03T09:00:00Z',
+  },
+  {
+    id: 'itm_3',
+    name: 'Q1 roadmap',
+    status: 'archived',
+    owner: 'Ava',
+    createdAt: '2026-01-04T09:00:00Z',
+  },
+] as const;
+
 function json(route: Route, status: number, body: unknown): Promise<void> {
   return route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(body) });
 }
@@ -58,6 +83,13 @@ export class AppMocks {
     );
     await this.page.route('**/api/usage', (route) =>
       json(route, 200, { plan: 'Free', used: 12, limit: 100 }),
+    );
+  }
+
+  async items(): Promise<void> {
+    await this.page.route('**/api/items', (route) => json(route, 200, { items: ITEMS }));
+    await this.page.route('**/api/notifications/unread-count', (route) =>
+      json(route, 200, { count: 2 }),
     );
   }
 

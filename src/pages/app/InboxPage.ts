@@ -43,7 +43,7 @@ export class InboxPage {
 
   async markRead(subject: string): Promise<void> {
     await this.message(subject)
-      .getByRole('button', { name: `Mark ${subject} as read` })
+      .getByRole('button', { name: `Mark read (${subject})` })
       .click();
   }
 }

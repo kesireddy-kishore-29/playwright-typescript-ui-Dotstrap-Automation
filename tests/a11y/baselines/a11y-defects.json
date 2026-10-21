@@ -1,0 +1,5 @@
+{
+  "page": "/a11y-defects.html",
+  "note": "Deliberate defects. The test fails if one disappears (scan stopped working) or a new one appears.",
+  "rules": ["button-name", "color-contrast", "html-has-lang", "image-alt", "label", "link-name"]
+}
