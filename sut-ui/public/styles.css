@@ -1,0 +1,358 @@
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --text: #1b2230;
+  --muted: #545e70;
+  --line: #dfe3ea;
+  --accent: #2557d6;
+  --accent-text: #ffffff;
+  --danger: #b42318;
+  --danger-bg: #fdecea;
+  --unread: #2557d6;
+  --focus: #f59e0b;
+  --radius: 10px;
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  --bg: #0f141c;
+  --surface: #171e29;
+  --text: #e8ecf3;
+  --muted: #a7b0c0;
+  --line: #2a3442;
+  --accent: #7aa2ff;
+  --accent-text: #0b1220;
+  --danger: #ff8a80;
+  --danger-bg: #3a1c1c;
+  --unread: #7aa2ff;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font:
+    16px/1.5 system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+}
+*,
+*::before,
+*::after {
+  transition: none !important;
+  animation: none !important;
+}
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---- shell -------------------------------------------------------------------------------- */
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'top top'
+    'nav main';
+}
+.topbar {
+  grid-area: top;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  font-weight: 700;
+  font-size: 18px;
+  margin-right: auto;
+  color: var(--text);
+  text-decoration: none;
+}
+.sidenav {
+  grid-area: nav;
+  padding: 16px;
+  border-right: 1px solid var(--line);
+  background: var(--surface);
+}
+.sidenav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.sidenav a {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+}
+.sidenav a[aria-current='page'] {
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+main {
+  grid-area: main;
+  padding: 24px;
+  max-width: 960px;
+  width: 100%;
+}
+h1 {
+  font-size: 28px;
+  margin: 0 0 16px;
+}
+h2 {
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+
+button,
+.button {
+  font: inherit;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px 14px;
+}
+button.primary {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+button.danger {
+  color: var(--danger);
+}
+
+.bell {
+  position: relative;
+}
+.badge {
+  display: inline-block;
+  min-width: 22px;
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+.badge[hidden] {
+  display: none;
+}
+.panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 300px;
+  max-width: calc(100vw - 32px);
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+  z-index: 10;
+  text-align: left;
+}
+.panel ul {
+  margin: 8px 0;
+  padding-left: 18px;
+}
+
+/* ---- cards and lists ------------------------------------------------------------------------ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.messages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.messages li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--line);
+}
+.messages li:last-child {
+  border-bottom: 0;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: transparent;
+  flex: none;
+}
+.messages li.unread .dot {
+  background: var(--unread);
+}
+.messages li.unread .subject {
+  font-weight: 700;
+}
+.meta {
+  color: var(--muted);
+  font-size: 14px;
+}
+.grow {
+  flex: 1;
+  min-width: 0;
+}
+.subject {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.alert {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 32px 0;
+}
+.skeleton {
+  height: 14px;
+  border-radius: 6px;
+  background: var(--line);
+  margin: 12px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+caption {
+  text-align: left;
+  color: var(--muted);
+  padding-bottom: 8px;
+}
+th,
+td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+dialog {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  max-width: min(420px, calc(100vw - 32px));
+}
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.4);
+}
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: var(--text);
+  color: var(--bg);
+}
+.toast:empty {
+  display: none;
+}
+
+form.login {
+  max-width: 380px;
+  margin: 10vh auto;
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin: 12px 0 4px;
+}
+input {
+  font: inherit;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+fieldset {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+fieldset label {
+  display: inline-flex;
+  gap: 6px;
+  font-weight: 400;
+  margin-right: 16px;
+}
+fieldset input {
+  width: auto;
+}
+
+/* ---- phone: the side nav becomes a bottom tab bar ------------------------------------------ */
+@media (max-width: 767px) {
+  .shell {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'top'
+      'main'
+      'nav';
+  }
+  .sidenav {
+    position: sticky;
+    bottom: 0;
+    border-right: 0;
+    border-top: 1px solid var(--line);
+    padding: 8px;
+  }
+  .sidenav ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .sidenav a {
+    text-align: center;
+  }
+  main {
+    padding: 16px;
+  }
+  .topbar {
+    padding: 12px 16px;
+  }
+  .theme-label {
+    display: none;
+  }
+}

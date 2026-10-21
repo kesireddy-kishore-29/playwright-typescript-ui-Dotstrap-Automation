@@ -1,6 +1,6 @@
 import type { Locator, Page } from '@playwright/test';
 
-/** Sauce Demo sign-in page (`/`). Locators follow docs/locator-policy.md: role first. */
+/** Sauce Demo sign-in page (`/`). */
 export class LoginPage {
   readonly username: Locator;
   readonly password: Locator;

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Relay — inbox</title>
+    <meta name="description" content="Self-hosted demo app used by the UI automation framework." />
+    <script>
+      // Apply the saved theme before first paint, so there is never a light flash in dark mode.
+      (function () {
+        var saved = null;
+        try {
+          saved = localStorage.getItem('relay-theme');
+        } catch (e) {
+          saved = null;
+        }
+        var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = saved || (dark ? 'dark' : 'light');
+      })();
+    </script>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>

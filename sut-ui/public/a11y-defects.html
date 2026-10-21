@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- DELIBERATELY INACCESSIBLE. Used by tests/a11y to prove the scan catches real defects.
+     Every defect here is listed in tests/a11y/baselines/a11y-defects.json. Do not "fix" it. -->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessibility defects (demo)</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 24px;
+        background: #ffffff;
+        color: #1b2230;
+      }
+      .faint {
+        color: #c9c9c9;
+      }
+      .icon-button {
+        width: 32px;
+        height: 32px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Account settings</h1>
+    <img
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'/%3E"
+    />
+    <p class="faint">This grey-on-white text is too faint to read.</p>
+    <button class="icon-button" type="button">
+      <svg width="16" height="16" aria-hidden="true"></svg>
+    </button>
+    <form>
+      <input type="text" name="nickname" placeholder="Nickname" />
+    </form>
+    <a href="/inbox"><svg width="16" height="16" aria-hidden="true"></svg></a>
+  </body>
+</html>

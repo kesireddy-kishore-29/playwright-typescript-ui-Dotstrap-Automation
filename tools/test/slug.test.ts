@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { slugify } from '../src/shared/slug';
+import { slugify } from '../../src/support/slug';
 
 describe('slugify', () => {
   it('lowercases and joins words with single hyphens', () => {
