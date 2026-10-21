@@ -26,7 +26,7 @@ import type { FullConfig, Reporter, TestCase, TestResult } from '@playwright/tes
 import { zipSync } from 'fflate';
 import { env } from '../config/env';
 import { stripAnsi } from '../support/ansi';
-import { redactHar, redactText } from '../support/redact';
+import { redactHar, redactText, redactTrace } from '../support/redact';
 import { slugify } from '../support/slug';
 
 export const REPO = 'ui-automation-framework';
@@ -261,7 +261,15 @@ export default class EvidenceReporter implements Reporter {
     for (const attachment of result.attachments) {
       const target = names[attachment.name];
       if (!target || written.includes(target)) continue;
-      if (attachment.path && existsSync(attachment.path)) {
+      if (target === 'trace.zip' && attachment.path && existsSync(attachment.path)) {
+        // Playwright writes traces with raw headers and cookies; never copy one unredacted.
+        try {
+          writeFileSync(join(dir, target), redactTrace(readFileSync(attachment.path)));
+          written.push(target);
+        } catch (error) {
+          console.error(`[evidence] trace not kept (could not redact it): ${String(error)}`);
+        }
+      } else if (attachment.path && existsSync(attachment.path)) {
         copyFileSync(attachment.path, join(dir, target));
         written.push(target);
       } else if (attachment.body) {
