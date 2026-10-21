@@ -20,6 +20,31 @@ function escapeRegex(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/** One run of another failing test that the same fix claims to explain. */
+export function rerunTest(repoRoot: string, testId: string): Step {
+  const { project, file, title } = parseTestId(testId);
+  const once = nodeTool(
+    '@playwright/test/cli',
+    [
+      'test',
+      `tests/${file}`,
+      `--project=${project}`,
+      '-g',
+      escapeRegex(title),
+      '--retries=0',
+      '--workers=1',
+      '--reporter=dot',
+    ],
+    repoRoot,
+    600_000,
+  );
+  return {
+    name: `also explained: ${project} › ${file} › ${title}`,
+    passed: once.ok,
+    detail: once.ok ? 'passed' : once.tail,
+  };
+}
+
 /** Lint, type-check, the failing test 3 times in a row, then its file (the surrounding suite). */
 export function verifyHeal(repoRoot: string, testId: string): Step[] {
   const steps: Step[] = [];

@@ -9,6 +9,7 @@ export function renderPrBody(
   violations: GuardrailViolation[],
   steps: Step[],
   needsDecision: boolean,
+  alsoExplains: string[] = [],
 ): string {
   return [
     `## Self-healed: ${patch.category}`,
@@ -20,11 +21,26 @@ export function renderPrBody(
     `| Failure category | \`${patch.category}\` |`,
     `| Test | \`${patch.testId}\` |`,
     `| Evidence | ${evidence} |`,
+    ...(alsoExplains.length
+      ? [
+          `| Also explains | ${String(alsoExplains.length)} other failing test(s) with the same cause (below) |`,
+        ]
+      : []),
     '',
     '### Root cause',
     '',
     rootCause,
     '',
+    ...(alsoExplains.length
+      ? [
+          '### Other failures with the same cause',
+          '',
+          ...alsoExplains.map((t) => `- \`${t}\``),
+          '',
+          'The verification below reruns each of them on this branch.',
+          '',
+        ]
+      : []),
     '### Why this diff',
     '',
     patch.rationale,
