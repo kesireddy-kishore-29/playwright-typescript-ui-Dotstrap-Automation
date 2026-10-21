@@ -1,1 +1,6 @@
+# Only the author appears on GitHub: refuse co-author and session trailers added by any tool.
+if grep -qiE 'co-authored-by|claude-session' "$1"; then
+  echo "commit-msg: remove the Co-Authored-By / Claude-Session line; commits carry the author only."
+  exit 1
+fi
 npx --no -- commitlint --edit "$1"
