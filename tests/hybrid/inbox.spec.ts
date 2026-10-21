@@ -33,9 +33,7 @@ test.describe('inbox, seeded through the API', () => {
 
       await expect(inbox.toast.root).toHaveText('Marked as read');
       await expect(inbox.header.bell.badge).toHaveText('1');
-      await expect(
-        inbox.message(first.subject).getByRole('button', { name: /^Mark read/ }),
-      ).toHaveCount(0);
+      await expect(inbox.markReadButtons(first.subject)).toHaveCount(0);
       expect(await api.unreadCount()).toBe(1);
 
       await inbox.header.bell.markAllAsRead();

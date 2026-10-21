@@ -20,6 +20,18 @@ export function featureIds(testInfo: TestInfo): string[] {
   return testInfo.annotations.filter((a) => a.type === 'feature').map((a) => a.description ?? '');
 }
 
+/**
+ * Allure severity from what a test is for: smoke tests block a release, accessibility is
+ * critical, the live smoke is information about production, the demo fails on purpose.
+ */
+export function severityOf(project: string, tags: readonly string[]): string {
+  if (project === 'demo' || tags.includes('@demo-failure')) return 'trivial';
+  if (tags.includes('@smoke') && project !== 'live') return 'blocker';
+  if (project === 'a11y') return 'critical';
+  if (project === 'live') return 'minor';
+  return 'normal';
+}
+
 /** The locator Playwright reported in the failure message, if any (used by triage). */
 export function failingLocator(message: string | undefined): string | undefined {
   if (!message) return undefined;
@@ -60,6 +72,7 @@ export const test = base.extend<BaseOptions & BaseFixtures>({
       }
       for (const id of ids) await allure.feature(id);
       for (const tag of testInfo.tags) await allure.tag(tag.replace(/^@/, ''));
+      await allure.severity(severityOf(testInfo.project.name, testInfo.tags));
       await use(ids);
     },
     { auto: true },

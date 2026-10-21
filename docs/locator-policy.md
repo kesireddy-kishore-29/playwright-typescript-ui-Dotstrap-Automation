@@ -12,16 +12,14 @@ when a person would also be lost, and survives every change that a person would 
 | 3    | `getByTestId` (`data-test`)                   | Things with no role or name that a person relies on: a count, a price, a status dot; and third-party markup we cannot change                                    | `page.getByTestId('unread-count')`                    |
 | —    | CSS or XPath                                  | Never for an element a test interacts with. Allowed only to read document metadata (`<meta>`, `<link rel="canonical">`, the `data-theme` attribute on `<html>`) | `page.locator('link[rel="canonical"]')`               |
 
-In `src/pages` and `src/components` today: 45 role locators, 9 label, placeholder or text locators,
+In `src/pages` and `src/components` today: 46 role locators, 9 label, placeholder or text locators,
 24 test ids (20 of them on Sauce Demo, which exposes test ids widely), and 3 CSS locators for
 metadata.
 
 ## Rules
 
 - **Locators live in page objects and components.** A test reads `inbox.markRead('Q1 roadmap')`,
-  not a selector. The one thing a test may do is narrow what a page object gives it to a control
-  inside it, by role and name, when that control is the subject of the assertion (two tests do this:
-  the delete button of a table row in the a11y suite, the "Mark read" button of a message).
+  not a selector. No test file calls a locator method (checked with a search over `tests/`).
 - **Components take a root locator**, so the same class works wherever the piece appears (the data
   table on the items page, the bell in the header).
 - **Scope instead of a fixed index.** Find a row by its content and act inside it

@@ -23,11 +23,16 @@ export class ItemsPage {
     await this.page.goto('/items');
   }
 
-  async delete(name: string): Promise<void> {
+  /** Opens the confirm dialog for a row without confirming it. */
+  async requestDelete(name: string): Promise<void> {
     await this.table
       .row(name)
       .getByRole('button', { name: `Delete ${name}` })
       .click();
+  }
+
+  async delete(name: string): Promise<void> {
+    await this.requestDelete(name);
     await this.confirmDelete.confirm();
   }
 }

@@ -41,6 +41,11 @@ export class InboxPage {
     return this.message(subject).getByTestId('unread-dot');
   }
 
+  /** Every "Mark read" button of a message: none once it has been read. */
+  markReadButtons(subject: string): Locator {
+    return this.message(subject).getByRole('button', { name: /^Mark read/ });
+  }
+
   async markRead(subject: string): Promise<void> {
     await this.message(subject)
       .getByRole('button', { name: `Mark read (${subject})` })

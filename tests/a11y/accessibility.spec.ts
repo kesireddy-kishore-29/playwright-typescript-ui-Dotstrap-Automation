@@ -35,10 +35,7 @@ test.describe('accessibility (axe, WCAG 2.1 A/AA)', () => {
       await expect(itemsPage.table.rows()).toHaveCount(3);
       expect(await scanAccessibility(page, testInfo), 'table').toEqual([]);
 
-      await itemsPage.table
-        .row('Q1 roadmap')
-        .getByRole('button', { name: 'Delete Q1 roadmap' })
-        .click();
+      await itemsPage.requestDelete('Q1 roadmap');
       await expect(itemsPage.confirmDelete.root).toBeVisible();
       expect(await scanAccessibility(page, testInfo), 'dialog open').toEqual([]);
       await itemsPage.confirmDelete.cancel();
