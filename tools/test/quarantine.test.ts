@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   addQuarantineTag,
   countsSince,
+  proposalOwner,
   record,
   type FlakyHistory,
 } from '../src/quarantine/flaky-history';
@@ -78,5 +79,12 @@ describe('flaky history', () => {
     expect(alpha).toContain("tag: ['@quarantine', '@smoke']");
     expect(beta).toContain("test('beta', { tag: ['@quarantine'], annotation");
     expect(addQuarantineTag(alpha, 'alpha')).toBe(alpha);
+  });
+
+  it('owns a proposal by the named owner or the repository owner, never a guess', () => {
+    expect(proposalOwner('@qa-team', 'acme')).toBe('@qa-team');
+    expect(proposalOwner(undefined, 'acme')).toBe('@acme');
+    expect(proposalOwner(' ', '@acme')).toBe('@acme');
+    expect(proposalOwner(undefined, undefined)).toBeUndefined();
   });
 });

@@ -64,8 +64,24 @@ export function addQuarantineTag(source: string, title: string): string {
 }
 
 /**
- * `qa flaky-history [--run <dir>] [--propose | --propose-only]`. `--propose-only` reads the
- * history without recording a run (the nightly records first, then proposes in a later job).
+ * The owner of a proposed quarantine: `--owner`, else the repository owner GitHub Actions provides
+ * (`GITHUB_REPOSITORY_OWNER`), else none. No person is ever assumed.
+ */
+export function proposalOwner(
+  explicit: string | undefined,
+  repositoryOwner: string | undefined,
+): string | undefined {
+  if (explicit?.trim()) return explicit;
+  const owner = repositoryOwner?.trim();
+  if (!owner) return undefined;
+  return owner.startsWith('@') ? owner : `@${owner}`;
+}
+
+/**
+ * `qa flaky-history [--run <dir>] [--propose | --propose-only] [--owner <@handle>]`.
+ * `--propose-only` reads the history without recording a run (the nightly records first, then
+ * proposes in a later job). The owner of a proposal is `--owner` or, in GitHub Actions, the
+ * repository owner.
  */
 export function flakyHistoryCommand(args: Args, log: (line: string) => void): number {
   const on = arg(args, 'today', today());
@@ -107,12 +123,20 @@ export function flakyHistoryCommand(args: Args, log: (line: string) => void): nu
     const [, file, ...titles] = testId.split(' › ');
     const title = titles[titles.length - 1] ?? '';
     if (!file) continue;
+    const owner = proposalOwner(args.get('owner'), process.env['GITHUB_REPOSITORY_OWNER']);
+    if (!owner) {
+      log(
+        'flaky-history: --owner is required to propose a quarantine' +
+          ' (in GitHub Actions it defaults to the repository owner)',
+      );
+      return 2;
+    }
     const path = join('tests', file);
     writeFileSync(path, addQuarantineTag(readFileSync(path, 'utf8'), title));
     proposals.push({
       testId: `${file} › ${titles.join(' › ')}`,
       title,
-      owner: arg(args, 'owner', '@kesireddy-kishore-29'),
+      owner,
       reason: `Flaky ${String(count)} times in ${String(WINDOW_DAYS)} days (auto-proposed)`,
       expires: daysBefore(on, -WINDOW_DAYS),
       issue: '',
