@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "repo": "ui-automation-framework",
+  "runId": "ui-demo-5",
+  "failed": 4,
+  "byCategory": {
+    "LOCATOR_DRIFT": 1,
+    "TIMING": 1,
+    "TEST_DATA": 0,
+    "CONTRACT_DRIFT": 0,
+    "ENVIRONMENT": 1,
+    "PRODUCT_BUG": 1,
+    "UNKNOWN": 0
+  },
+  "aiStep": "skipped (ANTHROPIC_API_KEY not set)"
+}
