@@ -1,0 +1,29 @@
+===================================================================
+--- a/src/pages/demo/DemoPage.ts
++++ b/src/pages/demo/DemoPage.ts
+@@ -11,9 +11,9 @@
+   readonly hiddenBadge: Locator;
+ 
+   constructor(private readonly page: Page) {
+     this.vanished = page.getByTestId('inbox-summary');
+-    this.hiddenBadge = page.getByTestId('unread-count');
++    this.hiddenBadge = page.getByTestId('unread-badge');
+   }
+ 
+   /** Opens the unread badge; fails because it is hidden while nothing is unread. */
+   async verifyBadgeOpens(): Promise<void> {
+
+===================================================================
+--- a/src/components/NotificationBell.ts
++++ b/src/components/NotificationBell.ts
+@@ -11,9 +11,9 @@
+   readonly panel: Locator;
+ 
+   constructor(page: Page) {
+     this.button = page.getByRole('button', { name: /^Notifications/ });
+-    this.badge = page.getByTestId('unread-count');
++    this.badge = page.getByTestId('unread-badge');
+     this.panel = page.getByRole('dialog', { name: 'Notifications' });
+   }
+ 
+   async open(): Promise<void> {

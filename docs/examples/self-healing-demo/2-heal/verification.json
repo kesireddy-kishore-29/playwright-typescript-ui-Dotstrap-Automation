@@ -1,0 +1,22 @@
+[
+  {
+    "name": "lint",
+    "passed": true,
+    "detail": "ok"
+  },
+  {
+    "name": "type-check",
+    "passed": true,
+    "detail": "ok"
+  },
+  {
+    "name": "failing test, 3 consecutive runs",
+    "passed": true,
+    "detail": "passed 3/3"
+  },
+  {
+    "name": "surrounding suite (tests/hybrid/inbox.spec.ts)",
+    "passed": true,
+    "detail": "passed"
+  }
+]

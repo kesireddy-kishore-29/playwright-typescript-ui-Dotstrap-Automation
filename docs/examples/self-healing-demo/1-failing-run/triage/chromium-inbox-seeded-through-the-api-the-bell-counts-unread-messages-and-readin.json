@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "repo": "ui-automation-framework",
+  "runId": "ui-chaos-4",
+  "testId": "chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
+  "title": "inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
+  "suite": "hybrid",
+  "project": "chromium",
+  "featureIds": [
+    "FEAT-INBOX-02"
+  ],
+  "category": "LOCATOR_DRIFT",
+  "confidence": 0.85,
+  "classifiedBy": "rules",
+  "rule": "locator-not-found",
+  "reason": "No element matches getByTestId('unread-count') any more.",
+  "healable": true,
+  "needsHumanDecision": false,
+  "nextAction": "Propose a locator fix (page object only) and verify it 3 times.",
+  "error": {
+    "message": "Error: expect(locator).toHaveText(expected) failed\n\nLocator: getByTestId('unread-count')\nExpected: \"2\"\nTimeout: 7000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveText\" getByTestId('unread-count') with timeout 7000ms\n  - waiting for getByTestId('unread-count')\n"
+  },
+  "failingLocator": "getByTestId('unread-count')",
+  "evidence": {
+    "video": "hybrid/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/1/video.webm",
+    "trace": "hybrid/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/1/trace.zip",
+    "screenshot": "hybrid/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/1/screenshot.png",
+    "fullpage": "hybrid/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/1/fullpage.png",
+    "page-source": "hybrid/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/1/page-source.html",
+    "console": "hybrid/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/1/console.log",
+    "network": "hybrid/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/1/network.har",
+    "bundle": "failure-bundles/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/",
+    "bundleZip": "failure-bundles/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin.zip"
+  },
+  "gitDiff": "a509ec2 fix(evidence): redact the traces Allure and the HTML report copy\n\n .github/workflows/ci.yml             |  3 +++\n .github/workflows/nightly.yml        |  3 +++\n scripts/allure-report.sh             |  2 ++\n tools/src/cli.ts                     |  5 ++++\n tools/src/reporting/redact-traces.ts | 44 ++++++++++++++++++++++++++++++++++++\n tools/test/redact.test.ts            |  9 ++++++++\n 6 files changed, 66 insertions(+)",
+  "retryHistory": [
+    {
+      "attempt": 1,
+      "status": "failed"
+    }
+  ],
+  "aiStep": "skipped (ANTHROPIC_API_KEY not set)"
+}

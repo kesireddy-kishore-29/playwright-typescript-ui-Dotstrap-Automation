@@ -1,0 +1,74 @@
+commit b766648e3e8b89af19c035db6f66955f663c16c8
+Author: kesireddy-kishore-29
+Date:   Wed Oct 21 12:06:39 2026 +0530
+
+fix(heal): locator drift in chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-an
+
+No element matches getByTestId('unread-count') any more.
+
+Proposed by rule-based; guardrails passed; failing test passed 3/3 and
+its suite passed. Needs human review; never auto-merged.
+
+Healed-By: rule-based
+
+
+diff --git a/healing-log.json b/healing-log.json
+new file mode 100644
+index 0000000..bdc04fb
+--- /dev/null
++++ b/healing-log.json
+@@ -0,0 +1,28 @@
++{
++  "schemaVersion": 1,
++  "entries": [
++    {
++      "date": "2026-10-21",
++      "runId": "ui-chaos-4",
++      "testId": "chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
++      "category": "LOCATOR_DRIFT",
++      "rootCause": "No element matches getByTestId('unread-count') any more.",
++      "provider": "rule-based",
++      "guardrails": {
++        "paths": "pass",
++        "patterns": "pass",
++        "loosening": "pass"
++      },
++      "branch": "heal/locator-drift/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin-20261021",
++      "pr": "(local branch; PR body at healing/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/PR.md)",
++      "outcome": "proposed",
++      "timeToFixMinutes": 1,
++      "verification": {
++        "runs": 3,
++        "passed": 3,
++        "suite": true,
++        "alsoExplained": 0
++      }
++    }
++  ]
++}
+diff --git a/src/components/NotificationBell.ts b/src/components/NotificationBell.ts
+index d5133d2..c9f973c 100644
+--- a/src/components/NotificationBell.ts
++++ b/src/components/NotificationBell.ts
+@@ -12,7 +12,7 @@ export class NotificationBell {
+ 
+   constructor(page: Page) {
+     this.button = page.getByRole('button', { name: /^Notifications/ });
+-    this.badge = page.getByTestId('unread-count');
++    this.badge = page.getByTestId('unread-badge');
+     this.panel = page.getByRole('dialog', { name: 'Notifications' });
+   }
+ 
+diff --git a/src/pages/demo/DemoPage.ts b/src/pages/demo/DemoPage.ts
+index b737a5f..ea59035 100644
+--- a/src/pages/demo/DemoPage.ts
++++ b/src/pages/demo/DemoPage.ts
+@@ -12,7 +12,7 @@ export class DemoPage {
+ 
+   constructor(private readonly page: Page) {
+     this.vanished = page.getByTestId('inbox-summary');
+-    this.hiddenBadge = page.getByTestId('unread-count');
++    this.hiddenBadge = page.getByTestId('unread-badge');
+   }
+ 
+   /** Opens the unread badge; fails because it is hidden while nothing is unread. */

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "repo": "ui-automation-framework",
+  "runId": "ui-chaos-4",
+  "failed": 1,
+  "byCategory": {
+    "LOCATOR_DRIFT": 1,
+    "TIMING": 0,
+    "TEST_DATA": 0,
+    "CONTRACT_DRIFT": 0,
+    "ENVIRONMENT": 0,
+    "PRODUCT_BUG": 0,
+    "UNKNOWN": 0
+  },
+  "aiStep": "skipped (ANTHROPIC_API_KEY not set)"
+}

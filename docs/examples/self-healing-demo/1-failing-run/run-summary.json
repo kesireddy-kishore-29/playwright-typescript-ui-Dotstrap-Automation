@@ -1,0 +1,781 @@
+{
+  "schemaVersion": 1,
+  "repo": "ui-automation-framework",
+  "runId": "ui-chaos-4",
+  "gitSha": "a509ec27ad5d",
+  "recordMode": "failures",
+  "startedAt": "2026-10-21T06:35:43.875Z",
+  "finishedAt": "2026-10-21T06:36:13.700Z",
+  "durationMs": 29825,
+  "environment": {
+    "os": "win32 x64",
+    "node": "v24.18.1"
+  },
+  "totals": {
+    "total": 47,
+    "passed": 46,
+    "failed": 1,
+    "skipped": 0,
+    "flaky": 0,
+    "quarantined": 0
+  },
+  "tests": [
+    {
+      "id": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the deliberately broken page reports exactly its documented violations",
+      "title": "accessibility (axe, WCAG 2.1 A/AA) › the deliberately broken page reports exactly its documented violations",
+      "suite": "a11y",
+      "project": "a11y",
+      "featureIds": [
+        "FEAT-A11Y-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1333,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:47.593Z"
+    },
+    {
+      "id": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the dark theme",
+      "title": "accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the dark theme",
+      "suite": "a11y",
+      "project": "a11y",
+      "featureIds": [
+        "FEAT-A11Y-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 2631,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:45.040Z"
+    },
+    {
+      "id": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the light theme",
+      "title": "accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the light theme",
+      "suite": "a11y",
+      "project": "a11y",
+      "featureIds": [
+        "FEAT-A11Y-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 2198,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:45.043Z"
+    },
+    {
+      "id": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the items table and its delete dialog have no violations",
+      "title": "accessibility (axe, WCAG 2.1 A/AA) › the items table and its delete dialog have no violations",
+      "suite": "a11y",
+      "project": "a11y",
+      "featureIds": [
+        "FEAT-A11Y-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 3182,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:45.020Z"
+    },
+    {
+      "id": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the sign-in and settings forms have no violations",
+      "title": "accessibility (axe, WCAG 2.1 A/AA) › the sign-in and settings forms have no violations",
+      "suite": "a11y",
+      "project": "a11y",
+      "featureIds": [
+        "FEAT-A11Y-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1518,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:48.703Z"
+    },
+    {
+      "id": "chromium › e2e/cart.spec.ts › Sauce Demo cart › adding and removing items keeps the badge count right",
+      "title": "Sauce Demo cart › adding and removing items keeps the badge count right",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-CART-01"
+      ],
+      "tags": [
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 2312,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:51.447Z"
+    },
+    {
+      "id": "chromium › e2e/cart.spec.ts › Sauce Demo cart › the cart keeps its contents across navigation",
+      "title": "Sauce Demo cart › the cart keeps its contents across navigation",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-CART-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 2680,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:51.472Z"
+    },
+    {
+      "id": "chromium › e2e/checkout.spec.ts › Sauce Demo checkout › a full checkout completes with a confirmation",
+      "title": "Sauce Demo checkout › a full checkout completes with a confirmation",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-CHECKOUT-01"
+      ],
+      "tags": [
+        "@smoke",
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 2920,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:51.452Z"
+    },
+    {
+      "id": "chromium › e2e/checkout.spec.ts › Sauce Demo checkout › checkout refuses a missing first name",
+      "title": "Sauce Demo checkout › checkout refuses a missing first name",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-CHECKOUT-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 2584,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:51.503Z"
+    },
+    {
+      "id": "chromium › e2e/checkout.spec.ts › Sauce Demo checkout › checkout refuses a missing last name",
+      "title": "Sauce Demo checkout › checkout refuses a missing last name",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-CHECKOUT-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1958,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:53.983Z"
+    },
+    {
+      "id": "chromium › e2e/checkout.spec.ts › Sauce Demo checkout › checkout refuses a missing postal code",
+      "title": "Sauce Demo checkout › checkout refuses a missing postal code",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-CHECKOUT-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1997,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:54.381Z"
+    },
+    {
+      "id": "chromium › e2e/checkout.spec.ts › Sauce Demo checkout › the order summary adds up: item total + tax = total",
+      "title": "Sauce Demo checkout › the order summary adds up: item total + tax = total",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-CHECKOUT-03"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 2076,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:54.386Z"
+    },
+    {
+      "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › lists every product with a name and a price",
+      "title": "Sauce Demo inventory › lists every product with a name and a price",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-INV-01"
+      ],
+      "tags": [
+        "@smoke"
+      ],
+      "status": "passed",
+      "durationMs": 1601,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:54.595Z"
+    },
+    {
+      "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › opens a product detail page and comes back",
+      "title": "Sauce Demo inventory › opens a product detail page and comes back",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-INV-03"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1791,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:57.638Z"
+    },
+    {
+      "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › sorts by Name (A to Z)",
+      "title": "Sauce Demo inventory › sorts by Name (A to Z)",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-INV-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1595,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:56.002Z"
+    },
+    {
+      "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › sorts by Name (Z to A)",
+      "title": "Sauce Demo inventory › sorts by Name (Z to A)",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-INV-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1555,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:56.290Z"
+    },
+    {
+      "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › sorts by Price (high to low)",
+      "title": "Sauce Demo inventory › sorts by Price (high to low)",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-INV-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1423,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:56.726Z"
+    },
+    {
+      "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › sorts by Price (low to high)",
+      "title": "Sauce Demo inventory › sorts by Price (low to high)",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-INV-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1386,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:56.432Z"
+    },
+    {
+      "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › a locked-out user is refused with the lock-out message",
+      "title": "Sauce Demo sign-in › a locked-out user is refused with the lock-out message",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-LOGIN-03"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1313,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:59.551Z"
+    },
+    {
+      "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › refuses empty password with a specific message",
+      "title": "Sauce Demo sign-in › refuses empty password with a specific message",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-LOGIN-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1316,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:59.544Z"
+    },
+    {
+      "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › refuses empty username with a specific message",
+      "title": "Sauce Demo sign-in › refuses empty username with a specific message",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-LOGIN-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1026,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:59.363Z"
+    },
+    {
+      "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › refuses unknown user with a specific message",
+      "title": "Sauce Demo sign-in › refuses unknown user with a specific message",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-LOGIN-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1260,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:58.200Z"
+    },
+    {
+      "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › refuses wrong password with a specific message",
+      "title": "Sauce Demo sign-in › refuses wrong password with a specific message",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-LOGIN-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1317,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:57.960Z"
+    },
+    {
+      "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › valid credentials reach the inventory",
+      "title": "Sauce Demo sign-in › valid credentials reach the inventory",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-LOGIN-01"
+      ],
+      "tags": [
+        "@smoke",
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 1652,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:57.893Z"
+    },
+    {
+      "id": "chromium › e2e/logout.spec.ts › logging out returns to sign-in and the inventory is no longer reachable",
+      "title": "logging out returns to sign-in and the inventory is no longer reachable",
+      "suite": "e2e",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-LOGOUT-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 2779,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:59.592Z"
+    },
+    {
+      "id": "chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › messages created through the API appear in the inbox, newest first",
+      "title": "inbox, seeded through the API › messages created through the API appear in the inbox, newest first",
+      "suite": "hybrid",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-INBOX-01"
+      ],
+      "tags": [
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 823,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:02.336Z"
+    },
+    {
+      "id": "chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
+      "title": "inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
+      "suite": "hybrid",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-INBOX-02"
+      ],
+      "tags": [],
+      "status": "failed",
+      "durationMs": 8491,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:02.327Z",
+      "error": {
+        "message": "Error: expect(locator).toHaveText(expected) failed\n\nLocator: getByTestId('unread-count')\nExpected: \"2\"\nTimeout: 7000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveText\" getByTestId('unread-count') with timeout 7000ms\n  - waiting for getByTestId('unread-count')\n",
+        "stack": "Error: expect(locator).toHaveText(expected) failed\n\nLocator: getByTestId('unread-count')\nExpected: \"2\"\nTimeout: 7000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveText\" getByTestId('unread-count') with timeout 7000ms\n  - waiting for getByTestId('unread-count')\n\n    at tests\\hybrid\\inbox.spec.ts:29:45",
+        "failingLocator": "getByTestId('unread-count')"
+      },
+      "evidence": {
+        "dir": "hybrid/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/1",
+        "files": [
+          "screenshot.png",
+          "console.log",
+          "page-source.html",
+          "fullpage.png",
+          "video.webm",
+          "trace.zip",
+          "network.har",
+          "meta.json"
+        ]
+      }
+    },
+    {
+      "id": "chromium › hybrid/items.spec.ts › items, seeded through the API › an item created through the API is listed with its status and owner",
+      "title": "items, seeded through the API › an item created through the API is listed with its status and owner",
+      "suite": "hybrid",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-ITEMS-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 818,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:03.435Z"
+    },
+    {
+      "id": "chromium › hybrid/items.spec.ts › items, seeded through the API › an item deleted through the UI is gone from the API too",
+      "title": "items, seeded through the API › an item deleted through the UI is gone from the API too",
+      "suite": "hybrid",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-ITEMS-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 893,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:04.189Z"
+    },
+    {
+      "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › 401 › an expired session sends the person to sign-in and remembers where they were",
+      "title": "inbox network states (mocked) › 401 › an expired session sends the person to sign-in and remembers where they were",
+      "suite": "mocked-states",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-STATE-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 459,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:03.523Z"
+    },
+    {
+      "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › 429 › being rate limited and running out of allowance read differently",
+      "title": "inbox network states (mocked) › 429 › being rate limited and running out of allowance read differently",
+      "suite": "mocked-states",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-STATE-06"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 489,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:05.449Z"
+    },
+    {
+      "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › 500 › a server error shows an alert, and Try again really retries",
+      "title": "inbox network states (mocked) › 500 › a server error shows an alert, and Try again really retries",
+      "suite": "mocked-states",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-STATE-02"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 640,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:04.026Z"
+    },
+    {
+      "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › a slow response shows a loading state, then the messages",
+      "title": "inbox network states (mocked) › a slow response shows a loading state, then the messages",
+      "suite": "mocked-states",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-STATE-04"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 2419,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:04.713Z"
+    },
+    {
+      "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › an empty inbox explains itself instead of showing nothing",
+      "title": "inbox network states (mocked) › an empty inbox explains itself instead of showing nothing",
+      "suite": "mocked-states",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-STATE-03"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 605,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:04.580Z"
+    },
+    {
+      "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › partial failure › when the usage widget fails, the inbox still works",
+      "title": "inbox network states (mocked) › partial failure › when the usage widget fails, the inbox still works",
+      "suite": "mocked-states",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-STATE-05"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 434,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:05.251Z"
+    },
+    {
+      "id": "chromium › performance/navigation-budgets.spec.ts › /inbox loads within its navigation-timing budget",
+      "title": "/inbox loads within its navigation-timing budget",
+      "suite": "performance",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-PERF-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 380,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:06.000Z"
+    },
+    {
+      "id": "chromium › performance/navigation-budgets.spec.ts › /items loads within its navigation-timing budget",
+      "title": "/items loads within its navigation-timing budget",
+      "suite": "performance",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-PERF-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 342,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:06.095Z"
+    },
+    {
+      "id": "chromium › performance/navigation-budgets.spec.ts › /login loads within its navigation-timing budget",
+      "title": "/login loads within its navigation-timing budget",
+      "suite": "performance",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-PERF-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 315,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:05.729Z"
+    },
+    {
+      "id": "chromium › smoke/app-session.spec.ts › a saved session opens the app signed in, with no login form",
+      "title": "a saved session opens the app signed in, with no login form",
+      "suite": "smoke",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-SESSION-01"
+      ],
+      "tags": [
+        "@smoke",
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 352,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:06.439Z"
+    },
+    {
+      "id": "chromium › smoke/login-page.spec.ts › the Sauce Demo sign-in page offers a username, a password and a Login button",
+      "title": "the Sauce Demo sign-in page offers a username, a password and a Login button",
+      "suite": "smoke",
+      "project": "chromium",
+      "featureIds": [
+        "FEAT-LOGIN-01"
+      ],
+      "tags": [
+        "@smoke",
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 1265,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:00.444Z"
+    },
+    {
+      "id": "mobile › e2e/cart.spec.ts › Sauce Demo cart › adding and removing items keeps the badge count right",
+      "title": "Sauce Demo cart › adding and removing items keeps the badge count right",
+      "suite": "e2e",
+      "project": "mobile",
+      "featureIds": [
+        "FEAT-CART-01"
+      ],
+      "tags": [
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 2122,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:07.675Z"
+    },
+    {
+      "id": "mobile › e2e/checkout.spec.ts › Sauce Demo checkout › a full checkout completes with a confirmation",
+      "title": "Sauce Demo checkout › a full checkout completes with a confirmation",
+      "suite": "e2e",
+      "project": "mobile",
+      "featureIds": [
+        "FEAT-CHECKOUT-01"
+      ],
+      "tags": [
+        "@smoke",
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 2455,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:07.872Z"
+    },
+    {
+      "id": "mobile › e2e/login.spec.ts › Sauce Demo sign-in › valid credentials reach the inventory",
+      "title": "Sauce Demo sign-in › valid credentials reach the inventory",
+      "suite": "e2e",
+      "project": "mobile",
+      "featureIds": [
+        "FEAT-LOGIN-01"
+      ],
+      "tags": [
+        "@smoke",
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 1637,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:08.490Z"
+    },
+    {
+      "id": "mobile › hybrid/inbox.spec.ts › inbox, seeded through the API › messages created through the API appear in the inbox, newest first",
+      "title": "inbox, seeded through the API › messages created through the API appear in the inbox, newest first",
+      "suite": "hybrid",
+      "project": "mobile",
+      "featureIds": [
+        "FEAT-INBOX-01"
+      ],
+      "tags": [
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 795,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:11.933Z"
+    },
+    {
+      "id": "mobile › smoke/app-session.spec.ts › a saved session opens the app signed in, with no login form",
+      "title": "a saved session opens the app signed in, with no login form",
+      "suite": "smoke",
+      "project": "mobile",
+      "featureIds": [
+        "FEAT-SESSION-01"
+      ],
+      "tags": [
+        "@smoke",
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 694,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:11.931Z"
+    },
+    {
+      "id": "mobile › smoke/login-page.spec.ts › the Sauce Demo sign-in page offers a username, a password and a Login button",
+      "title": "the Sauce Demo sign-in page offers a username, a password and a Login button",
+      "suite": "smoke",
+      "project": "mobile",
+      "featureIds": [
+        "FEAT-LOGIN-01"
+      ],
+      "tags": [
+        "@smoke",
+        "@mobile"
+      ],
+      "status": "passed",
+      "durationMs": 1368,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:36:10.028Z"
+    },
+    {
+      "id": "setup › setup/sauce-session.setup.ts › save a signed-in Sauce Demo session for every other test",
+      "title": "save a signed-in Sauce Demo session for every other test",
+      "suite": "setup",
+      "project": "setup",
+      "featureIds": [
+        "FEAT-SESSION-01"
+      ],
+      "tags": [],
+      "status": "passed",
+      "durationMs": 1809,
+      "attempt": 1,
+      "quarantined": false,
+      "startedAt": "2026-10-21T06:35:44.917Z"
+    }
+  ]
+}

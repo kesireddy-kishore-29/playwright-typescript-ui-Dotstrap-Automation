@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "date": "2026-10-21",
+      "runId": "ui-chaos-4",
+      "testId": "chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
+      "category": "LOCATOR_DRIFT",
+      "rootCause": "No element matches getByTestId('unread-count') any more.",
+      "provider": "rule-based",
+      "guardrails": {
+        "paths": "pass",
+        "patterns": "pass",
+        "loosening": "pass"
+      },
+      "branch": "heal/locator-drift/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin-20261021",
+      "pr": "(local branch; PR body at healing/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/PR.md)",
+      "outcome": "proposed",
+      "timeToFixMinutes": 1,
+      "verification": {
+        "runs": 3,
+        "passed": 3,
+        "suite": true,
+        "alsoExplained": 0
+      }
+    }
+  ]
+}
