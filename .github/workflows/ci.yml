@@ -110,6 +110,9 @@ jobs:
         with:
           header: ui-test-summary
           path: reports/site/summary.md
+      - name: Redact the traces the HTML report copied
+        if: always() && steps.tests.outcome != 'skipped'
+        run: npm run qa -- redact-traces --dir playwright-report
       - name: Upload evidence and reports
         if: always()
         uses: actions/upload-artifact@v7

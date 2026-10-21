@@ -12,6 +12,8 @@ if [ ! -d "$results" ]; then
   echo "allure-report: no results at $results (run a suite first)" >&2
   exit 1
 fi
+# allure-playwright copies Playwright's raw traces (headers, cookies) into the results.
+npm run -s qa -- redact-traces --dir "$results"
 # Allure categories mirror the triage rules (a preview; npm run qa -- triage is authoritative).
 cp config/allure/categories.json "$results/categories.json"
 if [ -n "$previous" ] && [ -d "$previous/history" ]; then

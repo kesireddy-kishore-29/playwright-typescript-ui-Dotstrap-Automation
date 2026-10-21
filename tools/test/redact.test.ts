@@ -111,3 +111,12 @@ describe('redaction', () => {
     expect(files['resources/img.png']).toEqual(png);
   });
 });
+
+describe('finding traces to redact', () => {
+  it('recognises a Playwright trace and nothing else', async () => {
+    const { isTrace } = await import('../src/reporting/redact-traces');
+    expect(isTrace(zipSync({ '0-trace.trace': strToU8('{}') }))).toBe(true);
+    expect(isTrace(zipSync({ 'readme.txt': strToU8('x') }))).toBe(false);
+    expect(isTrace(strToU8('not a zip'))).toBe(false);
+  });
+});

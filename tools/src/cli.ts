@@ -3,6 +3,7 @@ import { parseArgs, type Args } from './shared/args';
 import { flakyHistoryCommand } from './quarantine/flaky-history';
 import { quarantineCheckCommand } from './quarantine/quarantine';
 import { mergeCommand } from './reporting/merge';
+import { redactTracesCommand } from './reporting/redact-traces';
 import { reportCommand } from './reporting/report';
 import { traceabilityCommand } from './traceability/traceability';
 import { triageCommand } from './triage/triage';
@@ -33,6 +34,10 @@ const COMMANDS: Record<string, { summary: string; run: Command }> = {
   merge: {
     summary: 'combine the run folders of Playwright shards into one run',
     run: mergeCommand,
+  },
+  'redact-traces': {
+    summary: 'redact Playwright traces copied by other reporters (Allure, HTML report)',
+    run: redactTracesCommand,
   },
   report: {
     summary: 'dashboard, history, gallery, step summary, accessibility, performance, visual',

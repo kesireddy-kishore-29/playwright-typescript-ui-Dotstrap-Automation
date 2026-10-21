@@ -59,6 +59,9 @@ jobs:
           path: run-evidence/
           retention-days: 7
           if-no-files-found: ignore
+      - name: Redact the traces Allure copied
+        if: always()
+        run: npm run qa -- redact-traces --dir allure-results
       - name: Upload the shard's Allure results
         if: always()
         uses: actions/upload-artifact@v7
