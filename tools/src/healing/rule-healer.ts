@@ -121,7 +121,8 @@ export function proposeTestIdHeal(
       `No element carries data-test="${missing}" any more. The DOM at the moment of failure has ` +
       `data-test="${candidate.id}" (similarity ${candidate.score.toFixed(2)}): the closest id that shares a ` +
       'word with the old one and that no other locator already uses. ' +
-      'The patch changes the locator in the page object only; the test and its assertions are untouched.',
+      `The patch changes this locator wherever a page object or component uses it (${String(changes.length)} file(s)); ` +
+      'the tests and their assertions are untouched.',
     changes,
   };
 }
