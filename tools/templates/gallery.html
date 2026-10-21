@@ -62,7 +62,7 @@ const fmtMs = (ms) => ms >= 1000 ? `${(ms / 1000).toFixed(1)} s` : `${Math.round
 const ORDER = { failed: 0, flaky: 1, skipped: 2, passed: 3 };
 const LINKS = [
   ['screenshot.png', 'Screenshot'], ['trace.zip', 'Trace (open at trace.playwright.dev)'], ['transcript.md', 'Transcript'], ['timeline.html', 'Timeline'],
-  ['network.har', 'Network (HAR)'], ['console.log', 'Console log'], ['page-source.html', 'Page source'], ['meta.json', 'Metadata'],
+  ['network.har', 'Network (HAR)'], ['network-log.json', 'Network log'], ['console.log', 'Console log'], ['page-source.html', 'Page source'], ['meta.json', 'Metadata'],
 ];
 
 function attemptHtml(a, base) {
