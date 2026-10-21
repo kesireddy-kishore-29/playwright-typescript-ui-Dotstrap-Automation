@@ -17,7 +17,8 @@
     "test:smoke": "playwright test --project=chromium --grep @smoke",
     "test:live": "playwright test --project=live --workers=1",
     "test:demo": "playwright test --project=demo",
-    "tools:test": "vitest run --config tools/vitest.config.ts"
+    "tools:test": "vitest run --config tools/vitest.config.mts",
+    "qa": "tsx tools/src/cli.ts"
   },
   "lint-staged": {
     "*.{ts,js,mjs}": [
@@ -29,6 +30,7 @@
     ]
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "0.137.0",
     "@axe-core/playwright": "4.14.0",
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",

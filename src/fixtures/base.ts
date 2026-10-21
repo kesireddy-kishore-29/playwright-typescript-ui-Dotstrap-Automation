@@ -1,6 +1,7 @@
 import { test as base, expect, type TestInfo } from '@playwright/test';
 import * as allure from 'allure-js-commons';
 import { env } from '../config/env';
+import { stripAnsi } from '../support/ansi';
 import { redactText } from '../support/redact';
 
 const FEATURE_ID = /^FEAT-[A-Z0-9]+-\d{2}$/;
@@ -22,7 +23,9 @@ export function featureIds(testInfo: TestInfo): string[] {
 /** The locator Playwright reported in the failure message, if any (used by triage). */
 export function failingLocator(message: string | undefined): string | undefined {
   if (!message) return undefined;
-  const match = /(?:waiting for |Locator: )((?:locator|getBy\w+)\([^\n]*?\))(?:\s|$)/.exec(message);
+  const match = /(?:waiting for |Locator:\s+)((?:locator|getBy\w+)\([^\n]*?\))(?:\s|$)/.exec(
+    stripAnsi(message),
+  );
   return match?.[1];
 }
 

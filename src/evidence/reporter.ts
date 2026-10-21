@@ -24,6 +24,7 @@ import { basename, dirname, join, relative, sep } from 'node:path';
 import type { FullConfig, Reporter, TestCase, TestResult } from '@playwright/test/reporter';
 import { zipSync } from 'fflate';
 import { env } from '../config/env';
+import { stripAnsi } from '../support/ansi';
 import { redactHar, redactText } from '../support/redact';
 import { slugify } from '../support/slug';
 
@@ -126,8 +127,8 @@ export default class EvidenceReporter implements Reporter {
       ...(result.error
         ? {
             error: {
-              message: redactText(result.error.message ?? String(result.error.value)),
-              ...(result.error.stack ? { stack: redactText(result.error.stack) } : {}),
+              message: redactText(stripAnsi(result.error.message ?? String(result.error.value))),
+              ...(result.error.stack ? { stack: redactText(stripAnsi(result.error.stack)) } : {}),
               ...(meta.failingLocator ? { failingLocator: meta.failingLocator } : {}),
             },
           }

@@ -1,0 +1,63 @@
+import { parseArgs, type Args } from './shared/args';
+import { flakyHistoryCommand } from './quarantine/flaky-history';
+import { quarantineCheckCommand } from './quarantine/quarantine';
+import { traceabilityCommand } from './traceability/traceability';
+import { triageCommand } from './triage/triage';
+
+type Command = (args: Args, log: (line: string) => void) => number | Promise<number>;
+
+const COMMANDS: Record<string, { summary: string; run: Command }> = {
+  triage: {
+    summary: 'classify the failures of a run (rules first, optional LLM for UNKNOWN)',
+    run: triageCommand,
+  },
+  'quarantine-check': {
+    summary: 'fail on expired, ownerless or unmatched quarantine entries',
+    run: quarantineCheckCommand,
+  },
+  'flaky-history': {
+    summary: 'record flaky tests; --propose quarantines those flaky 3+ times in 14 days',
+    run: flakyHistoryCommand,
+  },
+  traceability: {
+    summary: 'fail on tests without a feature ID; write the coverage matrix',
+    run: traceabilityCommand,
+  },
+};
+
+export function help(): string {
+  return [
+    'usage: npm run qa -- <command> [options]',
+    '',
+    'commands:',
+    ...Object.entries(COMMANDS).map(([name, c]) => `  ${name.padEnd(18)} ${c.summary}`),
+  ].join('\n');
+}
+
+export async function main(argv: readonly string[], log: (line: string) => void): Promise<number> {
+  const [name, ...rest] = argv;
+  if (!name || name === 'help' || name === '--help') {
+    log(help());
+    return 0;
+  }
+  const command = COMMANDS[name];
+  if (!command) {
+    log(`Unknown command '${name}'.\n${help()}`);
+    return 2;
+  }
+  return command.run(parseArgs(rest), log);
+}
+
+if (require.main === module) {
+  main(process.argv.slice(2), (line) => {
+    console.log(line);
+  }).then(
+    (code) => {
+      process.exitCode = code;
+    },
+    (error: unknown) => {
+      console.error(error);
+      process.exitCode = 1;
+    },
+  );
+}

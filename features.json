@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "features": [
+    {
+      "id": "FEAT-LOGIN-01",
+      "requirement": "Valid credentials reach the inventory"
+    },
+    {
+      "id": "FEAT-LOGIN-02",
+      "requirement": "Invalid credentials show a specific error (data-driven)"
+    },
+    {
+      "id": "FEAT-LOGIN-03",
+      "requirement": "A locked-out user is refused with the lock-out message"
+    },
+    {
+      "id": "FEAT-LOGOUT-01",
+      "requirement": "Logout returns to login and the inventory is no longer reachable"
+    },
+    {
+      "id": "FEAT-INV-01",
+      "requirement": "Inventory lists every product with a name and a price"
+    },
+    {
+      "id": "FEAT-INV-02",
+      "requirement": "Sorting by name and price, both directions"
+    },
+    {
+      "id": "FEAT-INV-03",
+      "requirement": "Product detail opens from the inventory and returns"
+    },
+    {
+      "id": "FEAT-CART-01",
+      "requirement": "Add and remove items; badge count follows"
+    },
+    {
+      "id": "FEAT-CART-02",
+      "requirement": "Cart contents survive navigation"
+    },
+    {
+      "id": "FEAT-CHECKOUT-01",
+      "requirement": "Full checkout completes with a confirmation"
+    },
+    {
+      "id": "FEAT-CHECKOUT-02",
+      "requirement": "Checkout form validation errors"
+    },
+    {
+      "id": "FEAT-CHECKOUT-03",
+      "requirement": "Order summary: item total + tax = total"
+    },
+    {
+      "id": "FEAT-SESSION-01",
+      "requirement": "A saved session opens the app signed in"
+    },
+    {
+      "id": "FEAT-INBOX-01",
+      "requirement": "Messages seeded through the API appear in the inbox"
+    },
+    {
+      "id": "FEAT-INBOX-02",
+      "requirement": "Unread bell count and mark-as-read"
+    },
+    {
+      "id": "FEAT-ITEMS-01",
+      "requirement": "Item created through the API is listed; deleted disappears"
+    },
+    {
+      "id": "FEAT-STATE-01",
+      "requirement": "401 sends the person to sign-in"
+    },
+    {
+      "id": "FEAT-STATE-02",
+      "requirement": "500 shows an error with a working retry"
+    },
+    {
+      "id": "FEAT-STATE-03",
+      "requirement": "Empty list shows an empty state"
+    },
+    {
+      "id": "FEAT-STATE-04",
+      "requirement": "Slow network shows a loading state, then content"
+    },
+    {
+      "id": "FEAT-STATE-05",
+      "requirement": "Partial failure: one widget fails, the rest render"
+    },
+    {
+      "id": "FEAT-STATE-06",
+      "requirement": "rate_limited and quota_exceeded show different messages"
+    },
+    {
+      "id": "FEAT-VIS-01",
+      "requirement": "Visual baseline at 1440/1024/768/390 x light/dark"
+    },
+    {
+      "id": "FEAT-VIS-02",
+      "requirement": "No horizontal overflow at any width"
+    },
+    {
+      "id": "FEAT-THEME-01",
+      "requirement": "Theme toggle applies and persists"
+    },
+    {
+      "id": "FEAT-A11Y-01",
+      "requirement": "Core pages have no axe violations"
+    },
+    {
+      "id": "FEAT-A11Y-02",
+      "requirement": "The defect page's violations match the documented baseline"
+    },
+    {
+      "id": "FEAT-PERF-01",
+      "requirement": "Navigation timing within budget"
+    },
+    {
+      "id": "FEAT-LIVE-01",
+      "requirement": "Public pages return 200 and show the expected heading"
+    },
+    {
+      "id": "FEAT-LIVE-02",
+      "requirement": "No console errors and no failed requests"
+    },
+    {
+      "id": "FEAT-LIVE-03",
+      "requirement": "Security headers present"
+    },
+    {
+      "id": "FEAT-LIVE-04",
+      "requirement": "Title, description and canonical meta"
+    },
+    {
+      "id": "FEAT-LIVE-05",
+      "requirement": "No horizontal overflow at 4 widths"
+    },
+    {
+      "id": "FEAT-LIVE-06",
+      "requirement": "Light and dark theme both render"
+    },
+    {
+      "id": "FEAT-LIVE-07",
+      "requirement": "Navigation between public pages works"
+    },
+    {
+      "id": "FEAT-LIVE-08",
+      "requirement": "Navigation timing within a generous budget"
+    },
+    {
+      "id": "FEAT-DEMO-01",
+      "requirement": "Deliberate-failure demo (never part of a gating run)"
+    }
+  ]
+}
