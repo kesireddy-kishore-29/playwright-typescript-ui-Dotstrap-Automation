@@ -19,7 +19,7 @@ permissions:
 env:
   CI: 'true'
   RUN_ID: nightly-${{ github.run_id }}-${{ github.run_attempt }}
-  RECORD_MODE: failures
+  RECORD_MODE: all
   TEST_RETRIES: '2'
 
 jobs:
@@ -57,7 +57,7 @@ jobs:
         with:
           name: evidence-shard-${{ matrix.shard }}
           path: run-evidence/
-          retention-days: 7
+          retention-days: 14
           if-no-files-found: ignore
       - name: Redact the traces Allure copied
         if: always()
@@ -68,17 +68,20 @@ jobs:
         with:
           name: allure-results-shard-${{ matrix.shard }}
           path: allure-results/
-          retention-days: 7
+          retention-days: 14
           if-no-files-found: ignore
 
   live:
     name: Live production smoke (public pages only; never gates)
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    # A failure here is reported, never blocking: the site is production, not a test target.
-    continue-on-error: true
+    # A failure here is reported (job output and badge), never blocking: the site is production,
+    # not a test target.
+    outputs:
+      outcome: ${{ steps.live.outcome }}
     env:
       RUN_ID: live-${{ github.run_id }}-${{ github.run_attempt }}
+      RECORD_MODE: failures
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -93,6 +96,8 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
       - name: Live smoke (one worker, clear user agent, no traces or HAR)
+        id: live
+        continue-on-error: true
         run: npm run test:live
       - name: Upload the live evidence (short-lived artifact; never published to Pages)
         if: always()
@@ -125,7 +130,7 @@ jobs:
 
   publish:
     name: Merge, triage, report and publish to Pages
-    needs: regression
+    needs: [regression, live]
     if: always() && needs.regression.result != 'cancelled'
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -133,6 +138,7 @@ jobs:
       contents: write
     env:
       RUN_DIR: run-evidence/ui-automation-framework/nightly-${{ github.run_id }}-${{ github.run_attempt }}
+      LIVE_OUTCOME: ${{ needs.live.outputs.outcome }}
       SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
     steps:
       - uses: actions/checkout@v7
@@ -172,9 +178,18 @@ jobs:
           if [ -d published ]; then rsync -a --exclude .git published/ site/; fi
       - name: Record flaky tests in the 30-day history
         run: npm run qa -- flaky-history --run "$RUN_DIR" --history site/data/flaky-history.json
+      - name: Copy this run to the site without large media, and keep the last 10 runs
+        # Videos, traces, HAR files and failure bundles stay in the workflow artifacts; the
+        # published gallery shows each test's screenshot.
+        run: |
+          mkdir -p site/runs
+          rsync -a --exclude video.webm --exclude trace.zip --exclude network.har \
+            --exclude failure-bundles "$RUN_DIR/" "site/runs/${RUN_ID}/"
+          find site/runs -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -rn \
+            | tail -n +11 | cut -d' ' -f2- | xargs -r rm -rf
       - name: Dashboard, gallery and step summary
         run: >-
-          npm run qa -- report --run "$RUN_DIR" --out site
+          npm run qa -- report --run "site/runs/${RUN_ID}" --out site
           --history site/data/history.json --flaky-history site/data/flaky-history.json
           --report-url "$SITE_URL"
           --links "Allure=allure/,Run gallery=runs/${RUN_ID}/gallery.html"
@@ -183,12 +198,16 @@ jobs:
           scripts/allure-report.sh site/allure
           rm -rf site/allure
           cp -r allure-report site/allure
-      - name: Keep this run's gallery and evidence, and the last 10 runs
+      - name: Live smoke badge (from this run's live job)
         run: |
-          mkdir -p site/runs
-          cp -r "$RUN_DIR" "site/runs/${RUN_ID}"
-          find site/runs -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -rn \
-            | tail -n +11 | cut -d' ' -f2- | xargs -r rm -rf
+          mkdir -p site/badges
+          case "$LIVE_OUTCOME" in
+            success) message=passing; color=brightgreen ;;
+            failure) message=failing; color=red ;;
+            *) message="not run"; color=lightgrey ;;
+          esac
+          printf '{"schemaVersion":1,"label":"dotstrap.com live smoke","message":"%s","color":"%s"}\n' \
+            "$message" "$color" > site/badges/live-smoke.json
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -202,6 +221,13 @@ jobs:
           name: merged-run
           path: run-evidence/ui-automation-framework/
           retention-days: 14
+      - name: Upload the failure bundles
+        uses: actions/upload-artifact@v7
+        with:
+          name: failure-bundles
+          path: ${{ env.RUN_DIR }}/failure-bundles/
+          retention-days: 30
+          if-no-files-found: ignore
       - name: Fail when the regression failed
         if: needs.regression.result == 'failure'
         run: |

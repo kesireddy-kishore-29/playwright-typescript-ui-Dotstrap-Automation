@@ -113,6 +113,14 @@ jobs:
       - name: Redact the traces the HTML report copied
         if: always() && steps.tests.outcome != 'skipped'
         run: npm run qa -- redact-traces --dir playwright-report
+      - name: Upload the failure bundles
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: failure-bundles-${{ github.run_attempt }}
+          path: ${{ env.RUN_DIR }}/failure-bundles/
+          retention-days: 30
+          if-no-files-found: ignore
       - name: Upload evidence and reports
         if: always()
         uses: actions/upload-artifact@v7
