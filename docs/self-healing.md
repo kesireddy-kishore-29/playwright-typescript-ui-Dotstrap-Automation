@@ -87,8 +87,8 @@ the other failures the same fix claims to explain.
 ## Running it
 
 ```bash
-npm run qa -- triage --run run-evidence/ui-automation-framework/<run-id>
-npm run qa -- heal --run run-evidence/ui-automation-framework/<run-id>
+npm run qa -- triage --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/<run-id>
+npm run qa -- heal --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/<run-id>
 # in CI, heal.yml adds --open-prs after a failed nightly
 ```
 

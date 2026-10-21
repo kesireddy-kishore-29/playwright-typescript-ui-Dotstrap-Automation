@@ -32,8 +32,8 @@ evidence is in the workflow artifacts.
 
 ```bash
 npm test
-npm run qa -- triage --run run-evidence/ui-automation-framework/<run-id>
-npm run qa -- report --run run-evidence/ui-automation-framework/<run-id> --out reports/site
+npm run qa -- triage --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/<run-id>
+npm run qa -- report --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/<run-id> --out reports/site
 scripts/allure-report.sh [previous-report-dir]      # pass the last report to carry its trend
 ```
 

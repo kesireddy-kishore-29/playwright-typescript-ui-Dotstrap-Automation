@@ -1,13 +1,13 @@
-# ui-automation-framework
+# playwright-typescript-ui-Dotstrap-Automation
 
 UI test automation in TypeScript with Playwright: end-to-end, hybrid, mocked-state, visual,
 accessibility and performance tests, a polite live smoke of a production site, failure triage and
 governed self-healing.
 
-[![CI](https://github.com/kesireddy-kishore-29/ui-automation-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/kesireddy-kishore-29/ui-automation-framework/actions/workflows/ci.yml)
-[![Nightly](https://github.com/kesireddy-kishore-29/ui-automation-framework/actions/workflows/nightly.yml/badge.svg)](https://github.com/kesireddy-kishore-29/ui-automation-framework/actions/workflows/nightly.yml)
-[![dotstrap.com live smoke](https://img.shields.io/endpoint?url=https%3A%2F%2Fkesireddy-kishore-29.github.io%2Fui-automation-framework%2Fbadges%2Flive-smoke.json)](https://github.com/kesireddy-kishore-29/ui-automation-framework/actions/workflows/nightly.yml)
-[![Report](https://img.shields.io/badge/report-GitHub%20Pages-2a78d6)](https://kesireddy-kishore-29.github.io/ui-automation-framework/)
+[![CI](https://github.com/kesireddy-kishore-29/playwright-typescript-ui-Dotstrap-Automation/actions/workflows/ci.yml/badge.svg)](https://github.com/kesireddy-kishore-29/playwright-typescript-ui-Dotstrap-Automation/actions/workflows/ci.yml)
+[![Nightly](https://github.com/kesireddy-kishore-29/playwright-typescript-ui-Dotstrap-Automation/actions/workflows/nightly.yml/badge.svg)](https://github.com/kesireddy-kishore-29/playwright-typescript-ui-Dotstrap-Automation/actions/workflows/nightly.yml)
+[![dotstrap.com live smoke](https://img.shields.io/endpoint?url=https%3A%2F%2Fkesireddy-kishore-29.github.io%2Fplaywright-typescript-ui-Dotstrap-Automation%2Fbadges%2Flive-smoke.json)](https://github.com/kesireddy-kishore-29/playwright-typescript-ui-Dotstrap-Automation/actions/workflows/nightly.yml)
+[![Report](https://img.shields.io/badge/report-GitHub%20Pages-2a78d6)](https://kesireddy-kishore-29.github.io/playwright-typescript-ui-Dotstrap-Automation/)
 
 ![Test health dashboard from a real local run](docs/examples/dashboard/hero.png)
 
@@ -152,10 +152,10 @@ gating a merge. Its evidence is never published or committed.
 
 ## Family of repos
 
-- [**api-automation-framework**](https://github.com/kesireddy-kishore-29/api-automation-framework): the API flagship in Java with REST Assured and TestNG, with the same triage, healing and dashboard (the template is shared byte for byte).
-- **ui-automation-framework** (this one): the UI flagship.
-- [**selenium-java-ui-framework**](https://github.com/kesireddy-kishore-29/selenium-java-ui-framework): the same Sauce Demo scenarios in Selenium 4 and Java, with the same feature IDs; its table and dialog tests reuse this repository's self-hosted app in CI.
-- [**python-pytest-automation-framework**](https://github.com/kesireddy-kishore-29/python-pytest-automation-framework): API and UI tests in Python with Playwright for Python; its hybrid test reuses this repository's self-hosted app.
+- [**restassured-testng-api-Dotstrap-Automation**](https://github.com/kesireddy-kishore-29/restassured-testng-api-Dotstrap-Automation): the API flagship in Java with REST Assured and TestNG, with the same triage, healing and dashboard (the template is shared byte for byte).
+- **playwright-typescript-ui-Dotstrap-Automation** (this one): the UI flagship.
+- [**selenium-java-testng-ui-Dotstrap-Automation**](https://github.com/kesireddy-kishore-29/selenium-java-testng-ui-Dotstrap-Automation): the same Sauce Demo scenarios in Selenium 4 and Java, with the same feature IDs; its table and dialog tests reuse this repository's self-hosted app in CI.
+- [**Python-pytest-playwright-Dotstrap-Automation**](https://github.com/kesireddy-kishore-29/Python-pytest-playwright-Dotstrap-Automation): API and UI tests in Python with Playwright for Python; its hybrid test reuses this repository's self-hosted app.
 
 ## How to run
 
@@ -169,8 +169,8 @@ npm run test:smoke          # the smoke-tagged tests
 npm run test:live           # the live smoke: public pages of dotstrap.com, one worker
 npm run test:demo           # four tests that fail on purpose
 
-npm run qa -- triage --run run-evidence/ui-automation-framework/<run-id>
-npm run qa -- report --run run-evidence/ui-automation-framework/<run-id> --out reports/site
+npm run qa -- triage --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/<run-id>
+npm run qa -- report --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/<run-id> --out reports/site
 scripts/allure-report.sh    # Allure with trend history (traces redacted first)
 ```
 

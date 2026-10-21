@@ -137,7 +137,7 @@ jobs:
     permissions:
       contents: write
     env:
-      RUN_DIR: run-evidence/ui-automation-framework/nightly-${{ github.run_id }}-${{ github.run_attempt }}
+      RUN_DIR: run-evidence/playwright-typescript-ui-Dotstrap-Automation/nightly-${{ github.run_id }}-${{ github.run_attempt }}
       LIVE_OUTCOME: ${{ needs.live.outputs.outcome }}
       SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
     steps:
@@ -219,7 +219,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: merged-run
-          path: run-evidence/ui-automation-framework/
+          path: run-evidence/playwright-typescript-ui-Dotstrap-Automation/
           retention-days: 14
       - name: Upload the failure bundles
         uses: actions/upload-artifact@v7

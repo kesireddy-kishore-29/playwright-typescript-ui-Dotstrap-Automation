@@ -1,5 +1,5 @@
 {
-  "name": "ui-automation-framework",
+  "name": "playwright-typescript-ui-dotstrap-automation",
   "version": "1.0.0",
   "private": true,
   "description": "Playwright + TypeScript UI framework with a self-hosted app, governed self-healing and layered reporting.",

@@ -49,7 +49,7 @@ jobs:
       CI: 'true'
       RECORD_MODE: failures
       RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}
-      RUN_DIR: run-evidence/ui-automation-framework/ci-${{ github.run_id }}-${{ github.run_attempt }}
+      RUN_DIR: run-evidence/playwright-typescript-ui-Dotstrap-Automation/ci-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7

@@ -18,7 +18,7 @@ function shard(
   writeFileSync(
     join(dir, 'run-summary.json'),
     JSON.stringify({
-      repo: 'ui-automation-framework',
+      repo: 'playwright-typescript-ui-Dotstrap-Automation',
       runId: 'nightly-1',
       startedAt,
       finishedAt,
@@ -42,14 +42,26 @@ describe('merge', () => {
   it('combines Playwright shards into one run', () => {
     const root = mkdtempSync(join(tmpdir(), 'merge-'));
     shard(
-      join(root, 'shards', 'evidence-shard-2', 'ui-automation-framework', 'nightly-1'),
+      join(
+        root,
+        'shards',
+        'evidence-shard-2',
+        'playwright-typescript-ui-Dotstrap-Automation',
+        'nightly-1',
+      ),
       'b',
       'failed',
       '2026-10-21T02:00:00.000Z',
       '2026-10-21T02:00:30.000Z',
     );
     shard(
-      join(root, 'shards', 'evidence-shard-1', 'ui-automation-framework', 'nightly-1'),
+      join(
+        root,
+        'shards',
+        'evidence-shard-1',
+        'playwright-typescript-ui-Dotstrap-Automation',
+        'nightly-1',
+      ),
       'a',
       'passed',
       '2026-10-21T02:00:05.000Z',
@@ -94,7 +106,7 @@ describe('merge', () => {
 
   it('counts a test that ran in every shard once, with its worst result', () => {
     const doc = (status: 'passed' | 'failed'): Parameters<typeof mergeSummaries>[0][number] => ({
-      repo: 'ui-automation-framework',
+      repo: 'playwright-typescript-ui-Dotstrap-Automation',
       runId: 'nightly-1',
       startedAt: '2026-10-21T02:00:00.000Z',
       finishedAt: '2026-10-21T02:00:10.000Z',

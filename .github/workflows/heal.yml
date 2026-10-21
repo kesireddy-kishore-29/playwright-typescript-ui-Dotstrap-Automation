@@ -51,7 +51,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: merged-run
-          path: run-evidence/ui-automation-framework
+          path: run-evidence/playwright-typescript-ui-Dotstrap-Automation
           run-id: ${{ inputs.run_id || github.event.workflow_run.id }}
           github-token: ${{ github.token }}
       - name: Labels used by heal pull requests
@@ -69,13 +69,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          run_dir=$(find run-evidence/ui-automation-framework -mindepth 1 -maxdepth 1 -type d | head -n 1)
+          run_dir=$(find run-evidence/playwright-typescript-ui-Dotstrap-Automation -mindepth 1 -maxdepth 1 -type d | head -n 1)
           npm run qa -- heal --run "$run_dir" --open-prs --max-prs 3
       - name: Upload the healing record
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: healing-${{ github.run_id }}
-          path: run-evidence/ui-automation-framework/*/healing/
+          path: run-evidence/playwright-typescript-ui-Dotstrap-Automation/*/healing/
           retention-days: 30
           if-no-files-found: ignore

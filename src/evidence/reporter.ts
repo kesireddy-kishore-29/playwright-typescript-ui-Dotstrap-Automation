@@ -29,7 +29,7 @@ import { stripAnsi } from '../support/ansi';
 import { redactHar, redactText, redactTrace } from '../support/redact';
 import { slugify } from '../support/slug';
 
-export const REPO = 'ui-automation-framework';
+export const REPO = 'playwright-typescript-ui-Dotstrap-Automation';
 
 interface EvidenceMeta {
   outputDir?: string;

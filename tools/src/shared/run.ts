@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import type { Args } from './args';
 import { readJson } from './json';
 
-export const REPO = 'ui-automation-framework';
+export const REPO = 'playwright-typescript-ui-Dotstrap-Automation';
 
 /** One test in run-summary.json (the format shared by every repository of the family). */
 export interface TestRecord {

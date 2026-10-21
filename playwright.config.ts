@@ -85,7 +85,7 @@ export default defineConfig({
       retries: 1,
       use: {
         ...devices['Desktop Chrome'],
-        userAgent: `${devices['Desktop Chrome'].userAgent} ui-automation-framework (portfolio smoke test)`,
+        userAgent: `${devices['Desktop Chrome'].userAgent} playwright-typescript-ui-Dotstrap-Automation (portfolio smoke test)`,
         trace: 'off',
         video: env.RECORD_MODE === 'off' ? 'off' : 'retain-on-failure',
       },

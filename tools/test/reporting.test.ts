@@ -13,7 +13,7 @@ import {
 import type { RunSummary } from '../src/shared/run';
 
 const run = (runId: string, totals: Record<string, number>): RunSummary => ({
-  repo: 'ui-automation-framework',
+  repo: 'playwright-typescript-ui-Dotstrap-Automation',
   runId,
   gitSha: 'abc',
   startedAt: '2026-10-21T08:00:00.000Z',
