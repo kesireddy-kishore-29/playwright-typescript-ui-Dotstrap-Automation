@@ -43,7 +43,8 @@ const SAUCE_TELEMETRY_401 =
 export const test = base.extend<SaucePages>({
   baseURL: env.SAUCE_BASE_URL,
   storageState: SAUCE_SESSION,
-  allowedConsoleErrors: [SAUCE_DEEP_LINK_404, SAUCE_TELEMETRY_401],
+  // Wrapped as [value, options]: a bare two-element array would be read as that tuple itself.
+  allowedConsoleErrors: [[SAUCE_DEEP_LINK_404, SAUCE_TELEMETRY_401], { scope: 'test' }],
   loginPage: async ({ page }, use) => use(new LoginPage(page)),
   inventoryPage: async ({ page }, use) => use(new InventoryPage(page)),
   productPage: async ({ page }, use) => use(new ProductDetailPage(page)),
