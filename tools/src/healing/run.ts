@@ -1,4 +1,5 @@
 import { execFileSync } from 'node:child_process';
+import { dirname, join } from 'node:path';
 
 /** Exit code and output tail of a command run without a shell, with a hard timeout. */
 export interface RunResult {
@@ -26,14 +27,35 @@ function tail(text: string): string {
   return text.trim().split('\n').slice(-25).join('\n');
 }
 
-/** Node tools by script path, so nothing goes through a shell. */
+/**
+ * A package script's path, also when the package's exports map does not list it (ESLint does not
+ * export bin/eslint.js): then the path is taken relative to the package's own package.json.
+ */
+export function resolveScript(script: string): string {
+  try {
+    return require.resolve(script);
+  } catch {
+    const parts = script.split('/');
+    const nameLength = script.startsWith('@') ? 2 : 1;
+    const name = parts.slice(0, nameLength).join('/');
+    return join(dirname(require.resolve(`${name}/package.json`)), ...parts.slice(nameLength));
+  }
+}
+
+/** Node tools by script path, so nothing goes through a shell. A missing tool is a failed step. */
 export function nodeTool(
   script: string,
   args: string[],
   cwd: string,
   timeoutMs: number,
 ): RunResult {
-  return run(process.execPath, [require.resolve(script), ...args], cwd, timeoutMs);
+  let path: string;
+  try {
+    path = resolveScript(script);
+  } catch (error) {
+    return { ok: false, tail: `Cannot resolve ${script}: ${String(error)}` };
+  }
+  return run(process.execPath, [path, ...args], cwd, timeoutMs);
 }
 
 export function git(args: string[], cwd: string): string {

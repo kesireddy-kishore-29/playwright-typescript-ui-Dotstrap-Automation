@@ -172,102 +172,111 @@ export async function healCommand(args: Args, log: (line: string) => void): Prom
     }
     const branch = `heal/${category.toLowerCase().replace(/_/g, '-')}/${slug}-${today().replace(/-/g, '')}`;
     git(['switch', '-c', branch], repoRoot);
-    for (const change of patch.changes) writeFileSync(join(repoRoot, change.path), change.after);
-    const steps: Step[] = verifyHeal(repoRoot, triage.testId);
-    // The same fix must also turn every other failure it claims to explain green.
-    for (const other of others) {
-      if (steps.every((s) => s.passed)) steps.push(rerunTest(repoRoot, other.triage.testId));
-    }
-    const verified = steps.every((s) => s.passed);
-    const repeated = steps.find((s) => s.name.startsWith('failing test'));
-    const verification = {
-      runs: 3,
-      passed: repeated?.passed ? 3 : 0,
-      suite: steps.some((s) => s.name.startsWith('surrounding') && s.passed),
-      alsoExplained: steps.filter((s) => s.name.startsWith('also explained') && s.passed).length,
-    };
-    const body = renderPrBody(
-      patch,
-      triage.reason,
-      `\`${triage.evidence['bundleZip'] ?? ''}\` (run \`${triage.runId}\`)`,
-      violations,
-      steps,
-      CATEGORIES[category].needsHumanDecision,
-      others.map((o) => o.triage.testId),
-    );
-    writeText(join(healDir, 'PR.md'), body);
-    writeJson(join(healDir, 'patch.json'), patch);
-    writeText(join(healDir, 'patch.diff'), unifiedDiff(patch));
-    writeJson(join(healDir, 'verification.json'), steps);
-    if (!verified) {
-      git(['checkout', '--', '.'], repoRoot);
-      git(['switch', startBranch], repoRoot);
-      git(['branch', '-D', branch], repoRoot);
-      log(`Verification failed for ${triage.testId}; branch discarded`);
-      writeJson(join(healDir, 'rejected.json'), {
-        ...entryBase,
-        outcome: 'failed-verification',
+    // Whatever happens below, the repository ends on the branch it started on.
+    try {
+      for (const change of patch.changes) writeFileSync(join(repoRoot, change.path), change.after);
+      const steps: Step[] = verifyHeal(repoRoot, triage.testId);
+      // The same fix must also turn every other failure it claims to explain green.
+      for (const other of others) {
+        if (steps.every((s) => s.passed)) steps.push(rerunTest(repoRoot, other.triage.testId));
+      }
+      const verified = steps.every((s) => s.passed);
+      const repeated = steps.find((s) => s.name.startsWith('failing test'));
+      const verification = {
+        runs: 3,
+        passed: repeated?.passed ? 3 : 0,
+        suite: steps.some((s) => s.name.startsWith('surrounding') && s.passed),
+        alsoExplained: steps.filter((s) => s.name.startsWith('also explained') && s.passed).length,
+      };
+      const body = renderPrBody(
+        patch,
+        triage.reason,
+        `\`${triage.evidence['bundleZip'] ?? ''}\` (run \`${triage.runId}\`)`,
+        violations,
         steps,
-      });
-      results.push({ testId: triage.testId, outcome: 'failed-verification' });
-      continue;
-    }
-    const entry: HealEntry = {
-      ...entryBase,
-      branch,
-      pr: `(local branch; PR body at ${relative(runDir, join(healDir, 'PR.md')).split('\\').join('/')})`,
-      outcome: 'proposed',
-      timeToFixMinutes: Math.max(1, Math.round((Date.now() - lead.started) / 60_000)),
-      verification,
-    };
-    appendLog(ledgerFile, entry);
-    git(['add', '-A'], repoRoot);
-    const explains = others.length
-      ? `\n\nThe same fix explains ${String(others.length)} other failing test(s).`
-      : '';
-    git(
-      [
-        'commit',
-        '-q',
-        '-m',
-        `fix(heal): ${category.toLowerCase().replace(/_/g, ' ')} in ${slug}\n\n${triage.reason}${explains}\n\nProposed by ${patch.provider}; guardrails passed; failing test passed 3/3 and its suite passed. Needs human review; never auto-merged.\n\nHealed-By: ${patch.provider}`,
-      ],
-      repoRoot,
-    );
-    if (args.get('open-prs') === 'true') {
-      const labels = CATEGORIES[category].needsHumanDecision
-        ? ['--label', 'self-healed', '--label', 'needs-contract-decision']
-        : ['--label', 'self-healed'];
-      const push = run('git', ['push', '-u', 'origin', branch], repoRoot, 120_000);
-      const pr = push.ok
-        ? run(
-            'gh',
-            [
-              'pr',
-              'create',
-              '--head',
-              branch,
-              '--title',
-              `Self-healed: ${category} (${branch})`,
-              '--body',
-              body,
-              ...labels,
-            ],
-            repoRoot,
-            120_000,
-          )
-        : push;
-      log(pr.ok ? `PR: ${pr.tail}` : `PR not opened: ${pr.tail}`);
-    }
-    git(['switch', startBranch], repoRoot);
-    appendLog(join(runDir, 'healing', 'healing-log.json'), entry);
-    opened += 1;
-    log(
-      `Proposed ${branch}${others.length ? ` (also explains ${String(others.length)} other failures)` : ''}`,
-    );
-    results.push({ testId: triage.testId, outcome: 'proposed', branch });
-    for (const other of others) {
-      results.push({ testId: other.triage.testId, outcome: 'same-fix-as', branch });
+        CATEGORIES[category].needsHumanDecision,
+        others.map((o) => o.triage.testId),
+      );
+      writeText(join(healDir, 'PR.md'), body);
+      writeJson(join(healDir, 'patch.json'), patch);
+      writeText(join(healDir, 'patch.diff'), unifiedDiff(patch));
+      writeJson(join(healDir, 'verification.json'), steps);
+      if (!verified) {
+        git(['checkout', '--', '.'], repoRoot);
+        git(['switch', startBranch], repoRoot);
+        git(['branch', '-D', branch], repoRoot);
+        log(`Verification failed for ${triage.testId}; branch discarded`);
+        writeJson(join(healDir, 'rejected.json'), {
+          ...entryBase,
+          outcome: 'failed-verification',
+          steps,
+        });
+        results.push({ testId: triage.testId, outcome: 'failed-verification' });
+        continue;
+      }
+      const entry: HealEntry = {
+        ...entryBase,
+        branch,
+        pr: `(local branch; PR body at ${relative(runDir, join(healDir, 'PR.md')).split('\\').join('/')})`,
+        outcome: 'proposed',
+        timeToFixMinutes: Math.max(1, Math.round((Date.now() - lead.started) / 60_000)),
+        verification,
+      };
+      appendLog(ledgerFile, entry);
+      git(['add', '-A'], repoRoot);
+      const explains = others.length
+        ? `\n\nThe same fix explains ${String(others.length)} other failing test(s).`
+        : '';
+      git(
+        [
+          'commit',
+          '-q',
+          '-m',
+          `fix(heal): ${category.toLowerCase().replace(/_/g, ' ')} in ${slug}\n\n${triage.reason}${explains}\n\nProposed by ${patch.provider}; guardrails passed; failing test passed 3/3 and its suite passed. Needs human review; never auto-merged.\n\nHealed-By: ${patch.provider}`,
+        ],
+        repoRoot,
+      );
+      if (args.get('open-prs') === 'true') {
+        const labels = CATEGORIES[category].needsHumanDecision
+          ? ['--label', 'self-healed', '--label', 'needs-contract-decision']
+          : ['--label', 'self-healed'];
+        const push = run('git', ['push', '-u', 'origin', branch], repoRoot, 120_000);
+        const pr = push.ok
+          ? run(
+              'gh',
+              [
+                'pr',
+                'create',
+                '--head',
+                branch,
+                '--title',
+                `Self-healed: ${category} (${branch})`,
+                '--body',
+                body,
+                ...labels,
+              ],
+              repoRoot,
+              120_000,
+            )
+          : push;
+        log(pr.ok ? `PR: ${pr.tail}` : `PR not opened: ${pr.tail}`);
+      }
+      git(['switch', startBranch], repoRoot);
+      appendLog(join(runDir, 'healing', 'healing-log.json'), entry);
+      opened += 1;
+      log(
+        `Proposed ${branch}${others.length ? ` (also explains ${String(others.length)} other failures)` : ''}`,
+      );
+      results.push({ testId: triage.testId, outcome: 'proposed', branch });
+      for (const other of others) {
+        results.push({ testId: other.triage.testId, outcome: 'same-fix-as', branch });
+      }
+    } catch (error) {
+      run('git', ['checkout', '--', '.'], repoRoot, 120_000);
+      run('git', ['switch', startBranch], repoRoot, 120_000);
+      run('git', ['branch', '-D', branch], repoRoot, 120_000);
+      log(`Heal of ${triage.testId} stopped by an error; branch discarded: ${String(error)}`);
+      results.push({ testId: triage.testId, outcome: 'error' });
     }
   }
   writeJson(join(runDir, 'healing', 'healing-summary.json'), {
