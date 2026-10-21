@@ -31,10 +31,19 @@ interface SaucePages {
 const SAUCE_DEEP_LINK_404 =
   /status of 404 \(\) \(https:\/\/www\.saucedemo\.com\/[a-z-]+\.html(\?[^)]*)?\)$/;
 
+/**
+ * Finding against the public target (docs/known-issues.md): Sauce Demo's error-reporting SDK posts
+ * to events.backtrace.io with a placeholder project (`universe=UNIVERSE`), and that service
+ * sometimes answers 401. It is third-party telemetry, not the page under test. Only those two
+ * submit endpoints are allowed.
+ */
+const SAUCE_TELEMETRY_401 =
+  /status of 401 \(Unauthorized\) \(https:\/\/events\.backtrace\.io\/api\/(summed|unique)-events\/submit\?/;
+
 export const test = base.extend<SaucePages>({
   baseURL: env.SAUCE_BASE_URL,
   storageState: SAUCE_SESSION,
-  allowedConsoleErrors: [SAUCE_DEEP_LINK_404],
+  allowedConsoleErrors: [SAUCE_DEEP_LINK_404, SAUCE_TELEMETRY_401],
   loginPage: async ({ page }, use) => use(new LoginPage(page)),
   inventoryPage: async ({ page }, use) => use(new InventoryPage(page)),
   productPage: async ({ page }, use) => use(new ProductDetailPage(page)),

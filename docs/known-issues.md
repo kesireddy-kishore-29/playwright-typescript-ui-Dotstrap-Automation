@@ -43,6 +43,11 @@ Everything below is stated as it is. Where something was not run, it says so.
   console guard allows exactly that message on Sauce Demo pages.
 - The menu entries are `<a>` elements **without `href`**, so they have no link role and no
   accessible way to be found as links; the page object uses their test ids.
+- Its error-reporting SDK posts to `events.backtrace.io` with a placeholder project
+  (`universe=UNIVERSE`), and that service sometimes answers **401**, which Chrome logs as a
+  console error. Found on 2026-10-21 in one of three runs (`mobile` sign-in test). It is
+  third-party telemetry, not the page under test, so the console guard allows exactly those
+  two submit endpoints on Sauce Demo pages.
 
 ## Defects these suites found in the self-hosted app (all fixed in the app)
 
