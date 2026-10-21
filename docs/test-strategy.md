@@ -23,7 +23,7 @@
 | The live site answers 200 but shows a broken page               | `live`: the rendered heading, title and meta, console, headers, overflow, both themes                                                                                                                        |
 | Secrets leak into evidence                                      | Redaction of console logs, HAR files, page sources and Playwright traces, with unit tests                                                                                                                    |
 
-## Layers
+## Layers (the pyramid)
 
 | Layer                                                                               | Where                         | Runs                                                                            |
 | ----------------------------------------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------- |
@@ -35,6 +35,18 @@
 
 Unit and component tests of the app itself would sit in the app's own repository; this repository
 tests from the outside.
+
+## Environments
+
+| Setting                     | Default                     | Notes                                                                     |
+| --------------------------- | --------------------------- | ------------------------------------------------------------------------- |
+| `APP_BASE_URL` / `APP_PORT` | `http://localhost:4173`     | sut-ui, started by Playwright's `webServer` (reused locally, fresh on CI) |
+| `SAUCE_BASE_URL`            | `https://www.saucedemo.com` | Public demo credentials only                                              |
+| `LIVE_BASE_URL`             | `https://dotstrap.com`      | Pages listed in `src/config/live-pages.ts`                                |
+| `CI`                        | `false`                     | Retries 2 and 2 workers on CI; 0 retries and 4 workers locally            |
+
+All settings are read once and validated with zod at start-up (`src/config/env.ts`); a bad value
+stops the run with a message naming it.
 
 ## Test data and sessions
 

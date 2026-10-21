@@ -15,6 +15,13 @@ Everything below is stated as it is. Where something was not run, it says so.
 
 ## Behaviour to know about
 
+- **Badges and links assume the GitHub account `kesireddy-kishore-29`.** Until the first workflow runs
+  there, the CI and nightly badges show no status and the report link is empty; nothing in this
+  repository claims a CI result.
+- **The live site changes on its own schedule.** A content change on dotstrap.com can fail the live
+  smoke with no change in this repository. The page list and the expected headings are in one file,
+  [`src/config/live-pages.ts`](../src/config/live-pages.ts), so following the site is a one-file
+  change. The live smoke never gates a merge, and its badge shows the last nightly result.
 - **Pull requests opened by the workflow token do not start other workflows** (a GitHub rule). A heal
   or baseline pull request shows no CI until someone pushes to it or closes and reopens it.
 - **`--reporter=…` on the command line replaces the configured reporters**, which switches off the

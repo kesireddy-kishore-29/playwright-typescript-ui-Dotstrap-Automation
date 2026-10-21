@@ -14,3 +14,5 @@ ones). A decision that changes gets a new record that supersedes the old one.
 | [7](0007-rules-first-triage.md)              | Triage by rules that read the DOM; a model only for UNKNOWN              |
 | [8](0008-governed-self-healing.md)           | Self-healing proposes; people merge                                      |
 | [9](0009-static-dashboard-and-allure.md)     | A static dashboard for the trend, Allure for the detail                  |
+| [10](0010-why-playwright-typescript.md)      | Why Playwright with TypeScript, in a repository of its own               |
+| [11](0011-saved-session-over-ui-login.md)    | Sign in once and reuse the session; never log in through the UI per test |
