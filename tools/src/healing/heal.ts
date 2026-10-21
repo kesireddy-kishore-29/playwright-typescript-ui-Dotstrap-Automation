@@ -54,6 +54,50 @@ export function unifiedDiff(patch: Patch): string {
     .join('\n');
 }
 
+/** Words joined into lines of at most `width` characters; a longer word is cut. */
+export function wrap(text: string, width = 72): string[] {
+  const lines: string[] = [];
+  let line = '';
+  for (const word of text.split(/\s+/).filter(Boolean)) {
+    for (let piece = word; piece.length > 0; piece = piece.slice(width)) {
+      const chunk = piece.slice(0, width);
+      if (line && line.length + 1 + chunk.length > width) {
+        lines.push(line);
+        line = chunk;
+      } else {
+        line = line ? `${line} ${chunk}` : chunk;
+      }
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+/** The heal commit message, within the repository's commit rules (header and lines <= 100). */
+export function commitMessage(
+  category: Category,
+  slug: string,
+  reason: string,
+  others: number,
+  provider: string,
+): string {
+  const header = `fix(heal): ${category.toLowerCase().replace(/_/g, ' ')} in ${slug}`.slice(0, 100);
+  return [
+    header,
+    '',
+    ...wrap(reason),
+    ...(others
+      ? ['', ...wrap(`The same fix explains ${String(others)} other failing test(s).`)]
+      : []),
+    '',
+    ...wrap(
+      `Proposed by ${provider}; guardrails passed; failing test passed 3/3 and its suite passed. Needs human review; never auto-merged.`,
+    ),
+    '',
+    `Healed-By: ${provider}`,
+  ].join('\n');
+}
+
 /** Failures whose proposed fixes are identical share one branch and one pull request. */
 export function fingerprint(patch: Patch): string {
   return [
@@ -224,15 +268,12 @@ export async function healCommand(args: Args, log: (line: string) => void): Prom
       };
       appendLog(ledgerFile, entry);
       git(['add', '-A'], repoRoot);
-      const explains = others.length
-        ? `\n\nThe same fix explains ${String(others.length)} other failing test(s).`
-        : '';
       git(
         [
           'commit',
           '-q',
           '-m',
-          `fix(heal): ${category.toLowerCase().replace(/_/g, ' ')} in ${slug}\n\n${triage.reason}${explains}\n\nProposed by ${patch.provider}; guardrails passed; failing test passed 3/3 and its suite passed. Needs human review; never auto-merged.\n\nHealed-By: ${patch.provider}`,
+          commitMessage(category, slug, triage.reason, others.length, patch.provider),
         ],
         repoRoot,
       );
@@ -272,7 +313,8 @@ export async function healCommand(args: Args, log: (line: string) => void): Prom
         results.push({ testId: other.triage.testId, outcome: 'same-fix-as', branch });
       }
     } catch (error) {
-      run('git', ['checkout', '--', '.'], repoRoot, 120_000);
+      // Safe: the heal starts only from a clean tree, so nothing but the patch is discarded.
+      run('git', ['reset', '-q', '--hard'], repoRoot, 120_000);
       run('git', ['switch', startBranch], repoRoot, 120_000);
       run('git', ['branch', '-D', branch], repoRoot, 120_000);
       log(`Heal of ${triage.testId} stopped by an error; branch discarded: ${String(error)}`);
