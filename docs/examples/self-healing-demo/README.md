@@ -1,7 +1,7 @@
 # Self-healing demo: a renamed test id (locator drift)
 
-Everything in this folder comes from one real local run on 2026-10-21 (run IDs `ui-chaos-4` and
-`ui-chaos-healed-4`). Nothing was edited except one thing: the commit view in
+Everything in this folder comes from one real local run on 2026-10-22 (run IDs `ui-chaos-5` and
+`ui-chaos-healed-5`). Nothing was edited except one thing: the commit view in
 `2-heal/heal-commit.patch` leaves out the author's email.
 
 ## The scenario
@@ -14,12 +14,12 @@ the same; only the hook the tests use is gone.
 
 | Step | Command | Result |
 |---|---|---|
-| 1. PR gate on `main` | `RUN_ID=ui-chaos-4 npx playwright test --project=chromium --project=mobile --project=a11y --grep-invert @quarantine` | 46 passed, **1 failed** ([run-summary](1-failing-run/run-summary.json)) |
-| 2. Triage | `npm run qa -- triage --run run-evidence/ui-automation-framework/ui-chaos-4` | `LOCATOR_DRIFT`, rule `locator-not-found`: `getByTestId('unread-count')` matches nothing ([triage](1-failing-run/triage/)) |
-| 3. Heal | `npm run qa -- heal --run run-evidence/ui-automation-framework/ui-chaos-4` | Branch `heal/locator-drift/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin-20261021` |
-| 4. PR gate on the heal branch | same as step 1 with `RUN_ID=ui-chaos-healed-4` | **47 passed**, 0 failed ([run-summary](3-healed-run/run-summary.json)) |
+| 1. PR gate on `main` | `RUN_ID=ui-chaos-5 npx playwright test --project=chromium --project=mobile --project=a11y --grep-invert @quarantine` | 46 passed, **1 failed** ([run-summary](1-failing-run/run-summary.json)) |
+| 2. Triage | `npm run qa -- triage --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/ui-chaos-5` | `LOCATOR_DRIFT`, rule `locator-not-found`: `getByTestId('unread-count')` matches nothing ([triage](1-failing-run/triage/)) |
+| 3. Heal | `npm run qa -- heal --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/ui-chaos-5` | Branch `heal/locator-drift/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin-20261022` |
+| 4. PR gate on the heal branch | same as step 1 with `RUN_ID=ui-chaos-healed-5` | **47 passed**, 0 failed ([run-summary](3-healed-run/run-summary.json)) |
 
-The heal took 34 s. Inside it:
+The heal took 2 min 14 s, wall clock, including its verification runs. Inside it:
 
 1. The rule-based healer read the DOM at the moment of failure (`page-source.html` in the failure
    bundle) and found `data-test="unread-badge"`: the closest id that shares a word with the old one
@@ -55,9 +55,9 @@ masked. The trace still opens at https://trace.playwright.dev.
 
 ## What this demo did not do
 
-- **No pull request was opened.** The repository has no remote yet. In CI, `heal.yml` runs the same
-  command with `--open-prs`, which pushes the branch and opens the pull request with the label
-  `self-healed`.
+- **No pull request was opened.** The run was local, with no remote involved. In CI, `heal.yml`
+  runs the same command with `--open-prs`, which pushes the branch and opens the pull request
+  with the label `self-healed`.
 - **The AI step was skipped.** `ANTHROPIC_API_KEY` was not set. The rule-based healer handled this
   case on its own.
 - **Nobody merged anything.** A person decides whether the rename was intended.

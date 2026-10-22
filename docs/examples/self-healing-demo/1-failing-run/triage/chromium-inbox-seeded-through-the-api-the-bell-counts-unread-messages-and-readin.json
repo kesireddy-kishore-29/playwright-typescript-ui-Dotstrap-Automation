@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "repo": "ui-automation-framework",
-  "runId": "ui-chaos-4",
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "ui-chaos-5",
   "testId": "chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
   "title": "inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
   "suite": "hybrid",
@@ -32,7 +32,7 @@
     "bundle": "failure-bundles/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/",
     "bundleZip": "failure-bundles/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin.zip"
   },
-  "gitDiff": "a509ec2 fix(evidence): redact the traces Allure and the HTML report copy\n\n .github/workflows/ci.yml             |  3 +++\n .github/workflows/nightly.yml        |  3 +++\n scripts/allure-report.sh             |  2 ++\n tools/src/cli.ts                     |  5 ++++\n tools/src/reporting/redact-traces.ts | 44 ++++++++++++++++++++++++++++++++++++\n tools/test/redact.test.ts            |  9 ++++++++\n 6 files changed, 66 insertions(+)",
+  "gitDiff": "170f828 docs(examples): dashboard, gallery, allure, failure bundle and visual diff under the new name\n\n docs/examples/README.md                            |   6 +++---\n docs/examples/dashboard/allure-overview.png        | Bin 75557 -> 75706 bytes\n docs/examples/dashboard/dashboard-390px.png        | Bin 243785 -> 245099 bytes\n docs/examples/dashboard/dashboard-dark.png         | Bin 257942 -> 259707 bytes\n docs/examples/dashboard/dashboard-light.png        | Bin 252885 -> 254205 bytes\n docs/examples/dashboard/hero.png                   | Bin 54799 -> 54299 bytes\n docs/examples/dashboard/run-gallery.png            | Bin 102696 -> 103776 bytes\n docs/examples/failure-evidence/README.md           |   2 +-\n ...emo-an-element-that-exists-but-is-not-ready.zip | Bin 431930 -> 429626 bytes\n docs/examples/failure-evidence/failure-report.md   |   2 +-\n docs/examples/failure-evidence/triage-summary.json |   4 ++--\n docs/examples/failure-evidence/video.webm          | Bin 63428 -> 61432 bytes\n .../dashboard-with-differences.png                 | Bin 197699 -> 199526 bytes\n .../examples/visual-regression/triage-summary.json |   4 ++--\n 14 files changed, 9 insertions(+), 9 deletions(-)",
   "retryHistory": [
     {
       "attempt": 1,
