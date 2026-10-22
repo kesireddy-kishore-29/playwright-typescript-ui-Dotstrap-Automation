@@ -4,7 +4,7 @@
 |---|---|
 | Test | `demo › demo/deliberate-failures.spec.ts › deliberate failures (demo) › DEMO: an element that exists but is not ready` |
 | Features | FEAT-DEMO-01 |
-| Run | `ui-demo-8` |
+| Run | `ui-demo-9` |
 | Attempts | 2 |
 | Failing locator | `getByTestId('unread-count')` |
 
@@ -39,7 +39,7 @@ Call log:
       - element is not visible
     - retrying click action
       - waiting 100ms
-    4 × waiting for element to be visible, enabled and stable
+    3 × waiting for element to be visible, enabled and stable
       - element is not visible
     - retrying click action
       - waiting 500ms
