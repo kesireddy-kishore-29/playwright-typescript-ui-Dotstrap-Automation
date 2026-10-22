@@ -51,10 +51,12 @@ export function traceabilityCommand(args: Args, log: (line: string) => void): nu
   const catalog = readJson(arg(args, 'catalog', 'features.json')) as FeatureCatalog;
   const rows = matrix(catalog, tests);
   const out = arg(args, 'out', 'reports/traceability');
-  writeJson(`${out}/matrix.json`, { tests: tests.length, untraced: missing, rows });
+  // A test that runs in several projects (chromium and mobile) is one test and several runs.
+  const runs = tests.reduce((sum, t) => sum + t.projects.length, 0);
+  writeJson(`${out}/matrix.json`, { tests: tests.length, runs, untraced: missing, rows });
   writeText(`${out}/matrix.md`, `${matrixMarkdown(rows)}\n`);
   log(
-    `${String(tests.length)} tests, ${String(rows.filter((r) => r.tests > 0).length)}/${String(rows.length)} features covered`,
+    `${String(tests.length)} tests (${String(runs)} runs across projects), ${String(rows.filter((r) => r.tests > 0).length)}/${String(rows.length)} features covered`,
   );
   missing.forEach((m) => {
     log(`  - no feature ID: ${m}`);
