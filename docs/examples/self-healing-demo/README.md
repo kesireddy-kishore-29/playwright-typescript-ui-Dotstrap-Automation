@@ -1,7 +1,7 @@
 # Self-healing demo: a renamed test id (locator drift)
 
-Everything in this folder comes from one real local run on 2026-10-22 (run IDs `ui-chaos-5` and
-`ui-chaos-healed-5`). Nothing was edited except one thing: the commit view in
+Everything in this folder comes from one real local run on 2026-10-22 (run IDs `ui-chaos-6` and
+`ui-chaos-healed-6`). Nothing was edited except one thing: the commit view in
 `2-heal/heal-commit.patch` leaves out the author's email.
 
 ## The scenario
@@ -14,12 +14,12 @@ the same; only the hook the tests use is gone.
 
 | Step | Command | Result |
 |---|---|---|
-| 1. PR gate on `main` | `RUN_ID=ui-chaos-5 npx playwright test --project=chromium --project=mobile --project=a11y --grep-invert @quarantine` | 46 passed, **1 failed** ([run-summary](1-failing-run/run-summary.json)) |
-| 2. Triage | `npm run qa -- triage --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/ui-chaos-5` | `LOCATOR_DRIFT`, rule `locator-not-found`: `getByTestId('unread-count')` matches nothing ([triage](1-failing-run/triage/)) |
-| 3. Heal | `npm run qa -- heal --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/ui-chaos-5` | Branch `heal/locator-drift/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin-20261022` |
-| 4. PR gate on the heal branch | same as step 1 with `RUN_ID=ui-chaos-healed-5` | **47 passed**, 0 failed ([run-summary](3-healed-run/run-summary.json)) |
+| 1. PR gate on `main` | `RUN_ID=ui-chaos-6 npx playwright test --project=chromium --project=mobile --project=a11y --grep-invert @quarantine` | 46 passed, **1 failed** ([run-summary](1-failing-run/run-summary.json)) |
+| 2. Triage | `npm run qa -- triage --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/ui-chaos-6` | `LOCATOR_DRIFT`, rule `locator-not-found`: `getByTestId('unread-count')` matches nothing ([triage](1-failing-run/triage/)) |
+| 3. Heal | `npm run qa -- heal --run run-evidence/playwright-typescript-ui-Dotstrap-Automation/ui-chaos-6` | Branch `heal/locator-drift/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin-20261022` |
+| 4. PR gate on the heal branch | same as step 1 with `RUN_ID=ui-chaos-healed-6` | **47 passed**, 0 failed ([run-summary](3-healed-run/run-summary.json)) |
 
-The heal took 2 min 14 s, wall clock, including its verification runs. Inside it:
+The heal took 59 s, wall clock, including its verification runs. Inside it:
 
 1. The rule-based healer read the DOM at the moment of failure (`page-source.html` in the failure
    bundle) and found `data-test="unread-badge"`: the closest id that shares a word with the old one

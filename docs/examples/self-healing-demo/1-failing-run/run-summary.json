@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "repo": "playwright-typescript-ui-Dotstrap-Automation",
-  "runId": "ui-chaos-5",
-  "gitSha": "170f8288e867",
+  "runId": "ui-chaos-6",
+  "gitSha": "ff83b507c2a2",
   "recordMode": "failures",
-  "startedAt": "2026-10-22T02:54:48.157Z",
-  "finishedAt": "2026-10-22T02:55:22.511Z",
-  "durationMs": 34354,
+  "startedAt": "2026-10-22T03:35:42.137Z",
+  "finishedAt": "2026-10-22T03:36:22.837Z",
+  "durationMs": 40700,
   "environment": {
     "os": "win32 x64",
     "node": "v24.18.1"
@@ -30,10 +30,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1571,
+      "durationMs": 1130,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:54:53.000Z"
+      "startedAt": "2026-10-22T03:35:46.557Z"
     },
     {
       "id": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the dark theme",
@@ -45,10 +45,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 2711,
+      "durationMs": 2867,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:54:49.577Z"
+      "startedAt": "2026-10-22T03:35:43.321Z"
     },
     {
       "id": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the light theme",
@@ -60,10 +60,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 2649,
+      "durationMs": 2800,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:54:49.623Z"
+      "startedAt": "2026-10-22T03:35:43.335Z"
     },
     {
       "id": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the items table and its delete dialog have no violations",
@@ -75,10 +75,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 3874,
+      "durationMs": 3363,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:54:49.587Z"
+      "startedAt": "2026-10-22T03:35:43.386Z"
     },
     {
       "id": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the sign-in and settings forms have no violations",
@@ -90,10 +90,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 2289,
+      "durationMs": 1964,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:54:52.962Z"
+      "startedAt": "2026-10-22T03:35:49.182Z"
     },
     {
       "id": "chromium › e2e/cart.spec.ts › Sauce Demo cart › adding and removing items keeps the badge count right",
@@ -107,10 +107,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 3165,
+      "durationMs": 2196,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:54:57.998Z"
+      "startedAt": "2026-10-22T03:35:52.494Z"
     },
     {
       "id": "chromium › e2e/cart.spec.ts › Sauce Demo cart › the cart keeps its contents across navigation",
@@ -122,10 +122,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 3160,
+      "durationMs": 2808,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:54:58.000Z"
+      "startedAt": "2026-10-22T03:35:52.494Z"
     },
     {
       "id": "chromium › e2e/checkout.spec.ts › Sauce Demo checkout › a full checkout completes with a confirmation",
@@ -140,10 +140,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 3469,
+      "durationMs": 2744,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:54:58.004Z"
+      "startedAt": "2026-10-22T03:35:52.504Z"
     },
     {
       "id": "chromium › e2e/checkout.spec.ts › Sauce Demo checkout › checkout refuses a missing first name",
@@ -155,10 +155,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 2911,
+      "durationMs": 2207,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:54:58.006Z"
+      "startedAt": "2026-10-22T03:35:52.501Z"
     },
     {
       "id": "chromium › e2e/checkout.spec.ts › Sauce Demo checkout › checkout refuses a missing last name",
@@ -170,10 +170,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1958,
+      "durationMs": 2182,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:01.175Z"
+      "startedAt": "2026-10-22T03:35:55.020Z"
     },
     {
       "id": "chromium › e2e/checkout.spec.ts › Sauce Demo checkout › checkout refuses a missing postal code",
@@ -185,10 +185,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1918,
+      "durationMs": 2099,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:01.533Z"
+      "startedAt": "2026-10-22T03:35:55.045Z"
     },
     {
       "id": "chromium › e2e/checkout.spec.ts › Sauce Demo checkout › the order summary adds up: item total + tax = total",
@@ -200,10 +200,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 2309,
+      "durationMs": 2267,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:01.532Z"
+      "startedAt": "2026-10-22T03:35:55.572Z"
     },
     {
       "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › lists every product with a name and a price",
@@ -217,10 +217,10 @@
         "@smoke"
       ],
       "status": "passed",
-      "durationMs": 1972,
+      "durationMs": 1681,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:01.744Z"
+      "startedAt": "2026-10-22T03:35:55.627Z"
     },
     {
       "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › opens a product detail page and comes back",
@@ -232,10 +232,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1757,
+      "durationMs": 1989,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:05.027Z"
+      "startedAt": "2026-10-22T03:35:59.201Z"
     },
     {
       "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › sorts by Name (A to Z)",
@@ -247,10 +247,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1708,
+      "durationMs": 1924,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:03.249Z"
+      "startedAt": "2026-10-22T03:35:57.221Z"
     },
     {
       "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › sorts by Name (Z to A)",
@@ -262,10 +262,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1750,
+      "durationMs": 1868,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:03.495Z"
+      "startedAt": "2026-10-22T03:35:57.263Z"
     },
     {
       "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › sorts by Price (high to low)",
@@ -277,10 +277,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1559,
+      "durationMs": 1555,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:03.896Z"
+      "startedAt": "2026-10-22T03:35:57.903Z"
     },
     {
       "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › sorts by Price (low to high)",
@@ -292,10 +292,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1607,
+      "durationMs": 1865,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:03.824Z"
+      "startedAt": "2026-10-22T03:35:57.368Z"
     },
     {
       "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › a locked-out user is refused with the lock-out message",
@@ -307,10 +307,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1362,
+      "durationMs": 1394,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:06.849Z"
+      "startedAt": "2026-10-22T03:36:01.277Z"
     },
     {
       "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › refuses empty password with a specific message",
@@ -322,10 +322,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1236,
+      "durationMs": 1370,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:06.832Z"
+      "startedAt": "2026-10-22T03:36:01.218Z"
     },
     {
       "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › refuses empty username with a specific message",
@@ -337,10 +337,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1314,
+      "durationMs": 1396,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:06.819Z"
+      "startedAt": "2026-10-22T03:36:00.997Z"
     },
     {
       "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › refuses unknown user with a specific message",
@@ -352,10 +352,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1438,
+      "durationMs": 1580,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:05.507Z"
+      "startedAt": "2026-10-22T03:35:59.513Z"
     },
     {
       "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › refuses wrong password with a specific message",
@@ -367,10 +367,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1295,
+      "durationMs": 1578,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:05.484Z"
+      "startedAt": "2026-10-22T03:35:59.335Z"
     },
     {
       "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › valid credentials reach the inventory",
@@ -385,10 +385,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 1433,
+      "durationMs": 1967,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:05.319Z"
+      "startedAt": "2026-10-22T03:35:59.305Z"
     },
     {
       "id": "chromium › e2e/logout.spec.ts › logging out returns to sign-in and the inventory is no longer reachable",
@@ -400,10 +400,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 2449,
+      "durationMs": 2219,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:06.993Z"
+      "startedAt": "2026-10-22T03:36:01.341Z"
     },
     {
       "id": "chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › messages created through the API appear in the inbox, newest first",
@@ -417,10 +417,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 1499,
+      "durationMs": 1304,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:11.519Z"
+      "startedAt": "2026-10-22T03:36:04.383Z"
     },
     {
       "id": "chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
@@ -432,10 +432,10 @@
       ],
       "tags": [],
       "status": "failed",
-      "durationMs": 8601,
+      "durationMs": 9358,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:11.519Z",
+      "startedAt": "2026-10-22T03:36:04.382Z",
       "error": {
         "message": "Error: expect(locator).toHaveText(expected) failed\n\nLocator: getByTestId('unread-count')\nExpected: \"2\"\nTimeout: 7000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveText\" getByTestId('unread-count') with timeout 7000ms\n  - waiting for getByTestId('unread-count')\n",
         "stack": "Error: expect(locator).toHaveText(expected) failed\n\nLocator: getByTestId('unread-count')\nExpected: \"2\"\nTimeout: 7000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveText\" getByTestId('unread-count') with timeout 7000ms\n  - waiting for getByTestId('unread-count')\n\n    at tests\\hybrid\\inbox.spec.ts:29:45",
@@ -465,10 +465,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1290,
+      "durationMs": 1658,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:11.527Z"
+      "startedAt": "2026-10-22T03:36:05.488Z"
     },
     {
       "id": "chromium › hybrid/items.spec.ts › items, seeded through the API › an item deleted through the UI is gone from the API too",
@@ -480,10 +480,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 1424,
+      "durationMs": 1982,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:11.515Z"
+      "startedAt": "2026-10-22T03:36:06.006Z"
     },
     {
       "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › 401 › an expired session sends the person to sign-in and remembers where they were",
@@ -495,10 +495,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 531,
+      "durationMs": 979,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:13.285Z"
+      "startedAt": "2026-10-22T03:36:06.129Z"
     },
     {
       "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › 429 › being rate limited and running out of allowance read differently",
@@ -510,10 +510,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 503,
+      "durationMs": 1289,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:14.177Z"
+      "startedAt": "2026-10-22T03:36:08.859Z"
     },
     {
       "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › 500 › a server error shows an alert, and Try again really retries",
@@ -525,10 +525,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 763,
+      "durationMs": 1129,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:13.349Z"
+      "startedAt": "2026-10-22T03:36:07.180Z"
     },
     {
       "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › a slow response shows a loading state, then the messages",
@@ -540,10 +540,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 2406,
+      "durationMs": 2590,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:13.876Z"
+      "startedAt": "2026-10-22T03:36:08.511Z"
     },
     {
       "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › an empty inbox explains itself instead of showing nothing",
@@ -555,10 +555,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 634,
+      "durationMs": 847,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:13.391Z"
+      "startedAt": "2026-10-22T03:36:07.675Z"
     },
     {
       "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › partial failure › when the usage widget fails, the inbox still works",
@@ -570,10 +570,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 489,
+      "durationMs": 1136,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:14.076Z"
+      "startedAt": "2026-10-22T03:36:08.626Z"
     },
     {
       "id": "chromium › performance/navigation-budgets.spec.ts › /inbox loads within its navigation-timing budget",
@@ -585,10 +585,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 376,
+      "durationMs": 947,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:14.721Z"
+      "startedAt": "2026-10-22T03:36:10.357Z"
     },
     {
       "id": "chromium › performance/navigation-budgets.spec.ts › /items loads within its navigation-timing budget",
@@ -600,10 +600,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 339,
+      "durationMs": 841,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:15.064Z"
+      "startedAt": "2026-10-22T03:36:10.953Z"
     },
     {
       "id": "chromium › performance/navigation-budgets.spec.ts › /login loads within its navigation-timing budget",
@@ -615,10 +615,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 342,
+      "durationMs": 793,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:14.659Z"
+      "startedAt": "2026-10-22T03:36:09.951Z"
     },
     {
       "id": "chromium › smoke/app-session.spec.ts › a saved session opens the app signed in, with no login form",
@@ -633,10 +633,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 364,
+      "durationMs": 939,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:15.160Z"
+      "startedAt": "2026-10-22T03:36:11.286Z"
     },
     {
       "id": "chromium › smoke/login-page.spec.ts › the Sauce Demo sign-in page offers a username, a password and a Login button",
@@ -651,10 +651,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 1019,
+      "durationMs": 1289,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:08.123Z"
+      "startedAt": "2026-10-22T03:36:02.490Z"
     },
     {
       "id": "mobile › e2e/cart.spec.ts › Sauce Demo cart › adding and removing items keeps the badge count right",
@@ -668,10 +668,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 1864,
+      "durationMs": 3147,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:16.518Z"
+      "startedAt": "2026-10-22T03:36:14.328Z"
     },
     {
       "id": "mobile › e2e/checkout.spec.ts › Sauce Demo checkout › a full checkout completes with a confirmation",
@@ -686,10 +686,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 2279,
+      "durationMs": 3708,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:16.522Z"
+      "startedAt": "2026-10-22T03:36:14.476Z"
     },
     {
       "id": "mobile › e2e/login.spec.ts › Sauce Demo sign-in › valid credentials reach the inventory",
@@ -704,10 +704,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 1511,
+      "durationMs": 2542,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:17.474Z"
+      "startedAt": "2026-10-22T03:36:15.310Z"
     },
     {
       "id": "mobile › hybrid/inbox.spec.ts › inbox, seeded through the API › messages created through the API appear in the inbox, newest first",
@@ -721,10 +721,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 942,
+      "durationMs": 1307,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:20.133Z"
+      "startedAt": "2026-10-22T03:36:19.947Z"
     },
     {
       "id": "mobile › smoke/app-session.spec.ts › a saved session opens the app signed in, with no login form",
@@ -739,10 +739,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 885,
+      "durationMs": 1219,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:20.279Z"
+      "startedAt": "2026-10-22T03:36:20.196Z"
     },
     {
       "id": "mobile › smoke/login-page.spec.ts › the Sauce Demo sign-in page offers a username, a password and a Login button",
@@ -757,10 +757,10 @@
         "@mobile"
       ],
       "status": "passed",
-      "durationMs": 1019,
+      "durationMs": 1621,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:55:18.667Z"
+      "startedAt": "2026-10-22T03:36:18.598Z"
     },
     {
       "id": "setup › setup/sauce-session.setup.ts › save a signed-in Sauce Demo session for every other test",
@@ -772,10 +772,10 @@
       ],
       "tags": [],
       "status": "passed",
-      "durationMs": 4652,
+      "durationMs": 2245,
       "attempt": 1,
       "quarantined": false,
-      "startedAt": "2026-10-22T02:54:49.467Z"
+      "startedAt": "2026-10-22T03:35:43.236Z"
     }
   ]
 }

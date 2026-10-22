@@ -4,7 +4,7 @@
 |---|---|
 | Test | `chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere` |
 | Features | FEAT-INBOX-02 |
-| Run | `ui-chaos-5` |
+| Run | `ui-chaos-6` |
 | Attempts | 1 |
 | Failing locator | `getByTestId('unread-count')` |
 
