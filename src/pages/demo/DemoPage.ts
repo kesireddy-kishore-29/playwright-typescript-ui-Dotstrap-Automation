@@ -12,7 +12,7 @@ export class DemoPage {
 
   constructor(private readonly page: Page) {
     this.vanished = page.getByTestId('inbox-summary');
-    this.hiddenBadge = page.getByTestId('unread-count');
+    this.hiddenBadge = page.getByTestId('unread-badge');
   }
 
   /** Opens the unread badge; fails because it is hidden while nothing is unread. */

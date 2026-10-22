@@ -12,7 +12,7 @@ export class NotificationBell {
 
   constructor(page: Page) {
     this.button = page.getByRole('button', { name: /^Notifications/ });
-    this.badge = page.getByTestId('unread-count');
+    this.badge = page.getByTestId('unread-badge');
     this.panel = page.getByRole('dialog', { name: 'Notifications' });
   }
 
