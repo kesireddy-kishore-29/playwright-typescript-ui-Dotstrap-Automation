@@ -6,6 +6,6 @@ edit: the author's email is left out of the heal commit view).
 | Folder | From | What it shows |
 |---|---|---|
 | [self-healing-demo/](self-healing-demo/) | `ui-chaos-4`, `ui-chaos-healed-4` | Locator drift: a renamed test id, one verified heal branch, 47/47 after |
-| [failure-evidence/](failure-evidence/) | `ui-demo-5` | One failure bundle (an element that exists but is not ready, triaged `TIMING`): video, screenshot, report, and the zip with the redacted trace and HAR |
-| [visual-regression/](visual-regression/) | `ui-visual-chaos-1` | `SUT_UI_CHAOS=restyle-table`: the dashboard's visual section and one expected/actual/diff set; all 8 differences triaged `PRODUCT_BUG` |
-| [dashboard/](dashboard/) | `ui-report-1`, `ui-allure-1`, `ui-allure-2`; gallery from `ui-demo-5` | The health dashboard (light, dark, 390 px), the run gallery and the Allure overview |
+| [failure-evidence/](failure-evidence/) | `ui-demo-8` | One failure bundle (an element that exists but is not ready, triaged `TIMING`): video, screenshot, report, and the zip with the redacted trace and HAR |
+| [visual-regression/](visual-regression/) | `ui-visual-chaos-2` | `SUT_UI_CHAOS=restyle-table`: the dashboard's visual section and one expected/actual/diff set; all 8 differences triaged `PRODUCT_BUG` |
+| [dashboard/](dashboard/) | `ui-allure-7`, `ui-allure-8`, `ui-allure-9`; gallery from `ui-demo-8` | The health dashboard (light, dark, 390 px) with a three-run trend, the run gallery and the Allure overview |
