@@ -3,7 +3,7 @@
   "entries": [
     {
       "date": "2026-10-22",
-      "runId": "ui-chaos-6",
+      "runId": "ui-chaos-7",
       "testId": "chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
       "category": "LOCATOR_DRIFT",
       "rootCause": "No element matches getByTestId('unread-count') any more.",

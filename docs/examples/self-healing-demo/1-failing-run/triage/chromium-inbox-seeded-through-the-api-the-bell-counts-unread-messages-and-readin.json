@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repo": "playwright-typescript-ui-Dotstrap-Automation",
-  "runId": "ui-chaos-6",
+  "runId": "ui-chaos-7",
   "testId": "chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
   "title": "inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere",
   "suite": "hybrid",
@@ -32,7 +32,7 @@
     "bundle": "failure-bundles/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin/",
     "bundleZip": "failure-bundles/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin.zip"
   },
-  "gitDiff": "ff83b50 docs(examples): failure bundle and gallery from a run with relative paths\n\n docs/examples/README.md                            |   4 ++--\n docs/examples/dashboard/run-gallery.png            | Bin 103776 -> 103607 bytes\n docs/examples/failure-evidence/README.md           |   4 ++--\n ...emo-an-element-that-exists-but-is-not-ready.zip | Bin 429626 -> 459956 bytes\n docs/examples/failure-evidence/failure-report.md   |   4 ++--\n docs/examples/failure-evidence/triage-summary.json |   2 +-\n docs/examples/failure-evidence/video.webm          | Bin 61432 -> 69190 bytes\n 7 files changed, 7 insertions(+), 7 deletions(-)",
+  "gitDiff": "8664743 docs(examples): dashboard, visual diff, failure bundle and gallery on the published history\n\n docs/examples/README.md                            |   6 +++---\n docs/examples/dashboard/allure-overview.png        | Bin 75706 -> 75254 bytes\n docs/examples/dashboard/dashboard-390px.png        | Bin 245099 -> 244335 bytes\n docs/examples/dashboard/dashboard-dark.png         | Bin 259707 -> 259779 bytes\n docs/examples/dashboard/dashboard-light.png        | Bin 254205 -> 254644 bytes\n docs/examples/dashboard/hero.png                   | Bin 54299 -> 55446 bytes\n docs/examples/dashboard/run-gallery.png            | Bin 103607 -> 103561 bytes\n docs/examples/failure-evidence/README.md           |   4 ++--\n ...emo-an-element-that-exists-but-is-not-ready.zip | Bin 459956 -> 435018 bytes\n docs/examples/failure-evidence/failure-report.md   |   4 ++--\n docs/examples/failure-evidence/triage-summary.json |   2 +-\n docs/examples/failure-evidence/video.webm          | Bin 69190 -> 61178 bytes\n .../dashboard-with-differences.png                 | Bin 199526 -> 199655 bytes\n .../examples/visual-regression/triage-summary.json |   2 +-\n 14 files changed, 9 insertions(+), 9 deletions(-)",
   "retryHistory": [
     {
       "attempt": 1,

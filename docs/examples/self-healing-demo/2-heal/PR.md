@@ -6,7 +6,7 @@
 |---|---|
 | Failure category | `LOCATOR_DRIFT` |
 | Test | `chromium › hybrid/inbox.spec.ts › inbox, seeded through the API › the bell counts unread messages and reading one updates it everywhere` |
-| Evidence | `failure-bundles/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin.zip` (run `ui-chaos-6`) |
+| Evidence | `failure-bundles/chromium-inbox-seeded-through-the-api-the-bell-counts-unread-messages-and-readin.zip` (run `ui-chaos-7`) |
 
 ### Root cause
 
