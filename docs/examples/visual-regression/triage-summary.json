@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "repo": "playwright-typescript-ui-Dotstrap-Automation",
-  "runId": "ui-visual-chaos-2",
+  "runId": "ui-visual-chaos-3",
   "failed": 8,
   "byCategory": {
     "LOCATOR_DRIFT": 0,
