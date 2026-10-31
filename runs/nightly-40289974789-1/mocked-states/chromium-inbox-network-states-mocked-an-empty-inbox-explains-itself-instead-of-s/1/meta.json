@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-40289974789-1",
+  "gitSha": "26f6e63e86d350b7c8f52c9a43204e8969c3dd02",
+  "recordMode": "all",
+  "test": {
+    "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › an empty inbox explains itself instead of showing nothing",
+    "title": "inbox network states (mocked) › an empty inbox explains itself instead of showing nothing",
+    "suite": "mocked-states",
+    "project": "chromium",
+    "featureIds": [
+      "FEAT-STATE-03"
+    ],
+    "tags": [],
+    "status": "passed",
+    "durationMs": 333,
+    "attempt": 1,
+    "quarantined": false,
+    "startedAt": "2026-10-26T08:06:53.667Z"
+  },
+  "environment": {
+    "project": "chromium",
+    "browser": "chromium",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "baseURL": null,
+    "os": "linux x64",
+    "node": "v24.21.0"
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notes": []
+}

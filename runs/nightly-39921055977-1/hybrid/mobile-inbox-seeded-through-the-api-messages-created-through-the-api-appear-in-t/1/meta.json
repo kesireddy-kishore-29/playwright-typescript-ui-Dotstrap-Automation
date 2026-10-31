@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-39921055977-1",
+  "gitSha": "26f6e63e86d350b7c8f52c9a43204e8969c3dd02",
+  "recordMode": "all",
+  "test": {
+    "id": "mobile › hybrid/inbox.spec.ts › inbox, seeded through the API › messages created through the API appear in the inbox, newest first",
+    "title": "inbox, seeded through the API › messages created through the API appear in the inbox, newest first",
+    "suite": "hybrid",
+    "project": "mobile",
+    "featureIds": [
+      "FEAT-INBOX-01"
+    ],
+    "tags": [
+      "@mobile"
+    ],
+    "status": "passed",
+    "durationMs": 776,
+    "attempt": 1,
+    "quarantined": false,
+    "startedAt": "2026-10-23T07:56:24.800Z"
+  },
+  "environment": {
+    "project": "mobile",
+    "browser": "chromium",
+    "viewport": {
+      "width": 412,
+      "height": 839
+    },
+    "baseURL": null,
+    "os": "linux x64",
+    "node": "v24.21.0"
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notes": []
+}

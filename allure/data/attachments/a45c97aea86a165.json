@@ -1,0 +1,14 @@
+{
+  "path": "/login",
+  "timing": {
+    "ttfb": 21,
+    "domContentLoaded": 68,
+    "load": 69
+  },
+  "budget": {
+    "path": "/login",
+    "ttfb": 300,
+    "domContentLoaded": 1500,
+    "load": 2500
+  }
+}

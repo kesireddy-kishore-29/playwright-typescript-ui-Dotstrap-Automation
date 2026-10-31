@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test health</title>
+<style>
+/* Shared by the API and UI flagships: one template, the data is injected per run. */
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface-1: #fcfcfb;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.10);
+  --series-1: #2a78d6;
+  --series-1-wash: rgba(42, 120, 214, 0.10);
+  --good: #0ca30c;
+  --good-text: #006300;
+  --warning: #fab219;
+  --critical: #d03b3b;
+  --link: #1c5cab;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface-1: #1a1a19;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.10);
+    --series-1: #3987e5;
+    --series-1-wash: rgba(57, 135, 229, 0.12);
+    --good-text: #0ca30c;
+    --link: #86b6ef;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface-1: #1a1a19;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255, 255, 255, 0.10);
+  --series-1: #3987e5;
+  --series-1-wash: rgba(57, 135, 229, 0.12);
+  --good-text: #0ca30c;
+  --link: #86b6ef;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text-primary);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+a { color: var(--link); }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 24px 16px 48px; }
+header.top { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+h1 { font-size: 22px; margin: 0; font-weight: 650; }
+.meta { color: var(--text-secondary); font-size: 13px; }
+.links { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; }
+.theme-toggle { font: inherit; font-size: 13px; color: var(--text-secondary); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 2px 10px; cursor: pointer; }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0; }
+.span-12 { grid-column: span 12; } .span-6 { grid-column: span 6; } .span-4 { grid-column: span 4; } .span-8 { grid-column: span 8; }
+@media (max-width: 860px) { .span-6, .span-4, .span-8 { grid-column: span 12; } }
+h2 { font-size: 15px; font-weight: 650; margin: 0 0 2px; }
+.sub { color: var(--text-secondary); font-size: 13px; margin: 0 0 12px; }
+.tiles { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); align-items: end; }
+.tile .label { color: var(--text-secondary); font-size: 13px; }
+.tile .value { font-size: 26px; font-weight: 600; }
+.tile.hero .value { font-size: 52px; line-height: 1.05; }
+.tile .note { color: var(--text-muted); font-size: 12px; }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: var(--text-muted); font-size: 11px; font-family: inherit; }
+.gridline { stroke: var(--grid); stroke-width: 1; }
+.axisline { stroke: var(--axis); stroke-width: 1; }
+.series { fill: none; stroke: var(--series-1); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.area { fill: var(--series-1-wash); stroke: none; }
+.dot { fill: var(--series-1); stroke: var(--surface-1); stroke-width: 2; }
+.cross { stroke: var(--axis); stroke-width: 1; }
+.bars { display: grid; gap: 6px; }
+.bar-row { display: grid; grid-template-columns: minmax(0, 38%) 1fr; gap: 10px; align-items: center; font-size: 13px; }
+.bar-row .name { color: var(--text-secondary); overflow-wrap: anywhere; }
+.bar-track { position: relative; height: 20px; }
+.bar { position: absolute; left: 0; top: 2px; height: 16px; background: var(--series-1); border-radius: 0 4px 4px 0; min-width: 2px; }
+.bar-value { position: absolute; top: 0; line-height: 20px; color: var(--text-primary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tip { position: fixed; pointer-events: none; background: var(--surface-1); color: var(--text-primary); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 13px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); display: none; z-index: 10; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+th { color: var(--text-secondary); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+details { margin-top: 10px; font-size: 13px; }
+summary { cursor: pointer; color: var(--text-secondary); }
+.status { white-space: nowrap; }
+.status::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+.status.good::before { background: var(--good); }
+.status.warn::before { background: var(--warning); }
+.status.bad::before { background: var(--critical); }
+.empty { color: var(--text-muted); font-size: 13px; padding: 8px 0; }
+.scroll { overflow-x: auto; }
+code { font-size: 12px; overflow-wrap: anywhere; }
+.shot-set + .shot-set { margin-top: 14px; }
+.shot-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; overflow-wrap: anywhere; }
+.shots { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+figure { margin: 0; min-width: 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; }
+figcaption { color: var(--text-secondary); font-size: 12px; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<script>
+const DATA = {"repo":"playwright-typescript-ui-Dotstrap-Automation","generatedAt":"2026-10-31 08:54 UTC","run":{"runId":"nightly-41186255006-1","gitSha":"26f6e63e86d350b7c8f52c9a43204e8969c3dd02","durationMs":34423,"totals":{"total":47,"passed":47,"failed":0,"skipped":0,"flaky":0,"quarantined":0}},"history":[{"runId":"nightly-39921055977-1","date":"2026-10-23","total":47,"passed":47,"failed":0,"flaky":0,"skipped":0,"durationMs":24210,"passRate":1},{"runId":"nightly-40074737240-1","date":"2026-10-24","total":47,"passed":46,"failed":0,"flaky":1,"skipped":0,"durationMs":20182,"passRate":1},{"runId":"nightly-40174156044-1","date":"2026-10-25","total":47,"passed":47,"failed":0,"flaky":0,"skipped":0,"durationMs":19648,"passRate":1},{"runId":"nightly-40289974789-1","date":"2026-10-26","total":47,"passed":47,"failed":0,"flaky":0,"skipped":0,"durationMs":16492,"passRate":1},{"runId":"nightly-40473007472-1","date":"2026-10-27","total":47,"passed":47,"failed":0,"flaky":0,"skipped":0,"durationMs":15384,"passRate":1},{"runId":"nightly-40660598631-1","date":"2026-10-28","total":47,"passed":47,"failed":0,"flaky":0,"skipped":0,"durationMs":23469,"passRate":1},{"runId":"nightly-40845435281-1","date":"2026-10-29","total":47,"passed":47,"failed":0,"flaky":0,"skipped":0,"durationMs":32524,"passRate":1},{"runId":"nightly-41030059469-1","date":"2026-10-30","total":47,"passed":47,"failed":0,"flaky":0,"skipped":0,"durationMs":29553,"passRate":1},{"runId":"nightly-41186255006-1","date":"2026-10-31","total":47,"passed":47,"failed":0,"flaky":0,"skipped":0,"durationMs":34423,"passRate":1}],"slowest":[{"title":"accessibility (axe, WCAG 2.1 A/AA) › the items table and its delete dialog have no violations","suite":"a11y · a11y","durationMs":2173},{"title":"inbox network states (mocked) › a slow response shows a loading state, then the messages","suite":"mocked-states · chromium","durationMs":1998},{"title":"accessibility (axe, WCAG 2.1 A/AA) › the sign-in and settings forms have no violations","suite":"a11y · a11y","durationMs":1921},{"title":"logging out returns to sign-in and the inventory is no longer reachable","suite":"e2e · chromium","durationMs":1662},{"title":"Sauce Demo checkout › a full checkout completes with a confirmation","suite":"e2e · mobile","durationMs":1517},{"title":"accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the light theme","suite":"a11y · a11y","durationMs":1514},{"title":"accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the dark theme","suite":"a11y · a11y","durationMs":1435},{"title":"Sauce Demo cart › adding and removing items keeps the badge count right","suite":"e2e · mobile","durationMs":1252},{"title":"Sauce Demo cart › the cart keeps its contents across navigation","suite":"e2e · chromium","durationMs":1140},{"title":"Sauce Demo checkout › a full checkout completes with a confirmation","suite":"e2e · chromium","durationMs":1045}],"flakiest":[{"testId":"chromium › e2e/inventory.spec.ts › Sauce Demo inventory › opens a product detail page and comes back","title":"opens a product detail page and comes back","count":1}],"triage":{"byCategory":{"LOCATOR_DRIFT":0,"TIMING":0,"TEST_DATA":0,"CONTRACT_DRIFT":0,"ENVIRONMENT":0,"PRODUCT_BUG":0,"UNKNOWN":0},"aiStep":"skipped (ANTHROPIC_API_KEY not set)","healable":["LOCATOR_DRIFT","TIMING","TEST_DATA","CONTRACT_DRIFT"]},"healing":{"entries":[],"summary":{"proposed":0,"merged":0,"refused":0,"medianMinutes":null}},"quarantine":[],"coverage":[{"id":"FEAT-LOGIN-01","requirement":"Valid credentials reach the inventory","tests":2},{"id":"FEAT-LOGIN-02","requirement":"Invalid credentials show a specific error (data-driven)","tests":4},{"id":"FEAT-LOGIN-03","requirement":"A locked-out user is refused with the lock-out message","tests":1},{"id":"FEAT-LOGOUT-01","requirement":"Logout returns to login and the inventory is no longer reachable","tests":1},{"id":"FEAT-INV-01","requirement":"Inventory lists every product with a name and a price","tests":1},{"id":"FEAT-INV-02","requirement":"Sorting by name and price, both directions","tests":4},{"id":"FEAT-INV-03","requirement":"Product detail opens from the inventory and returns","tests":1},{"id":"FEAT-CART-01","requirement":"Add and remove items; badge count follows","tests":1},{"id":"FEAT-CART-02","requirement":"Cart contents survive navigation","tests":1},{"id":"FEAT-CHECKOUT-01","requirement":"Full checkout completes with a confirmation","tests":1},{"id":"FEAT-CHECKOUT-02","requirement":"Checkout form validation errors","tests":3},{"id":"FEAT-CHECKOUT-03","requirement":"Order summary: item total + tax = total","tests":1},{"id":"FEAT-SESSION-01","requirement":"A saved session opens the app signed in","tests":2},{"id":"FEAT-INBOX-01","requirement":"Messages seeded through the API appear in the inbox","tests":1},{"id":"FEAT-INBOX-02","requirement":"Unread bell count and mark-as-read","tests":1},{"id":"FEAT-ITEMS-01","requirement":"Item created through the API is listed; deleted disappears","tests":2},{"id":"FEAT-STATE-01","requirement":"401 sends the person to sign-in","tests":1},{"id":"FEAT-STATE-02","requirement":"500 shows an error with a working retry","tests":1},{"id":"FEAT-STATE-03","requirement":"Empty list shows an empty state","tests":1},{"id":"FEAT-STATE-04","requirement":"Slow network shows a loading state, then content","tests":1},{"id":"FEAT-STATE-05","requirement":"Partial failure: one widget fails, the rest render","tests":1},{"id":"FEAT-STATE-06","requirement":"rate_limited and quota_exceeded show different messages","tests":1},{"id":"FEAT-VIS-01","requirement":"Visual baseline at 1440/1024/768/390 x light/dark","tests":16},{"id":"FEAT-VIS-02","requirement":"No horizontal overflow at any width","tests":16},{"id":"FEAT-THEME-01","requirement":"Theme toggle applies and persists","tests":1},{"id":"FEAT-A11Y-01","requirement":"Core pages have no axe violations","tests":4},{"id":"FEAT-A11Y-02","requirement":"The defect page's violations match the documented baseline","tests":1},{"id":"FEAT-PERF-01","requirement":"Navigation timing within budget","tests":3},{"id":"FEAT-LIVE-01","requirement":"Public pages return 200 and show the expected heading","tests":9},{"id":"FEAT-LIVE-02","requirement":"No console errors and no failed requests","tests":9},{"id":"FEAT-LIVE-03","requirement":"Security headers present","tests":1},{"id":"FEAT-LIVE-04","requirement":"Title, description and canonical meta","tests":3},{"id":"FEAT-LIVE-05","requirement":"No horizontal overflow at 4 widths","tests":12},{"id":"FEAT-LIVE-06","requirement":"Light and dark theme both render","tests":1},{"id":"FEAT-LIVE-07","requirement":"Navigation between public pages works","tests":1},{"id":"FEAT-LIVE-08","requirement":"Navigation timing within a generous budget","tests":1},{"id":"FEAT-DEMO-01","requirement":"Deliberate-failure demo (never part of a gating run)","tests":4}],"links":[{"label":"Allure","href":"allure/"},{"label":"Run gallery","href":"runs/nightly-41186255006-1/gallery.html"}],"extras":[{"title":"Accessibility","subtitle":"axe-core, WCAG 2.1 A and AA, violations on the app pages by impact","tiles":[{"label":"App pages scanned","value":"6"},{"label":"Violations on app pages","value":"0"},{"label":"Documented defects page","value":"6 rules","note":"a reviewed baseline; the test fails if it changes"}],"bars":[{"label":"critical","value":0,"extra":"app pages"},{"label":"serious","value":0,"extra":"app pages"},{"label":"moderate","value":0,"extra":"app pages"},{"label":"minor","value":0,"extra":"app pages"}],"table":{"headers":[{"label":"Page"},{"label":"Test"},{"label":"Violations","num":true},{"label":"Rules"}],"rows":[["\u003ccode>/a11y-defects.html\u003c/code> (documented defects page)","accessibility (axe, WCAG 2.1 A/AA) › the deliberately broken page reports exactly its documented violations",6,"button-name, color-contrast, html-has-lang, image-alt, label, link-name"],["\u003ccode>/inbox\u003c/code>","accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the dark theme",0,"–"],["\u003ccode>/inbox\u003c/code>","accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the light theme",0,"–"],["\u003ccode>/items\u003c/code>","accessibility (axe, WCAG 2.1 A/AA) › the items table and its delete dialog have no violations",0,"–"],["\u003ccode>/items\u003c/code>","accessibility (axe, WCAG 2.1 A/AA) › the items table and its delete dialog have no violations",0,"–"],["\u003ccode>/login\u003c/code>","accessibility (axe, WCAG 2.1 A/AA) › the sign-in and settings forms have no violations",0,"–"],["\u003ccode>/settings\u003c/code>","accessibility (axe, WCAG 2.1 A/AA) › the sign-in and settings forms have no violations",0,"–"]]}},{"title":"Performance budgets","subtitle":"Navigation Timing per page against its budget (ms, measured / budget)","tiles":[{"label":"Pages within budget","value":"3 / 3"}],"bars":[{"label":"/inbox","value":75,"extra":"load budget 2500 ms"},{"label":"/items","value":28,"extra":"load budget 2500 ms"},{"label":"/login","value":69,"extra":"load budget 2500 ms"}],"table":{"headers":[{"label":"Page"},{"label":"TTFB","num":true},{"label":"DOMContentLoaded","num":true},{"label":"Load","num":true},{"label":"State"}],"rows":[["\u003ccode>/inbox\u003c/code>","14 / 300","71 / 1500","75 / 2500","within budget"],["\u003ccode>/items\u003c/code>","4 / 300","27 / 1500","28 / 2500","within budget"],["\u003ccode>/login\u003c/code>","21 / 300","68 / 1500","69 / 2500","within budget"]]}}]};
+
+const $ = (html) => { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; };
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const fmtMs = (ms) => ms >= 60000 ? `${(ms / 60000).toFixed(1)} min` : ms >= 1000 ? `${(ms / 1000).toFixed(1)} s` : `${Math.round(ms)} ms`;
+const pct = (v) => `${(v * 100).toFixed(1)}%`;
+const tip = document.getElementById('tip');
+function showTip(html, x, y) { tip.innerHTML = html; tip.style.display = 'block'; const w = tip.offsetWidth; tip.style.left = `${Math.min(x + 14, window.innerWidth - w - 8)}px`; tip.style.top = `${y + 14}px`; }
+function hideTip() { tip.style.display = 'none'; }
+
+function card(cls, title, sub, body) {
+  const el = $(`<section class="card ${cls}"><h2>${esc(title)}</h2>${sub ? `<p class="sub">${esc(sub)}</p>` : ''}</section>`);
+  el.append(body);
+  return el;
+}
+function table(headers, rows) {
+  const head = headers.map((h) => `<th class="${h.num ? 'num' : ''}">${esc(h.label)}</th>`).join('');
+  const body = rows.map((r) => `<tr>${r.map((c, i) => `<td class="${headers[i].num ? 'num' : ''}">${c}</td>`).join('')}</tr>`).join('');
+  return $(`<div class="scroll"><table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`);
+}
+function dataTable(headers, rows) {
+  const d = $('<details><summary>Data table</summary></details>');
+  d.append(table(headers, rows));
+  return d;
+}
+function empty(text) { return $(`<p class="empty">${esc(text)}</p>`); }
+
+/** One series over runs: 2px line, wash, ringed end dot, crosshair + tooltip on hover. */
+function lineChart(points, { format, yMin, yMax }) {
+  const box = $('<div></div>');
+  if (points.length === 0) { box.append(empty('No history yet.')); return box; }
+  const W = 560, H = 200, L = 44, R = 12, T = 10, B = 26;
+  const ys = points.map((p) => p.y);
+  let lo = yMin ?? Math.min(...ys), hi = yMax ?? Math.max(...ys);
+  if (hi === lo) { hi = hi + 1; lo = Math.max(0, lo - 1); }
+  const x = (i) => L + (points.length === 1 ? (W - L - R) / 2 : (i * (W - L - R)) / (points.length - 1));
+  const y = (v) => T + (H - T - B) * (1 - (v - lo) / (hi - lo));
+  const ticks = [lo, lo + (hi - lo) / 2, hi];
+  const path = points.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.y).toFixed(1)}`).join(' ');
+  const area = `${path} L${x(points.length - 1).toFixed(1)},${H - B} L${x(0).toFixed(1)},${H - B} Z`;
+  const last = points[points.length - 1];
+  const svg = $(`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="trend over ${points.length} runs">
+    ${ticks.map((t) => `<line class="gridline" x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}"/><text x="${L - 6}" y="${y(t) + 4}" text-anchor="end">${esc(format(t))}</text>`).join('')}
+    <line class="axisline" x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}"/>
+    <text x="${L}" y="${H - 6}">${esc(points[0].label)}</text>
+    <text x="${W - R}" y="${H - 6}" text-anchor="end">${esc(last.label)}</text>
+    <path class="area" d="${area}"/><path class="series" d="${path}"/>
+    <line class="cross" x1="0" x2="0" y1="${T}" y2="${H - B}" visibility="hidden"/>
+    <circle class="dot" cx="${x(points.length - 1)}" cy="${y(last.y)}" r="4"/>
+    <rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" fill="transparent"/>
+  </svg>`);
+  const cross = svg.querySelector('.cross');
+  const dot = svg.querySelector('.dot');
+  svg.querySelector('rect').addEventListener('mousemove', (e) => {
+    const r = svg.getBoundingClientRect();
+    const vx = ((e.clientX - r.left) / r.width) * W;
+    const i = Math.max(0, Math.min(points.length - 1, Math.round(((vx - L) / (W - L - R)) * (points.length - 1))));
+    cross.setAttribute('x1', x(i)); cross.setAttribute('x2', x(i)); cross.setAttribute('visibility', 'visible');
+    dot.setAttribute('cx', x(i)); dot.setAttribute('cy', y(points[i].y));
+    showTip(`<strong>${esc(format(points[i].y))}</strong><br>${esc(points[i].label)}${points[i].extra ? `<br>${esc(points[i].extra)}` : ''}`, e.clientX, e.clientY);
+  });
+  svg.querySelector('rect').addEventListener('mouseleave', () => {
+    cross.setAttribute('visibility', 'hidden'); dot.setAttribute('cx', x(points.length - 1)); dot.setAttribute('cy', y(last.y)); hideTip();
+  });
+  box.append(svg);
+  return box;
+}
+
+/** Horizontal bars from one baseline, value at the tip, per-bar tooltip. */
+function barList(rows, format) {
+  const box = $('<div class="bars"></div>');
+  if (rows.length === 0) { box.append(empty('Nothing to show.')); return box; }
+  const max = Math.max(...rows.map((r) => r.value), 1);
+  for (const r of rows) {
+    const share = Math.max(0, r.value / max);
+    const row = $(`<div class="bar-row"><div class="name">${esc(r.label)}</div><div class="bar-track"><div class="bar" style="width:calc(${(share * 78).toFixed(2)}%)"></div><span class="bar-value" style="left:calc(${(share * 78).toFixed(2)}% + 6px)">${esc(format(r.value))}</span></div></div>`);
+    row.addEventListener('mousemove', (e) => showTip(`<strong>${esc(r.label)}</strong><br>${esc(format(r.value))}${r.extra ? `<br>${esc(r.extra)}` : ''}`, e.clientX, e.clientY));
+    row.addEventListener('mouseleave', hideTip);
+    box.append(row);
+  }
+  return box;
+}
+
+function tile(label, value, note, hero) {
+  return $(`<div class="tile${hero ? ' hero' : ''}"><div class="label">${esc(label)}</div><div class="value">${esc(value)}</div>${note ? `<div class="note">${esc(note)}</div>` : ''}</div>`);
+}
+function status(kind, text) { return `<span class="status ${kind}">${esc(text)}</span>`; }
+
+function render(d) {
+  const app = document.getElementById('app');
+  document.title = `Test health · ${d.repo}`;
+  const t = d.run.totals;
+  const executed = t.passed + t.failed + t.flaky;
+  const passRate = executed ? (t.passed + t.flaky) / executed : 0;
+  const links = (d.links || []).map((l) => `<a href="${esc(l.href)}">${esc(l.label)}</a>`).join('');
+  app.append($(`<header class="top"><div><h1>Test health · ${esc(d.repo)}</h1><div class="meta">Run <code>${esc(d.run.runId)}</code> · git <code>${esc(d.run.gitSha)}</code> · generated ${esc(d.generatedAt)}</div></div><div class="links">${links}<button class="theme-toggle" type="button" id="theme">Theme</button></div></header>`));
+  document.getElementById('theme').addEventListener('click', () => {
+    const root = document.documentElement;
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+  });
+
+  const grid = $('<div class="grid"></div>');
+  app.append(grid);
+
+  const tiles = $('<div class="tiles"></div>');
+  tiles.append(tile('Pass rate', pct(passRate), `${executed} executed, flaky counted as passed`, true));
+  tiles.append(tile('Tests', String(t.total), `${t.skipped} skipped`));
+  tiles.append(tile('Failed', String(t.failed)));
+  tiles.append(tile('Flaky', String(t.flaky), 'passed on retry'));
+  tiles.append(tile('Quarantined', String((d.quarantine || []).length)));
+  tiles.append(tile('Duration', fmtMs(d.run.durationMs)));
+  grid.append(card('span-12', 'This run', null, tiles));
+
+  const hist = d.history || [];
+  const passPts = hist.map((h) => ({ y: h.passRate, label: h.date, extra: `${h.runId} · ${h.failed} failed · ${h.flaky} flaky` }));
+  const durPts = hist.map((h) => ({ y: h.durationMs, label: h.date, extra: h.runId }));
+  const passCard = card('span-6', 'Pass rate', `Last ${hist.length} run(s)`, lineChart(passPts, { format: pct, yMin: Math.min(0.8, ...hist.map((h) => h.passRate)), yMax: 1 }));
+  passCard.append(dataTable([{ label: 'Run' }, { label: 'Date' }, { label: 'Pass rate', num: true }, { label: 'Failed', num: true }, { label: 'Flaky', num: true }], hist.map((h) => [`<code>${esc(h.runId)}</code>`, esc(h.date), pct(h.passRate), h.failed, h.flaky])));
+  grid.append(passCard);
+  const durCard = card('span-6', 'Duration', `Wall-clock per run, last ${hist.length}`, lineChart(durPts, { format: fmtMs, yMin: 0 }));
+  durCard.append(dataTable([{ label: 'Run' }, { label: 'Duration', num: true }, { label: 'Tests', num: true }], hist.map((h) => [`<code>${esc(h.runId)}</code>`, fmtMs(h.durationMs), h.total])));
+  grid.append(durCard);
+
+  const triage = d.triage || {};
+  const triageRows = Object.entries(triage.byCategory || {}).map(([k, v]) => ({ label: k, value: v, extra: (triage.healable || []).includes(k) ? 'healable' : 'not healable' }));
+  const triageCard = card('span-6', 'Failures by triage category', triage.aiStep ? `This run · AI step: ${triage.aiStep}` : 'This run', barList(triageRows, (v) => String(v)));
+  grid.append(triageCard);
+
+  const heal = d.healing || { entries: [] };
+  const hs = heal.summary || {};
+  const healTiles = $('<div class="tiles"></div>');
+  healTiles.append(tile('Proposed', String(hs.proposed || 0)));
+  healTiles.append(tile('Merged', String(hs.merged || 0)));
+  healTiles.append(tile('Refused or failed', String(hs.refused || 0), 'guardrails or verification'));
+  healTiles.append(tile('Median time to fix', hs.medianMinutes != null ? `${hs.medianMinutes} min` : '–'));
+  const healCard = card('span-6', 'Self-healing ledger', 'Every heal is a reviewed pull request; none is merged automatically', healTiles);
+  if (heal.entries.length) {
+    healCard.append(dataTable([{ label: 'Date' }, { label: 'Test' }, { label: 'Category' }, { label: 'Provider' }, { label: 'Outcome' }], heal.entries.slice(-10).reverse().map((e) => [esc(e.date), `<code>${esc(e.testId)}</code>`, esc(e.category), esc(e.provider), esc(e.outcome)])));
+  }
+  grid.append(healCard);
+
+  grid.append(card('span-6', 'Slowest tests', 'Top 10 in this run', barList((d.slowest || []).map((s) => ({ label: s.title, value: s.durationMs, extra: s.suite })), fmtMs)));
+  grid.append(card('span-6', 'Flakiest tests', 'Failed then passed on retry, last 30 days', barList((d.flakiest || []).map((f) => ({ label: f.title || f.testId, value: f.count })), (v) => `${v}×`)));
+
+  for (const extra of d.extras || []) {
+    const body = $('<div></div>');
+    if (extra.tiles) {
+      const et = $('<div class="tiles"></div>');
+      extra.tiles.forEach((x) => et.append(tile(x.label, x.value, x.note)));
+      body.append(et);
+    }
+    if (extra.bars) body.append(barList(extra.bars, (v) => String(v)));
+    if (extra.table) body.append(extra.bars ? dataTable(extra.table.headers, extra.table.rows) : table(extra.table.headers, extra.table.rows));
+    if (extra.images) {
+      if (extra.images.length === 0 && extra.emptyText) body.append(empty(extra.emptyText));
+      for (const set of extra.images) {
+        const fig = $(`<div class="shot-set"><div class="shot-title">${esc(set.title)}</div><div class="shots"></div></div>`);
+        set.items.forEach((i) => fig.querySelector('.shots').append($(`<figure><a href="${esc(i.src)}"><img loading="lazy" src="${esc(i.src)}" alt="${esc(`${set.title}: ${i.label}`)}"></a><figcaption>${esc(i.label)}</figcaption></figure>`)));
+        body.append(fig);
+      }
+    }
+    if (extra.link) body.append($(`<p class="sub" style="margin-top:10px"><a href="${esc(extra.link.href)}">${esc(extra.link.label)}</a></p>`));
+    grid.append(card(extra.wide ? 'span-12' : 'span-6', extra.title, extra.subtitle, body));
+  }
+
+  const q = d.quarantine || [];
+  grid.append(card('span-12', 'Quarantine', 'Quarantined tests still run but do not gate merges; every entry has an owner and an expiry',
+    q.length ? table([{ label: 'Test' }, { label: 'Owner' }, { label: 'Expires' }, { label: 'Reason' }, { label: 'State' }],
+      q.map((e) => [`<code>${esc(e.testId)}</code>`, esc(e.owner), esc(e.expires), esc(e.reason), e.expired ? status('bad', 'Expired') : status('good', 'Active')]))
+      : empty('Nothing is quarantined.')));
+
+  const cov = d.coverage || [];
+  const covered = cov.filter((c) => c.tests > 0).length;
+  grid.append(card('span-12', 'Coverage by feature', `${covered} of ${cov.length} features have at least one test (traceability matrix)`,
+    table([{ label: 'Feature' }, { label: 'Requirement' }, { label: 'Tests', num: true }, { label: 'State' }],
+      cov.map((c) => [`<code>${esc(c.id)}</code>`, esc(c.requirement), c.tests, c.tests > 0 ? status('good', 'Covered') : status('bad', 'Not covered')]))));
+}
+
+if (DATA) { render(DATA); } else { document.getElementById('app').append(empty('No data was injected into this template.')); }
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-40174156044-1",
+  "gitSha": "26f6e63e86d350b7c8f52c9a43204e8969c3dd02",
+  "recordMode": "all",
+  "test": {
+    "id": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the items table and its delete dialog have no violations",
+    "title": "accessibility (axe, WCAG 2.1 A/AA) › the items table and its delete dialog have no violations",
+    "suite": "a11y",
+    "project": "a11y",
+    "featureIds": [
+      "FEAT-A11Y-01"
+    ],
+    "tags": [],
+    "status": "passed",
+    "durationMs": 2069,
+    "attempt": 1,
+    "quarantined": false,
+    "startedAt": "2026-10-25T07:48:42.760Z"
+  },
+  "environment": {
+    "project": "a11y",
+    "browser": "chromium",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "baseURL": null,
+    "os": "linux x64",
+    "node": "v24.21.0"
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notes": []
+}

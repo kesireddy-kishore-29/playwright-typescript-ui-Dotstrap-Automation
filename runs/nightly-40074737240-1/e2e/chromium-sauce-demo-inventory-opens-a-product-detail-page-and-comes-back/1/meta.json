@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-40074737240-1",
+  "gitSha": "26f6e63e86d350b7c8f52c9a43204e8969c3dd02",
+  "recordMode": "all",
+  "test": {
+    "id": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › opens a product detail page and comes back",
+    "title": "Sauce Demo inventory › opens a product detail page and comes back",
+    "suite": "e2e",
+    "project": "chromium",
+    "featureIds": [
+      "FEAT-INV-03"
+    ],
+    "tags": [],
+    "status": "failed",
+    "durationMs": 987,
+    "attempt": 1,
+    "quarantined": false,
+    "startedAt": "2026-10-24T07:36:06.475Z",
+    "error": {
+      "message": "Error: expect(locator).toHaveText(expected) failed\n\nLocator: getByTestId('inventory-item-name')\nExpected: \"Sauce Labs Fleece Jacket\"\nError: strict mode violation: getByTestId('inventory-item-name') resolved to 6 elements:\n    1) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Sauce Labs Backpack</div> aka getByTestId('item-4-title-link')\n    2) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Sauce Labs Bike Light</div> aka getByTestId('item-0-title-link')\n    3) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Sauce Labs Bolt T-Shirt</div> aka getByTestId('item-1-title-link')\n    4) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Sauce Labs Fleece Jacket</div> aka getByTestId('item-5-title-link')\n    5) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Sauce Labs Onesie</div> aka getByTestId('item-2-title-link')\n    6) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Test.allTheThings() T-Shirt (Red)</div> aka getByTestId('item-3-title-link')\n\nCall log:\n  - Expect \"toHaveText\" getByTestId('inventory-item-name') with timeout 7000ms\n  - waiting for getByTestId('inventory-item-name')\n",
+      "stack": "Error: expect(locator).toHaveText(expected) failed\n\nLocator: getByTestId('inventory-item-name')\nExpected: \"Sauce Labs Fleece Jacket\"\nError: strict mode violation: getByTestId('inventory-item-name') resolved to 6 elements:\n    1) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Sauce Labs Backpack</div> aka getByTestId('item-4-title-link')\n    2) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Sauce Labs Bike Light</div> aka getByTestId('item-0-title-link')\n    3) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Sauce Labs Bolt T-Shirt</div> aka getByTestId('item-1-title-link')\n    4) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Sauce Labs Fleece Jacket</div> aka getByTestId('item-5-title-link')\n    5) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Sauce Labs Onesie</div> aka getByTestId('item-2-title-link')\n    6) <div class=\"inventory_item_name \" data-test=\"inventory-item-name\">Test.allTheThings() T-Shirt (Red)</div> aka getByTestId('item-3-title-link')\n\nCall log:\n  - Expect \"toHaveText\" getByTestId('inventory-item-name') with timeout 7000ms\n  - waiting for getByTestId('inventory-item-name')\n\n    at tests/e2e/inventory.spec.ts:54:38",
+      "failingLocator": "getByTestId('inventory-item-name')"
+    }
+  },
+  "environment": {
+    "project": "chromium",
+    "browser": "chromium",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "baseURL": null,
+    "os": "linux x64",
+    "node": "v24.21.0"
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 () (https://www.saucedemo.com/inventory.html)"
+  ],
+  "failedRequests": [],
+  "notes": []
+}

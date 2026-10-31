@@ -1,0 +1,14 @@
+{
+  "path": "/inbox",
+  "timing": {
+    "ttfb": 14,
+    "domContentLoaded": 71,
+    "load": 75
+  },
+  "budget": {
+    "path": "/inbox",
+    "ttfb": 300,
+    "domContentLoaded": 1500,
+    "load": 2500
+  }
+}

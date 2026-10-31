@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-40074737240-1",
+  "generatedAt": "2026-10-24T07:37:22.731Z",
+  "flaky": [
+    {
+      "testId": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › opens a product detail page and comes back",
+      "title": "Sauce Demo inventory › opens a product detail page and comes back",
+      "featureIds": [
+        "FEAT-INV-03"
+      ],
+      "attempts": 2,
+      "firstError": "Error: expect(locator).toHaveText(expected) failed"
+    }
+  ]
+}

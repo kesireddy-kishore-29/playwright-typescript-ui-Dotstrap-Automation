@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-40660598631-1",
+  "failed": 0,
+  "byCategory": {
+    "LOCATOR_DRIFT": 0,
+    "TIMING": 0,
+    "TEST_DATA": 0,
+    "CONTRACT_DRIFT": 0,
+    "ENVIRONMENT": 0,
+    "PRODUCT_BUG": 0,
+    "UNKNOWN": 0
+  },
+  "aiStep": "skipped (ANTHROPIC_API_KEY not set)"
+}

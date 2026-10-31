@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-40074737240-1",
+  "gitSha": "26f6e63e86d350b7c8f52c9a43204e8969c3dd02",
+  "recordMode": "all",
+  "test": {
+    "id": "mobile › smoke/login-page.spec.ts › the Sauce Demo sign-in page offers a username, a password and a Login button",
+    "title": "the Sauce Demo sign-in page offers a username, a password and a Login button",
+    "suite": "smoke",
+    "project": "mobile",
+    "featureIds": [
+      "FEAT-LOGIN-01"
+    ],
+    "tags": [
+      "@smoke",
+      "@mobile"
+    ],
+    "status": "passed",
+    "durationMs": 546,
+    "attempt": 1,
+    "quarantined": false,
+    "startedAt": "2026-10-24T07:35:59.627Z"
+  },
+  "environment": {
+    "project": "mobile",
+    "browser": "chromium",
+    "viewport": {
+      "width": 412,
+      "height": 839
+    },
+    "baseURL": null,
+    "os": "linux x64",
+    "node": "v24.21.0"
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notes": []
+}

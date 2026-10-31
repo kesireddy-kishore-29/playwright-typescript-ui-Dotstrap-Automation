@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "occurrences": [
+    {
+      "date": "2026-10-24",
+      "runId": "nightly-40074737240-1",
+      "testId": "chromium › e2e/inventory.spec.ts › Sauce Demo inventory › opens a product detail page and comes back",
+      "title": "Sauce Demo inventory › opens a product detail page and comes back"
+    }
+  ]
+}

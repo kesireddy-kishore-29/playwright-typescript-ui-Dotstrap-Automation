@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "runs": [
+    {
+      "runId": "nightly-39921055977-1",
+      "date": "2026-10-23",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 24210,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40074737240-1",
+      "date": "2026-10-24",
+      "total": 47,
+      "passed": 46,
+      "failed": 0,
+      "flaky": 1,
+      "skipped": 0,
+      "durationMs": 20182,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40174156044-1",
+      "date": "2026-10-25",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 19648,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40289974789-1",
+      "date": "2026-10-26",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 16492,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40473007472-1",
+      "date": "2026-10-27",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 15384,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40660598631-1",
+      "date": "2026-10-28",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 23469,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40845435281-1",
+      "date": "2026-10-29",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 32524,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-41030059469-1",
+      "date": "2026-10-30",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 29553,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-41186255006-1",
+      "date": "2026-10-31",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 34423,
+      "passRate": 1
+    }
+  ]
+}

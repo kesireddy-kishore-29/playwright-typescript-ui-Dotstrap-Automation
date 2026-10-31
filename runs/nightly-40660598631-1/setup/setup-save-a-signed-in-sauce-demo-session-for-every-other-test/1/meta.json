@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-40660598631-1",
+  "gitSha": "26f6e63e86d350b7c8f52c9a43204e8969c3dd02",
+  "recordMode": "all",
+  "test": {
+    "id": "setup › setup/sauce-session.setup.ts › save a signed-in Sauce Demo session for every other test",
+    "title": "save a signed-in Sauce Demo session for every other test",
+    "suite": "setup",
+    "project": "setup",
+    "featureIds": [
+      "FEAT-SESSION-01"
+    ],
+    "tags": [],
+    "status": "passed",
+    "durationMs": 972,
+    "attempt": 1,
+    "quarantined": false,
+    "startedAt": "2026-10-28T08:58:35.579Z"
+  },
+  "environment": {
+    "project": "setup",
+    "browser": "chromium",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "baseURL": null,
+    "os": "linux x64",
+    "node": "v24.21.0"
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 () (https://www.saucedemo.com/inventory.html)"
+  ],
+  "failedRequests": [],
+  "notes": []
+}

@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-41030059469-1",
+  "tests": [
+    {
+      "testId": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the deliberately broken page reports exactly its documented violations",
+      "title": "accessibility (axe, WCAG 2.1 A/AA) › the deliberately broken page reports exactly its documented violations",
+      "project": "a11y",
+      "status": "passed",
+      "a11y": [
+        {
+          "url": "http://localhost:4173/a11y-defects.html",
+          "violations": [
+            {
+              "id": "button-name",
+              "impact": "critical",
+              "help": "Buttons must have discernible text",
+              "nodes": 1
+            },
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "help": "Elements must meet minimum color contrast ratio thresholds",
+              "nodes": 1
+            },
+            {
+              "id": "html-has-lang",
+              "impact": "serious",
+              "help": "<html> element must have a lang attribute",
+              "nodes": 1
+            },
+            {
+              "id": "image-alt",
+              "impact": "critical",
+              "help": "Images must have alternative text",
+              "nodes": 1
+            },
+            {
+              "id": "label",
+              "impact": "critical",
+              "help": "Form elements must have labels",
+              "nodes": 1
+            },
+            {
+              "id": "link-name",
+              "impact": "serious",
+              "help": "Links must have discernible text",
+              "nodes": 1
+            }
+          ]
+        }
+      ],
+      "perf": [],
+      "visualDiffs": []
+    },
+    {
+      "testId": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the dark theme",
+      "title": "accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the dark theme",
+      "project": "a11y",
+      "status": "passed",
+      "a11y": [
+        {
+          "url": "http://localhost:4173/inbox",
+          "violations": []
+        }
+      ],
+      "perf": [],
+      "visualDiffs": []
+    },
+    {
+      "testId": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the light theme",
+      "title": "accessibility (axe, WCAG 2.1 A/AA) › the inbox has no violations in the light theme",
+      "project": "a11y",
+      "status": "passed",
+      "a11y": [
+        {
+          "url": "http://localhost:4173/inbox",
+          "violations": []
+        }
+      ],
+      "perf": [],
+      "visualDiffs": []
+    },
+    {
+      "testId": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the items table and its delete dialog have no violations",
+      "title": "accessibility (axe, WCAG 2.1 A/AA) › the items table and its delete dialog have no violations",
+      "project": "a11y",
+      "status": "passed",
+      "a11y": [
+        {
+          "url": "http://localhost:4173/items",
+          "violations": []
+        },
+        {
+          "url": "http://localhost:4173/items",
+          "violations": []
+        }
+      ],
+      "perf": [],
+      "visualDiffs": []
+    },
+    {
+      "testId": "a11y › a11y/accessibility.spec.ts › accessibility (axe, WCAG 2.1 A/AA) › the sign-in and settings forms have no violations",
+      "title": "accessibility (axe, WCAG 2.1 A/AA) › the sign-in and settings forms have no violations",
+      "project": "a11y",
+      "status": "passed",
+      "a11y": [
+        {
+          "url": "http://localhost:4173/login",
+          "violations": []
+        },
+        {
+          "url": "http://localhost:4173/settings",
+          "violations": []
+        }
+      ],
+      "perf": [],
+      "visualDiffs": []
+    },
+    {
+      "testId": "chromium › performance/navigation-budgets.spec.ts › /inbox loads within its navigation-timing budget",
+      "title": "/inbox loads within its navigation-timing budget",
+      "project": "chromium",
+      "status": "passed",
+      "a11y": [],
+      "perf": [
+        {
+          "path": "/inbox",
+          "timing": {
+            "ttfb": 6,
+            "domContentLoaded": 37,
+            "load": 38
+          },
+          "budget": {
+            "path": "/inbox",
+            "ttfb": 300,
+            "domContentLoaded": 1500,
+            "load": 2500
+          }
+        }
+      ],
+      "visualDiffs": []
+    },
+    {
+      "testId": "chromium › performance/navigation-budgets.spec.ts › /items loads within its navigation-timing budget",
+      "title": "/items loads within its navigation-timing budget",
+      "project": "chromium",
+      "status": "passed",
+      "a11y": [],
+      "perf": [
+        {
+          "path": "/items",
+          "timing": {
+            "ttfb": 4,
+            "domContentLoaded": 37,
+            "load": 41
+          },
+          "budget": {
+            "path": "/items",
+            "ttfb": 300,
+            "domContentLoaded": 1500,
+            "load": 2500
+          }
+        }
+      ],
+      "visualDiffs": []
+    },
+    {
+      "testId": "chromium › performance/navigation-budgets.spec.ts › /login loads within its navigation-timing budget",
+      "title": "/login loads within its navigation-timing budget",
+      "project": "chromium",
+      "status": "passed",
+      "a11y": [],
+      "perf": [
+        {
+          "path": "/login",
+          "timing": {
+            "ttfb": 27,
+            "domContentLoaded": 73,
+            "load": 74
+          },
+          "budget": {
+            "path": "/login",
+            "ttfb": 300,
+            "domContentLoaded": 1500,
+            "load": 2500
+          }
+        }
+      ],
+      "visualDiffs": []
+    }
+  ]
+}

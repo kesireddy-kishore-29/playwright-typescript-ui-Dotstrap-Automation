@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-40660598631-1",
+  "gitSha": "26f6e63e86d350b7c8f52c9a43204e8969c3dd02",
+  "recordMode": "all",
+  "test": {
+    "id": "chromium › mocked-states/network-states.spec.ts › inbox network states (mocked) › a slow response shows a loading state, then the messages",
+    "title": "inbox network states (mocked) › a slow response shows a loading state, then the messages",
+    "suite": "mocked-states",
+    "project": "chromium",
+    "featureIds": [
+      "FEAT-STATE-04"
+    ],
+    "tags": [],
+    "status": "passed",
+    "durationMs": 2127,
+    "attempt": 1,
+    "quarantined": false,
+    "startedAt": "2026-10-28T08:58:47.103Z"
+  },
+  "environment": {
+    "project": "chromium",
+    "browser": "chromium",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "baseURL": null,
+    "os": "linux x64",
+    "node": "v24.21.0"
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notes": []
+}

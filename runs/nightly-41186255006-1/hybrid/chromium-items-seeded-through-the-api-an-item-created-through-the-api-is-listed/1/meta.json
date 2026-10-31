@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-41186255006-1",
+  "gitSha": "26f6e63e86d350b7c8f52c9a43204e8969c3dd02",
+  "recordMode": "all",
+  "test": {
+    "id": "chromium › hybrid/items.spec.ts › items, seeded through the API › an item created through the API is listed with its status and owner",
+    "title": "items, seeded through the API › an item created through the API is listed with its status and owner",
+    "suite": "hybrid",
+    "project": "chromium",
+    "featureIds": [
+      "FEAT-ITEMS-01"
+    ],
+    "tags": [],
+    "status": "passed",
+    "durationMs": 234,
+    "attempt": 1,
+    "quarantined": false,
+    "startedAt": "2026-10-31T08:51:44.277Z"
+  },
+  "environment": {
+    "project": "chromium",
+    "browser": "chromium",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "baseURL": null,
+    "os": "linux x64",
+    "node": "v24.22.1"
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notes": []
+}

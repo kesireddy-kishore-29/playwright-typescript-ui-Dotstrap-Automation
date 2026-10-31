@@ -1,0 +1,14 @@
+{
+  "path": "/items",
+  "timing": {
+    "ttfb": 4,
+    "domContentLoaded": 27,
+    "load": 28
+  },
+  "budget": {
+    "path": "/items",
+    "ttfb": 300,
+    "domContentLoaded": 1500,
+    "load": 2500
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-40174156044-1",
+  "gitSha": "26f6e63e86d350b7c8f52c9a43204e8969c3dd02",
+  "recordMode": "all",
+  "test": {
+    "id": "mobile › e2e/checkout.spec.ts › Sauce Demo checkout › a full checkout completes with a confirmation",
+    "title": "Sauce Demo checkout › a full checkout completes with a confirmation",
+    "suite": "e2e",
+    "project": "mobile",
+    "featureIds": [
+      "FEAT-CHECKOUT-01"
+    ],
+    "tags": [
+      "@smoke",
+      "@mobile"
+    ],
+    "status": "passed",
+    "durationMs": 1517,
+    "attempt": 1,
+    "quarantined": false,
+    "startedAt": "2026-10-25T07:48:50.188Z"
+  },
+  "environment": {
+    "project": "mobile",
+    "browser": "chromium",
+    "viewport": {
+      "width": 412,
+      "height": 839
+    },
+    "baseURL": null,
+    "os": "linux x64",
+    "node": "v24.21.0"
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 () (https://www.saucedemo.com/inventory.html)"
+  ],
+  "failedRequests": [],
+  "notes": []
+}

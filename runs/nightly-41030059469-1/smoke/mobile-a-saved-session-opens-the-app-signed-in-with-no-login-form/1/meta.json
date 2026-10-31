@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-41030059469-1",
+  "gitSha": "26f6e63e86d350b7c8f52c9a43204e8969c3dd02",
+  "recordMode": "all",
+  "test": {
+    "id": "mobile › smoke/app-session.spec.ts › a saved session opens the app signed in, with no login form",
+    "title": "a saved session opens the app signed in, with no login form",
+    "suite": "smoke",
+    "project": "mobile",
+    "featureIds": [
+      "FEAT-SESSION-01"
+    ],
+    "tags": [
+      "@smoke",
+      "@mobile"
+    ],
+    "status": "passed",
+    "durationMs": 393,
+    "attempt": 1,
+    "quarantined": false,
+    "startedAt": "2026-10-30T08:59:10.180Z"
+  },
+  "environment": {
+    "project": "mobile",
+    "browser": "chromium",
+    "viewport": {
+      "width": 412,
+      "height": 839
+    },
+    "baseURL": null,
+    "os": "linux x64",
+    "node": "v24.22.1"
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notes": []
+}

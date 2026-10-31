@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "repo": "playwright-typescript-ui-Dotstrap-Automation",
+  "runId": "nightly-40074737240-1",
+  "gitSha": "26f6e63e86d350b7c8f52c9a43204e8969c3dd02",
+  "recordMode": "all",
+  "test": {
+    "id": "chromium › e2e/login.spec.ts › Sauce Demo sign-in › refuses empty username with a specific message",
+    "title": "Sauce Demo sign-in › refuses empty username with a specific message",
+    "suite": "e2e",
+    "project": "chromium",
+    "featureIds": [
+      "FEAT-LOGIN-02"
+    ],
+    "tags": [],
+    "status": "passed",
+    "durationMs": 653,
+    "attempt": 1,
+    "quarantined": false,
+    "startedAt": "2026-10-24T07:36:00.489Z"
+  },
+  "environment": {
+    "project": "chromium",
+    "browser": "chromium",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "baseURL": null,
+    "os": "linux x64",
+    "node": "v24.21.0"
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notes": []
+}
