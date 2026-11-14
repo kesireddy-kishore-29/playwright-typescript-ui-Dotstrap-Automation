@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 1,
+  "runs": [
+    {
+      "runId": "nightly-39921055977-1",
+      "date": "2026-10-23",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 24210,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40074737240-1",
+      "date": "2026-10-24",
+      "total": 47,
+      "passed": 46,
+      "failed": 0,
+      "flaky": 1,
+      "skipped": 0,
+      "durationMs": 20182,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40174156044-1",
+      "date": "2026-10-25",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 19648,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40289974789-1",
+      "date": "2026-10-26",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 16492,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40473007472-1",
+      "date": "2026-10-27",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 15384,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40660598631-1",
+      "date": "2026-10-28",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 23469,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-40845435281-1",
+      "date": "2026-10-29",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 32524,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-41030059469-1",
+      "date": "2026-10-30",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 29553,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-41186255006-1",
+      "date": "2026-10-31",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 34423,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-41294241955-1",
+      "date": "2026-11-01",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 38373,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-41424692177-1",
+      "date": "2026-11-02",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 26283,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-41615890166-1",
+      "date": "2026-11-03",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 34871,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-42005642439-1",
+      "date": "2026-11-05",
+      "total": 47,
+      "passed": 46,
+      "failed": 0,
+      "flaky": 1,
+      "skipped": 0,
+      "durationMs": 34135,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-42198088559-1",
+      "date": "2026-11-06",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 675160,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-42358862614-1",
+      "date": "2026-11-07",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 22690,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-42467221191-1",
+      "date": "2026-11-08",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 35245,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-42600024550-1",
+      "date": "2026-11-09",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 19652,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-42798490988-1",
+      "date": "2026-11-10",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 80167,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-42998441038-1",
+      "date": "2026-11-11",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 26855,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-43198898231-1",
+      "date": "2026-11-12",
+      "total": 47,
+      "passed": 46,
+      "failed": 0,
+      "flaky": 1,
+      "skipped": 0,
+      "durationMs": 29376,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-43405401643-1",
+      "date": "2026-11-13",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 20186,
+      "passRate": 1
+    },
+    {
+      "runId": "nightly-43580338197-1",
+      "date": "2026-11-14",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "durationMs": 26497,
+      "passRate": 1
+    }
+  ]
+}
