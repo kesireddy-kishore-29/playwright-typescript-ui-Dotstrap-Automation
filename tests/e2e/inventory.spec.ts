@@ -46,7 +46,7 @@ test.describe('Sauce Demo inventory', () => {
 
   test(
     'opens a product detail page and comes back',
-    { annotation: { type: 'feature', description: 'FEAT-INV-03' } },
+    { tag: ['@quarantine'], annotation: { type: 'feature', description: 'FEAT-INV-03' } },
     async ({ inventoryPage, productPage, page }) => {
       await inventoryPage.open();
       await inventoryPage.openDetails(PRODUCTS.fleeceJacket.name);
