@@ -1,4 +1,13 @@
 {
   "schemaVersion": 1,
-  "entries": []
+  "entries": [
+    {
+      "testId": "e2e/inventory.spec.ts › Sauce Demo inventory › opens a product detail page and comes back",
+      "title": "opens a product detail page and comes back",
+      "owner": "@kesireddy-kishore-29",
+      "reason": "Flaky 3 times in 14 days (auto-proposed)",
+      "expires": "2026-12-03",
+      "issue": ""
+    }
+  ]
 }
