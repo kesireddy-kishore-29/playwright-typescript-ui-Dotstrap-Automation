@@ -1,0 +1,1 @@
+[{"values":["nightly-44893125350-1"],"name":"runId"},{"values":["all"],"name":"recordMode"},{"values":["http://localhost:4173"],"name":"appBaseUrl"},{"values":["https://www.saucedemo.com"],"name":"sauceBaseUrl"},{"values":["v24.22.3"],"name":"node"},{"values":["linux x64"],"name":"os"}]
